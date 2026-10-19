@@ -1,0 +1,395 @@
+erDiagram
+    SCHOOLS ||--o{ SCHOOL_MEMBERSHIPS : registers
+    USERS ||--o{ SCHOOL_MEMBERSHIPS : holds
+    USERS ||--o{ IDEMPOTENCY_KEYS : initiates
+
+    SCHOOLS ||--o{ CALENDAR_EVENTS : customizes
+    CALENDAR_EVENTS ||--o{ EVENT_OCCURRENCES : schedules
+    CALENDAR_EVENTS ||--o{ EVENT_SOURCES : cites
+    CALENDAR_EVENTS ||--o{ CULTURAL_CLAIMS : contains
+    EVENT_SOURCES ||--o{ SOURCE_REVIEWS : verified_by
+    USERS ||--o{ SOURCE_REVIEWS : reviews
+    
+    CALENDAR_EVENTS ||--o{ CULTURAL_CLAIM_SOURCES : scopes
+    CULTURAL_CLAIMS ||--o{ CULTURAL_CLAIM_SOURCES : evidenced_by
+    EVENT_SOURCES ||--o{ CULTURAL_CLAIM_SOURCES : supports
+    USERS ||--o{ CULTURAL_CLAIM_SOURCES : verifies
+
+    SCHOOLS ||--o{ SCHOOL_TRADITIONS : maintains
+    USERS ||--o{ SCHOOL_TRADITIONS : creates
+    SCHOOL_TRADITIONS ||--o{ TRADITION_VERSIONS : evolves
+    USERS ||--o{ TRADITION_VERSIONS : authors
+
+    SCHOOLS ||--o{ SCENARIO_REQUESTS : owns
+    USERS ||--o{ SCENARIO_REQUESTS : submits
+    CALENDAR_EVENTS ||--o{ SCENARIO_REQUESTS : references
+    TRADITION_VERSIONS ||--o{ SCENARIO_REQUESTS : grounds
+
+    SCENARIO_REQUESTS ||--o{ GENERATION_RUNS : executes
+    
+    SCHOOLS ||--o{ SCENARIOS : possesses
+    USERS ||--o{ SCENARIOS : authors
+    SCENARIO_REQUESTS ||--|| SCENARIOS : results_in
+    SCENARIOS ||--o{ SCENARIO_REVISIONS : tracks
+    GENERATION_RUNS ||--o{ SCENARIO_REVISIONS : produces
+
+    SCENARIO_REVISIONS ||--|| REVISION_MODERATION_STATES : workflow_state
+    SCENARIO_REVISIONS ||--o{ SCENARIO_STAGES : structured_as
+    SCENARIO_REVISIONS ||--o{ SCENARIO_MATERIALS : generates
+
+    SCENARIO_REVISIONS ||--o{ VERIFICATION_RUNS : validated_by
+    VERIFICATION_RUNS ||--o{ VERIFICATION_FINDINGS : detects
+    EVENT_SOURCES ||--o{ VERIFICATION_FINDINGS : violates
+
+    SCENARIO_REVISIONS ||--o{ TEACHER_SIGNOFFS : signed_off_by
+    USERS ||--o{ TEACHER_SIGNOFFS : confirms
+
+    SCENARIO_REVISIONS ||--o{ EXPORT_JOBS : exports_to
+    USERS ||--o{ EXPORT_JOBS : requests
+    EXPORT_JOBS ||--o{ EXPORTED_ARTIFACTS : produces
+
+    SCHOOLS ||--o{ PILOT_PARTICIPANTS : hosts
+    PILOT_PARTICIPANTS ||--|| PILOT_RESPONSES : submits
+    SCENARIOS ||--o{ PILOT_RESPONSES : evaluates
+    PILOT_RESPONSES ||--o{ PILOT_REVIEW_FINDINGS : audited_by
+
+    SCHOOLS {
+        uuid id PK
+        varchar name
+        varchar short_name
+        varchar region_code
+        varchar city
+        varchar inn
+        jsonb settings
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    USERS {
+        uuid id PK
+        varchar name
+        varchar email UK
+        varchar password
+        varchar system_role
+        varchar curator_scope
+        jsonb curated_region_codes
+        boolean is_active
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    SCHOOL_MEMBERSHIPS {
+        uuid id PK
+        uuid school_id FK
+        uuid user_id FK
+        varchar role
+        boolean is_default
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    IDEMPOTENCY_KEYS {
+        uuid id PK
+        varchar key
+        uuid user_id FK
+        varchar endpoint
+        varchar payload_sha256
+        varchar status
+        integer response_code
+        jsonb response_body
+        timestamptz expires_at
+        timestamptz created_at
+    }
+
+    CALENDAR_EVENTS {
+        uuid id PK
+        uuid school_id FK
+        varchar title
+        varchar event_type
+        varchar region_code
+        varchar date_type
+        smallint fixed_month
+        smallint fixed_day
+        text description
+        jsonb target_age_groups
+        jsonb recommended_value_directions
+        varchar status
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    EVENT_OCCURRENCES {
+        uuid id PK
+        uuid calendar_event_id FK
+        varchar academic_year
+        date start_date
+        date end_date
+        varchar source_reference
+        timestamptz created_at
+    }
+
+    EVENT_SOURCES {
+        uuid id PK
+        uuid calendar_event_id FK
+        varchar source_type
+        varchar title
+        varchar author
+        varchar url
+        varchar doi_or_isbn
+        uuid verified_by_user_id FK
+        date verification_date
+        timestamptz created_at
+    }
+
+    SOURCE_REVIEWS {
+        uuid id PK
+        uuid event_source_id FK
+        uuid reviewer_user_id FK
+        varchar decision
+        text comments
+        timestamptz reviewed_at
+    }
+
+    CULTURAL_CLAIMS {
+        uuid id PK
+        uuid calendar_event_id FK
+        text claim_text
+        varchar culture_name
+        text provenance_notes
+        timestamptz created_at
+    }
+
+    CULTURAL_CLAIM_SOURCES {
+        uuid id PK
+        uuid calendar_event_id FK
+        uuid cultural_claim_id FK
+        uuid event_source_id FK
+        varchar citation_locator
+        varchar verification_status
+        uuid verified_by_user_id FK
+        timestamptz verified_at
+        varchar applicable_academic_year
+        text notes
+        timestamptz created_at
+    }
+
+    SCHOOL_TRADITIONS {
+        uuid id PK
+        uuid school_id FK
+        varchar title
+        text description
+        smallint established_year
+        uuid created_by_user_id FK
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    TRADITION_VERSIONS {
+        uuid id PK
+        uuid tradition_id FK
+        varchar academic_year
+        jsonb parameters_snapshot
+        text notes
+        uuid created_by_user_id FK
+        timestamptz created_at
+    }
+
+    SCENARIO_REQUESTS {
+        uuid id PK
+        uuid school_id FK
+        uuid user_id FK
+        uuid calendar_event_id FK
+        uuid tradition_version_id FK
+        varchar custom_event_title
+        varchar scale
+        varchar format_type
+        jsonb target_grades
+        integer participants_count
+        integer duration_minutes
+        varchar value_direction
+        boolean family_involvement
+        jsonb available_resources
+        text pedagogical_constraints
+        jsonb context_snapshot
+        timestamptz created_at
+    }
+
+    GENERATION_RUNS {
+        uuid id PK
+        uuid scenario_request_id FK
+        varchar provider_name
+        varchar model_identifier
+        varchar prompt_version
+        varchar schema_version
+        varchar status
+        smallint attempts
+        integer latency_ms
+        integer prompt_tokens
+        integer completion_tokens
+        varchar error_code
+        text error_message
+        text sanitized_prompt
+        jsonb sanitized_response
+        timestamptz created_at
+        timestamptz completed_at
+    }
+
+    SCENARIOS {
+        uuid id PK
+        uuid school_id FK
+        uuid user_id FK
+        uuid scenario_request_id FK
+        varchar title
+        uuid current_revision_id FK
+        integer optimistic_lock_version
+        boolean is_archived
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    SCENARIO_REVISIONS {
+        uuid id PK
+        uuid scenario_id FK
+        integer version_number
+        uuid source_generation_run_id FK
+        uuid created_by_user_id FK
+        text concept
+        text pedagogical_goal
+        jsonb pedagogical_mechanism
+        jsonb pedagogical_tasks
+        jsonb expected_outcomes
+        jsonb target_audience
+        jsonb format
+        integer total_duration_minutes
+        jsonb teacher_instructions
+        timestamptz created_at
+    }
+
+    SCENARIO_STAGES {
+        uuid id PK
+        uuid revision_id FK
+        smallint order_index
+        varchar stage_identifier
+        varchar title
+        integer duration_minutes
+        varchar stage_type
+        text teacher_actions
+        text student_actions
+        jsonb dialogue_prompts
+        text teacher_tips
+        text transition_text
+    }
+
+    SCENARIO_MATERIALS {
+        uuid id PK
+        uuid revision_id FK
+        varchar material_type
+        varchar title
+        smallint order_index
+        jsonb content
+        timestamptz created_at
+    }
+
+    REVISION_MODERATION_STATES {
+        uuid revision_id PK
+        varchar status
+        integer p0_violations_count
+        integer p1_violations_count
+        uuid latest_verification_run_id FK
+        timestamptz updated_at
+    }
+
+    VERIFICATION_RUNS {
+        uuid id PK
+        uuid revision_id FK
+        varchar rule_engine_version
+        varchar status
+        integer p0_violations_count
+        integer p1_violations_count
+        integer execution_time_ms
+        timestamptz created_at
+    }
+
+    VERIFICATION_FINDINGS {
+        uuid id PK
+        uuid verification_run_id FK
+        varchar severity
+        varchar rule_code
+        varchar target_path
+        text message
+        text suggested_fix
+        varchar status
+        timestamptz created_at
+    }
+
+    TEACHER_SIGNOFFS {
+        uuid id PK
+        uuid revision_id FK
+        uuid user_id FK
+        boolean is_confirmed
+        jsonb checklist_confirmed
+        text teacher_notes
+        varchar ip_address
+        timestamptz confirmed_at
+        timestamptz created_at
+    }
+
+    EXPORT_JOBS {
+        uuid id PK
+        uuid revision_id FK
+        uuid user_id FK
+        varchar format
+        varchar status
+        text error_message
+        timestamptz created_at
+        timestamptz completed_at
+    }
+
+    EXPORTED_ARTIFACTS {
+        uuid id PK
+        uuid export_job_id FK
+        varchar file_disk
+        varchar file_path
+        varchar file_name
+        bigint file_size_bytes
+        varchar mime_type
+        varchar sha256_hash
+        timestamptz expires_at
+        timestamptz created_at
+    }
+
+    PILOT_PARTICIPANTS {
+        uuid id PK
+        uuid school_id FK
+        varchar anonymous_code UK
+        varchar invite_token_hash
+        varchar subject_area
+        smallint teaching_experience_years
+        boolean is_submitted
+        timestamptz created_at
+    }
+
+    PILOT_RESPONSES {
+        uuid id PK
+        uuid participant_id FK
+        uuid scenario_id FK
+        integer prep_time_baseline_minutes
+        integer prep_time_ai_minutes
+        numeric relative_time_saving
+        boolean personalization_selected
+        numeric manual_edit_percentage
+        boolean cultural_context_used
+        smallint cultural_usefulness_score
+        text feedback_text
+        timestamptz created_at
+    }
+
+    PILOT_REVIEW_FINDINGS {
+        uuid id PK
+        uuid pilot_response_id FK
+        varchar expert_name
+        varchar expert_audit_status
+        integer critical_cultural_errors
+        text methodological_remarks
+        timestamptz reviewed_at
+    }

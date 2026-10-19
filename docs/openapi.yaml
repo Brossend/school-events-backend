@@ -1,0 +1,1140 @@
+openapi: 3.1.0
+info:
+  title: Школьные события API
+  description: REST API v1 бэкенда образовательного сервиса «Школьные события» (Сбер × УрФУ)
+  version: 1.2.0
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Локальное Docker-окружение разработки
+paths:
+  /auth/login:
+    post:
+      summary: Аутентификация пользователя в браузере (Nuxt 4 SPA)
+      operationId: login
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              additionalProperties: false
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: teacher@school130.ru
+                password:
+                  type: string
+                  format: password
+                  example: SecurePassword2026!
+      responses:
+        '200':
+          description: Успешный вход (сессионная кука laravel_session выставляется в Set-Cookie)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /auth/logout:
+    post:
+      summary: Завершение сессии пользователя
+      operationId: logout
+      tags: [Auth]
+      security:
+        - cookieAuth: []
+      responses:
+        '204':
+          description: Успешный выход
+
+  /auth/me:
+    get:
+      summary: Профиль текущего пользователя и членство в школах
+      operationId: getCurrentUser
+      tags: [Auth]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Данные пользователя
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEnvelope'
+
+  /auth/forgot-password:
+    post:
+      summary: Запрос на сброс пароля с нейтральным ответом
+      operationId: forgotPassword
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              additionalProperties: false
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: teacher@school130.ru
+      responses:
+        '200':
+          description: Нейтральный ответ о приёме запроса
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: object
+                    required: [message]
+                    properties:
+                      message: { type: string }
+
+  /tenant/current:
+    get:
+      summary: Получение контекста активной школы пользователя
+      operationId: getCurrentTenant
+      tags: [Tenant]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: X-School-Id
+          in: header
+          required: false
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор школы для явного переключения
+      responses:
+        '200':
+          description: Активный контекст школы
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantCurrentEnvelope'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /system/status:
+    get:
+      summary: Проверка статуса системного доступа
+      operationId: getSystemStatus
+      tags: [System]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Статус системной панели
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatusEnvelope'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /calendar-events:
+    get:
+      summary: Получение каталога событий с фильтрацией
+      operationId: listCalendarEvents
+      tags: [Calendar]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: region_code
+          in: query
+          schema: { type: string }
+          example: '66'
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [federal, regional, cultural_traditional, school_custom]
+        - name: q
+          in: query
+          schema: { type: string }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: per_page
+          in: query
+          schema: { type: integer, default: 20 }
+      responses:
+        '200':
+          description: Список событий календаря
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEventListResponse'
+    post:
+      summary: Создание события календаря (для куратора или школьного админа)
+      operationId: createCalendarEvent
+      tags: [Calendar]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCalendarEventRequest'
+      responses:
+        '201':
+          description: Событие создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEventEnvelope'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /calendar-events/{id}:
+    get:
+      summary: Детальная информация о событии календаря с источниками и evidence
+      operationId: getCalendarEvent
+      tags: [Calendar]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Полные данные события
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEventEnvelope'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /schools/{schoolId}/traditions:
+    get:
+      summary: Список традиций конкретной школы
+      operationId: listSchoolTraditions
+      tags: [Traditions]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: schoolId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Список школьных традиций
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraditionListResponse'
+    post:
+      summary: Создание новой школьной традиции
+      operationId: createSchoolTradition
+      tags: [Traditions]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: schoolId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTraditionRequest'
+      responses:
+        '201':
+          description: Традиция успешно создана
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /traditions/{id}/versions:
+    post:
+      summary: Создание новой ежегодной версии школьной традиции
+      operationId: createTraditionVersion
+      tags: [Traditions]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTraditionVersionRequest'
+      responses:
+        '201':
+          description: Версия на учебный год создана
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /scenario-requests:
+    post:
+      summary: Сохранение параметров запроса в конструкторе мероприятий
+      operationId: createScenarioRequest
+      tags: [Constructor]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScenarioRequestDTO'
+      responses:
+        '201':
+          description: Запрос сохранен, контекст зафиксирован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioRequestEnvelope'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /scenario-requests/{id}/generate:
+    post:
+      summary: Запуск асинхронной генерации сценария с помощью LLM
+      operationId: triggerScenarioGeneration
+      tags: [Generation]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '202':
+          description: Генерация принята в очередь обработки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerationAcceptedResponse'
+        '409':
+          description: Конфликт идемпотентности или параллельная обработка
+
+  /generation-runs/{id}:
+    get:
+      summary: Опрос статуса выполнения задачи генерации
+      operationId: getGenerationRunStatus
+      tags: [Generation]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Статус генерации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerationRunEnvelope'
+
+  /scenarios:
+    get:
+      summary: Список сценариев школы текущего пользователя
+      operationId: listScenarios
+      tags: [Scenarios]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: per_page
+          in: query
+          schema: { type: integer, default: 20 }
+      responses:
+        '200':
+          description: Список сценариев
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioListResponse'
+
+  /scenarios/{id}:
+    get:
+      summary: Получение сценария с актуальной ревизией
+      operationId: getScenario
+      tags: [Scenarios]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Полные данные сценария
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioEnvelope'
+
+  /scenarios/{id}/revisions/{version}:
+    patch:
+      summary: Частичное редактирование сценария (создание новой неизменяемой ревизии N+1)
+      operationId: updateScenarioRevision
+      tags: [Scenarios]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: version
+          in: path
+          required: true
+          schema: { type: integer }
+          description: Номер текущей ревизии (сверяется с базой)
+        - name: If-Match
+          in: header
+          required: true
+          schema: { type: string }
+          description: Текущее значение optimistic_lock_version сценария
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateScenarioRevisionRequest'
+      responses:
+        '201':
+          description: Новая ревизия создана, отправлена на модерацию
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioEnvelope'
+        '409':
+          description: Конфликт версий или попытка отредактировать устаревшую ревизию
+
+  /scenarios/{id}/revisions/{version}/verifications:
+    get:
+      summary: Результаты автоматической проверки ревизии (P0 и P1)
+      operationId: getRevisionVerifications
+      tags: [Moderation]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: version
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Находки модерации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationRunEnvelope'
+
+  /scenarios/{id}/revisions/{version}/verify:
+    post:
+      summary: Принудительный перезапуск модерации ревизии
+      operationId: retriggerVerification
+      tags: [Moderation]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: version
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '202':
+          description: Повторная проверка поставлена в очередь
+
+  /scenarios/{id}/revisions/{version}/signoff:
+    post:
+      summary: Ручное подтверждение сценария педагогом
+      operationId: teacherSignoff
+      tags: [SignOff]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: version
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeacherSignoffRequest'
+      responses:
+        '200':
+          description: Сценарий подтвержден педагогом
+        '422':
+          description: Блокировка! В ревизии есть неисправленные замечания P0 или не все пункты чек-листа подтверждены
+
+  /scenarios/{id}/revisions/{version}/exports:
+    post:
+      summary: Запуск генерации печатного файла (PDF)
+      operationId: requestExport
+      tags: [Export]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - name: version
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, maxLength: 64 }
+          description: Уникальный ключ идемпотентности операции экспорта
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [format]
+              additionalProperties: false
+              properties:
+                format:
+                  type: string
+                  enum: [pdf, docx, slides_pdf]
+                allow_historical:
+                  type: boolean
+                  default: false
+                  description: Запрещён в раннем MVP (возвращает 409 Conflict)
+      responses:
+        '202':
+          description: Задача экспорта принята
+        '403':
+          description: Экспорт запрещен при наличии открытых P0-замечаний или отсутствии sign-off
+
+  /export-jobs/{id}:
+    get:
+      summary: Проверка статуса сборки экспортного документа
+      operationId: getExportJobStatus
+      tags: [Export]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Статус сборки и ссылка на скачивание
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportJobEnvelope'
+
+  /export-jobs/{id}/download:
+    get:
+      summary: Скачивание скомпилированного файла
+      operationId: downloadExportArtifact
+      tags: [Export]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Бинарный поток файла
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /pilot/responses:
+    post:
+      summary: Отправка метрик пилота участником по токену приглашения
+      operationId: submitPilotResponse
+      tags: [Pilot]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePilotResponseDTO'
+      responses:
+        '201':
+          description: Метрики зафиксированы
+        '409':
+          description: Анкета по данному токену уже была подана
+
+  /pilot/metrics:
+    get:
+      summary: Сводные результаты пилота 20 педагогов
+      operationId: getPilotSummaryMetrics
+      tags: [Pilot]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Метрики эффективности
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PilotMetricsResponse'
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: laravel_session
+      description: Сессионная кука Laravel Sanctum для Nuxt 4 SPA с защитой CSRF
+
+  responses:
+    Unauthorized:
+      description: Отсутствует или недействительна сессия
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    Forbidden:
+      description: Недостаточно прав или попытка доступа к чужой школе
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    NotFound:
+      description: Ресурс не найден
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    ValidationError:
+      description: Ошибка валидации переданных параметров
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+
+  schemas:
+    ErrorResponse:
+      type: object
+      required: [error]
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          required: [code, message, details, trace_id]
+          additionalProperties: false
+          properties:
+            code: { type: string }
+            message: { type: string }
+            details:
+              type: array
+              items:
+                type: object
+                required: [field, message]
+                properties:
+                  field: { type: string }
+                  message: { type: string }
+            trace_id: { type: string }
+
+    LoginResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [user, schools]
+          properties:
+            user:
+              type: object
+              required: [id, name, email, system_role]
+              properties:
+                id: { type: string, format: uuid }
+                name: { type: string }
+                email: { type: string }
+                system_role: { type: string, enum: [none, catalog_curator, system_admin] }
+            schools:
+              type: array
+              items:
+                type: object
+                required: [school_id, name, role, is_default]
+                properties:
+                  school_id: { type: string, format: uuid }
+                  name: { type: string }
+                  role: { type: string, enum: [teacher, school_admin] }
+                  is_default: { type: boolean }
+
+    UserEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [id, name, email, system_role]
+          properties:
+            id: { type: string, format: uuid }
+            name: { type: string }
+            email: { type: string }
+            system_role: { type: string, enum: [none, catalog_curator, system_admin] }
+
+    CreateCalendarEventRequest:
+      type: object
+      required:
+        - title
+        - event_type
+        - date_type
+        - description
+        - target_age_groups
+        - recommended_value_directions
+      additionalProperties: false
+      properties:
+        title: { type: string, minLength: 3 }
+        event_type:
+          type: string
+          enum: [federal, regional, cultural_traditional, school_custom]
+        region_code:
+          type: ["string", "null"]
+        date_type:
+          type: string
+          enum: [fixed_annual, floating_rule, single_occurrence]
+        fixed_month:
+          type: ["integer", "null"]
+          minimum: 1
+          maximum: 12
+        fixed_day:
+          type: ["integer", "null"]
+          minimum: 1
+          maximum: 31
+        description: { type: string, minLength: 10 }
+        target_age_groups:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum: [primary_1_4, basic_5_9, senior_10_11]
+        recommended_value_directions:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum: [family, mutual_aid, historical_memory, labor_and_creation, cultural_diversity, civic_responsibility]
+
+    CalendarEventListResponse:
+      type: object
+      required: [data, meta]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalendarEventSummary'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    CalendarEventSummary:
+      type: object
+      required: [id, title, event_type, description]
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string }
+        event_type: { type: string }
+        region_code: { type: ["string", "null"] }
+        description: { type: string }
+
+    CalendarEventEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [id, title, event_type, description, sources, cultural_claims]
+          properties:
+            id: { type: string, format: uuid }
+            title: { type: string }
+            event_type: { type: string }
+            region_code: { type: ["string", "null"] }
+            description: { type: string }
+            sources:
+              type: array
+              items:
+                type: object
+                required: [id, title]
+                properties:
+                  id: { type: string, format: uuid }
+                  title: { type: string }
+                  url: { type: ["string", "null"] }
+            cultural_claims:
+              type: array
+              items:
+                type: object
+                required: [id, claim_text, culture_name, evidence_records]
+                properties:
+                  id: { type: string, format: uuid }
+                  claim_text: { type: string }
+                  culture_name: { type: string }
+                  evidence_records:
+                    type: array
+                    items:
+                      type: object
+                      required: [event_source_id, citation_locator, verification_status]
+                      properties:
+                        event_source_id: { type: string, format: uuid }
+                        citation_locator: { type: string }
+                        verification_status: { type: string }
+
+    PaginationMeta:
+      type: object
+      required: [current_page, last_page, per_page, total]
+      properties:
+        current_page: { type: integer }
+        last_page: { type: integer }
+        per_page: { type: integer }
+        total: { type: integer }
+
+    TraditionListResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required: [id, title, description]
+            properties:
+              id: { type: string, format: uuid }
+              title: { type: string }
+              description: { type: string }
+              established_year: { type: ["integer", "null"] }
+
+    CreateTraditionRequest:
+      type: object
+      required: [title, description]
+      additionalProperties: false
+      properties:
+        title: { type: string, minLength: 3 }
+        description: { type: string, minLength: 10 }
+        established_year: { type: ["integer", "null"] }
+
+    CreateTraditionVersionRequest:
+      type: object
+      required: [academic_year, parameters_snapshot]
+      additionalProperties: false
+      properties:
+        academic_year: { type: string, pattern: "^[0-9]{4}-[0-9]{4}$" }
+        parameters_snapshot: { type: object }
+        notes: { type: ["string", "null"] }
+
+    CreateScenarioRequestDTO:
+      type: object
+      required:
+        - scale
+        - format_type
+        - target_grades
+        - participants_count
+        - duration_minutes
+        - value_direction
+        - family_involvement
+      additionalProperties: false
+      description: "Строго один повод: calendar_event_id, tradition_version_id или custom_event_title. Поле school_id передавать запрещено (ошибка 422)."
+      properties:
+        calendar_event_id: { type: ["string", "null"], format: uuid }
+        tradition_version_id: { type: ["string", "null"], format: uuid }
+        custom_event_title: { type: ["string", "null"] }
+        scale:
+          type: string
+          enum: [class_level, all_school, family_community]
+        format_type:
+          type: string
+          enum: [class_hour, quest, quiz, workshop, festival, roundtable]
+        target_grades:
+          type: array
+          minItems: 1
+          items: { type: integer, minimum: 1, maximum: 11 }
+        participants_count: { type: integer, minimum: 5, maximum: 500 }
+        duration_minutes: { type: integer, minimum: 20, maximum: 240 }
+        value_direction:
+          type: string
+          enum: [family, mutual_aid, historical_memory, labor_and_creation, cultural_diversity, civic_responsibility]
+        family_involvement: { type: boolean }
+        available_resources:
+          type: array
+          items: { type: string }
+        pedagogical_constraints: { type: ["string", "null"] }
+
+    ScenarioRequestEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [id, created_at]
+          properties:
+            id: { type: string, format: uuid }
+            created_at: { type: string, format: date-time }
+
+    GenerationAcceptedResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [generation_run_id, status, estimated_wait_seconds, poll_url]
+          properties:
+            generation_run_id: { type: string, format: uuid }
+            status: { type: string, example: queued }
+            estimated_wait_seconds: { type: integer, example: 15 }
+            poll_url: { type: string }
+
+    GenerationRunEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [id, status]
+          properties:
+            id: { type: string, format: uuid }
+            status:
+              type: string
+              enum: [queued, running, completed, failed, timed_out]
+            scenario_id: { type: ["string", "null"], format: uuid }
+            revision_id: { type: ["string", "null"], format: uuid }
+            error_message: { type: ["string", "null"] }
+
+    ScenarioListResponse:
+      type: object
+      required: [data, meta]
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required: [id, title, created_at]
+            properties:
+              id: { type: string, format: uuid }
+              title: { type: string }
+              created_at: { type: string, format: date-time }
+        meta: { $ref: '#/components/schemas/PaginationMeta' }
+
+    ScenarioEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [id, title, optimistic_lock_version, current_revision]
+          properties:
+            id: { type: string, format: uuid }
+            title: { type: string }
+            optimistic_lock_version: { type: integer }
+            current_revision:
+              type: object
+              required: [id, version_number, moderation_status, concept, pedagogical_goal]
+              properties:
+                id: { type: string, format: uuid }
+                version_number: { type: integer }
+                moderation_status: { type: string }
+                concept: { type: string }
+                pedagogical_goal: { type: string }
+
+    UpdateScenarioRevisionRequest:
+      type: object
+      description: "Все поля опциональны для поддержки частичного обновления (Partial Edit). Непереданные поля наследуются сервером из текущей ревизии."
+      additionalProperties: false
+      properties:
+        concept: { type: string, minLength: 30 }
+        pedagogical_goal: { type: string, minLength: 20 }
+        pedagogical_tasks: { type: object }
+        stages: { type: array, items: { type: object } }
+        materials: { type: object }
+
+    VerificationRunEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [verification_run_id, status, p0_violations_count, p1_violations_count, findings]
+          properties:
+            verification_run_id: { type: string, format: uuid }
+            status: { type: string, enum: [running, passed, passed_with_warnings, blocked, failed_engine] }
+            p0_violations_count: { type: integer }
+            p1_violations_count: { type: integer }
+            findings:
+              type: array
+              items:
+                type: object
+                required: [id, severity, rule_code, target_path, message]
+                properties:
+                  id: { type: string, format: uuid }
+                  severity: { type: string, enum: [P0, P1] }
+                  rule_code: { type: string }
+                  target_path: { type: string }
+                  message: { type: string }
+                  suggested_fix: { type: ["string", "null"] }
+
+    TeacherSignoffRequest:
+      type: object
+      required: [checklist_confirmed]
+      additionalProperties: false
+      properties:
+        checklist_confirmed:
+          type: object
+          required: [safety_checked, timing_fit, cultural_context_approved]
+          additionalProperties: false
+          properties:
+            safety_checked:
+              type: boolean
+              enum: [true]
+              description: "Строго true. Без личного подтверждения безопасности sign-off невозможен."
+            timing_fit:
+              type: boolean
+              enum: [true]
+              description: "Строго true. Подтверждение реалистичности хронометража."
+            cultural_context_approved:
+              type: boolean
+              enum: [true]
+              description: "Строго true. Подтверждение отсутствия стереотипов."
+        teacher_notes:
+          type: ["string", "null"]
+
+    ExportJobEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [id, status]
+          properties:
+            id: { type: string, format: uuid }
+            status: { type: string, enum: [queued, processing, ready, failed] }
+            download_url: { type: ["string", "null"] }
+            file_name: { type: ["string", "null"] }
+            file_size_bytes: { type: ["integer", "null"] }
+
+    CreatePilotResponseDTO:
+      type: object
+      required:
+        - invite_token
+        - scenario_id
+        - prep_time_baseline_minutes
+        - prep_time_ai_minutes
+        - personalization_selected
+        - manual_edit_percentage
+        - cultural_context_used
+        - cultural_usefulness_score
+      additionalProperties: false
+      properties:
+        invite_token: { type: string }
+        scenario_id: { type: string, format: uuid }
+        prep_time_baseline_minutes: { type: integer, minimum: 10 }
+        prep_time_ai_minutes: { type: integer, minimum: 5 }
+        personalization_selected: { type: boolean }
+        manual_edit_percentage: { type: number, minimum: 0, maximum: 100 }
+        cultural_context_used: { type: boolean }
+        cultural_usefulness_score: { type: integer, minimum: 1, maximum: 5 }
+        feedback_text: { type: ["string", "null"] }
+
+    PilotMetricsResponse:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [status, total_participants, audited_reviews_count]
+          properties:
+            status: { type: string, enum: [no_data, active_pilot, completed] }
+            total_participants: { type: integer }
+            audited_reviews_count: { type: integer }
+            median_relative_time_saving_percent: { type: ["number", "null"] }
+            personalization_choice_percent: { type: ["number", "null"] }
+            manual_edit_under_20_percent_ratio: { type: ["number", "null"] }
+            cultural_context_usage_percent: { type: ["number", "null"] }
+            average_cultural_usefulness_score: { type: ["number", "null"] }
+            critical_cultural_errors_count: { type: ["integer", "null"] }
+
+    TenantCurrentEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [school_id, school_name, role]
+          properties:
+            school_id:
+              type: string
+              format: uuid
+            school_name:
+              type: string
+            role:
+              type: string
+              enum: [teacher, school_admin]
+
+    SystemStatusEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: object
+          required: [system_status, system_role]
+          properties:
+            system_status:
+              type: string
+            system_role:
+              type: string
+              enum: [system_admin, catalog_curator]
