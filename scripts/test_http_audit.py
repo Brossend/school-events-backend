@@ -9,9 +9,16 @@ import urllib.request
 BASE_URL = os.environ.get("TEST_BASE_URL", "http://localhost:8000")
 ORIGIN = os.environ.get("TEST_ORIGIN", "http://localhost:3000")
 
-TEACHER_PASSWORD = os.environ.get("TEST_TEACHER_PASSWORD", os.environ.get("DEFAULT_USER_PASSWORD", "TeacherSecret2026!"))
-MULTI_PASSWORD = os.environ.get("TEST_MULTI_PASSWORD", os.environ.get("DEFAULT_USER_PASSWORD", "MultiSecret2026!"))
-BLOCKED_PASSWORD = os.environ.get("TEST_BLOCKED_PASSWORD", os.environ.get("DEFAULT_USER_PASSWORD", "TestBlockedSecret2026!"))
+TEACHER_PASSWORD = os.environ.get("TEST_TEACHER_PASSWORD") or os.environ.get("DEFAULT_USER_PASSWORD")
+MULTI_PASSWORD = os.environ.get("TEST_MULTI_PASSWORD") or os.environ.get("DEFAULT_USER_PASSWORD")
+BLOCKED_PASSWORD = os.environ.get("TEST_BLOCKED_PASSWORD") or os.environ.get("DEFAULT_USER_PASSWORD")
+
+if not TEACHER_PASSWORD or not MULTI_PASSWORD or not BLOCKED_PASSWORD:
+    raise RuntimeError(
+        "Missing required environment passwords: "
+        "TEST_TEACHER_PASSWORD, TEST_MULTI_PASSWORD, and TEST_BLOCKED_PASSWORD (or DEFAULT_USER_PASSWORD) "
+        "must be defined in the environment."
+    )
 
 def run_tests():
     cookie_jar = http.cookiejar.CookieJar()

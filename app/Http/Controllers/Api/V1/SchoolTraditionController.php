@@ -151,16 +151,15 @@ class SchoolTraditionController extends Controller
                 'notes' => $validated['notes'] ?? null,
                 'created_by_user_id' => $user->id,
             ]);
-        } catch (UniqueConstraintViolationException $e) {
-            return $this->duplicateVersionResponse($academicYear);
-        } catch (QueryException $e) {
+        } catch (UniqueConstraintViolationException|QueryException $e) {
             $sqlState = (string) ($e->errorInfo[0] ?? $e->getCode());
-            // PostgreSQL 23505 is unique_violation on uq_tradition_academic_year constraint
-            if ($sqlState === '23505' && (str_contains($e->getMessage(), 'uq_tradition_academic_year') || str_contains($e->getMessage(), 'academic_year'))) {
+            $isUnique = ($e instanceof UniqueConstraintViolationException) || ($sqlState === '23505');
+            // Specifically verify constraint uq_tradition_academic_year before returning 422 duplicate error
+            if ($isUnique && (str_contains($e->getMessage(), 'uq_tradition_academic_year') || str_contains($e->getMessage(), 'academic_year'))) {
                 return $this->duplicateVersionResponse($academicYear);
             }
 
-            // Re-throw all other query exceptions so they are not masked as 422
+            // Re-throw all other exceptions (and other unique violations) so they are not masked as 422
             throw $e;
         }
 

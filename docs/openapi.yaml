@@ -835,7 +835,9 @@ components:
                       properties:
                         event_source_id: { type: string, format: uuid }
                         citation_locator: { type: string }
+                        citation_excerpt: { type: ["string", "null"] }
                         verification_status: { type: string }
+                        notes: { type: ["string", "null"] }
 
     PaginationMeta:
       type: object

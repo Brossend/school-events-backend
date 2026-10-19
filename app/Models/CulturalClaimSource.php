@@ -25,6 +25,7 @@ class CulturalClaimSource extends Model
         'cultural_claim_id',
         'event_source_id',
         'citation_locator',
+        'citation_excerpt',
         'verification_status',
         'verified_by_user_id',
         'verified_at',

@@ -342,10 +342,10 @@ class TraditionsTest extends TestCase
     }
 
     /**
-     * Requirement BE-002.2 #5: Параллельный тест на двух независимых соединениях PostgreSQL.
-     * Проверяет точный код SQLSTATE 23505 (unique_violation).
+     * Requirement BE-002.3: Тест уникальности на двух независимых соединениях PostgreSQL.
+     * Проверяет точный код SQLSTATE 23505 (unique_violation) по ограничению uq_tradition_academic_year.
      */
-    public function test_parallel_connections_race_condition_unique_violation_23505(): void
+    public function test_two_connections_uniqueness_constraint_23505(): void
     {
         $config = config('database.connections.pgsql');
         $dsn = "pgsql:host={$config['host']};port={$config['port']};dbname=school_events_test";

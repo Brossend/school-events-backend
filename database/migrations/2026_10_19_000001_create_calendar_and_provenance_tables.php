@@ -105,6 +105,7 @@ return new class extends Migration
             $table->uuid('cultural_claim_id');
             $table->uuid('event_source_id');
             $table->string('citation_locator', 255);
+            $table->text('citation_excerpt')->nullable();
             $table->string('verification_status', 32)->default('unverified');
             $table->foreignUuid('verified_by_user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->timestampTz('verified_at')->nullable();

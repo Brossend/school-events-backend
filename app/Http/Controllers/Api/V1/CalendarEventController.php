@@ -191,7 +191,9 @@ class CalendarEventController extends Controller
                     return [
                         'event_source_id' => $rec->event_source_id,
                         'citation_locator' => $rec->citation_locator,
+                        'citation_excerpt' => $rec->citation_excerpt,
                         'verification_status' => $this->provenanceService->evaluateStatus($rec),
+                        'notes' => $rec->notes,
                     ];
                 }),
             ];

@@ -208,13 +208,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $provenanceService->verifyClaim(
-            $fedClaim1Normative,
-            $fedSource1,
-            'Статья 1, абзац 3',
-            $admin,
-            '2026-2027',
-            '«Статья 112... 4 ноября - День народного единства;»',
-            'Верифицировано через Provenance Gate на основании официального текста ФЗ № 201-ФЗ.'
+            claim: $fedClaim1Normative,
+            source: $fedSource1,
+            citationLocator: 'Статья 1, абзац 3',
+            verifier: $admin,
+            evidenceExcerpt: '«Статья 112... 4 ноября - День народного единства;»',
+            academicYear: '2026-2027',
+            notes: 'Верифицировано через Provenance Gate на основании официального текста ФЗ № 201-ФЗ.'
         );
 
         // Claim 2 (Historical): Events of 1612 (Unverified: cannot be verified by modern labor code law)
@@ -283,13 +283,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $provenanceService->verifyClaim(
-            $fedClaim2Normative,
-            $fedSource2,
-            'Пункт 1 Указа Президента РФ № 717',
-            $admin,
-            '2026-2027',
-            '«1. Установить День российской науки и праздновать его 8 февраля.»',
-            'Верифицировано через Provenance Gate на основании государственного указа.'
+            claim: $fedClaim2Normative,
+            source: $fedSource2,
+            citationLocator: 'Пункт 1 Указа Президента РФ № 717',
+            verifier: $admin,
+            evidenceExcerpt: '«1. Установить День российской науки и праздновать его 8 февраля.»',
+            academicYear: '2026-2027',
+            notes: 'Верифицировано через Provenance Gate на основании государственного указа.'
         );
 
         // Claim 2 (Historical): Foundation of Academy in 1724 (Unverified)

@@ -104,6 +104,7 @@ class ProvenanceTest extends TestCase
             source: $source,
             citationLocator: 'Стр. 142-148, раздел «Мифология горного промысла»',
             verifier: $this->curator66,
+            evidenceExcerpt: '«Образ Хозяйки Медной горы восходит к дохристианским представлениям горняков Урала...»',
             academicYear: '2026-2027',
             notes: 'Первоисточник проверен в фонде Белинки'
         );
@@ -112,6 +113,8 @@ class ProvenanceTest extends TestCase
         $this->assertEquals('verified_authentic', $verifiedRecord->verification_status);
         $this->assertEquals($this->curator66->id, $verifiedRecord->verified_by_user_id);
         $this->assertEquals($this->event1->id, $verifiedRecord->calendar_event_id);
+        $this->assertEquals('«Образ Хозяйки Медной горы восходит к дохристианским представлениям горняков Урала...»', $verifiedRecord->citation_excerpt);
+        $this->assertEquals('Первоисточник проверен в фонде Белинки', $verifiedRecord->notes);
     }
 
     /**
@@ -138,7 +141,8 @@ class ProvenanceTest extends TestCase
             claim: $claim,
             source: $source,
             citationLocator: 'Стр. 45',
-            verifier: $this->curator66
+            verifier: $this->curator66,
+            evidenceExcerpt: 'Конкретная проверенная выдержка из текста источника'
         );
     }
 
@@ -173,7 +177,8 @@ class ProvenanceTest extends TestCase
             claim: $claim,
             source: $source,
             citationLocator: 'Стр. 12',
-            verifier: $this->curator66
+            verifier: $this->curator66,
+            evidenceExcerpt: 'Конкретная проверенная выдержка из текста источника'
         );
     }
 
@@ -208,7 +213,8 @@ class ProvenanceTest extends TestCase
             claim: $claim,
             source: $source,
             citationLocator: 'Статья 1',
-            verifier: $this->curator66
+            verifier: $this->curator66,
+            evidenceExcerpt: 'Конкретная проверенная выдержка из текста источника'
         );
     }
 
@@ -291,7 +297,8 @@ class ProvenanceTest extends TestCase
             claim: $claim,
             source: $source,
             citationLocator: 'Стр. 5',
-            verifier: $this->curator66
+            verifier: $this->curator66,
+            evidenceExcerpt: 'Конкретная проверенная выдержка из текста источника'
         );
     }
 
@@ -329,7 +336,8 @@ class ProvenanceTest extends TestCase
             claim: $claim,
             source: $source,
             citationLocator: 'Стр. 5',
-            verifier: $this->curator77
+            verifier: $this->curator77,
+            evidenceExcerpt: 'Конкретная проверенная выдержка из текста источника'
         );
     }
 
@@ -439,10 +447,11 @@ class ProvenanceTest extends TestCase
             'event_source_id' => $lawSource->id,
             'calendar_event_id' => $this->event2->id,
             'citation_locator' => 'Статья 1',
+            'citation_excerpt' => '«Установить день памяти...»',
             'verification_status' => 'verified_authentic',
             'verified_by_user_id' => $this->curatorGlobal->id,
             'verified_at' => now(),
-            'notes' => '«Установить день...»',
+            'notes' => 'Нормативный акт',
         ]);
 
         $evaluated = $this->service->evaluateStatus($claimSource);
@@ -554,4 +563,314 @@ class ProvenanceTest extends TestCase
             $this->assertArrayHasKey('evidence_excerpt', $e->errors());
         }
     }
+
+    /**
+     * BE-002.3 Scenario 1: Одобренный источник + локатор + notes, но без evidenceExcerpt -> отказ / unverified.
+     */
+    public function test_scenario_1_approved_source_with_locator_and_notes_without_excerpt_is_rejected(): void
+    {
+        $source = EventSource::create([
+            'calendar_event_id' => $this->event1->id,
+            'source_type' => 'scientific_publication',
+            'title' => 'Одобренный сборник фольклора',
+            'verified_by_user_id' => $this->curator66->id,
+        ]);
+
+        SourceReview::create([
+            'event_source_id' => $source->id,
+            'reviewer_user_id' => $this->curator66->id,
+            'decision' => 'approved',
+            'comments' => 'Источник прошел экспертизу.',
+            'reviewed_at' => now(),
+        ]);
+
+        $claim = CulturalClaim::create([
+            'calendar_event_id' => $this->event1->id,
+            'claim_text' => 'Тезис о традиции уральских горняков',
+            'culture_name' => 'Горнозаводская культура',
+            'provenance_notes' => 'Заметки',
+        ]);
+
+        // 1. Attempting verification without evidenceExcerpt throws ValidationException (no fallback to notes)
+        try {
+            $this->service->verifyClaim(
+                claim: $claim,
+                source: $source,
+                citationLocator: 'Стр. 55-58',
+                verifier: $this->curator66,
+                evidenceExcerpt: null,
+                notes: 'Произвольный комментарий эксперта без цитаты'
+            );
+            $this->fail('Verification without evidenceExcerpt must throw ValidationException!');
+        } catch (ValidationException $e) {
+            $this->assertArrayHasKey('evidence_excerpt', $e->errors());
+        }
+
+        // 2. A record in DB having locator and notes but missing citation_excerpt must evaluate to unverified
+        $dbRecord = CulturalClaimSource::create([
+            'cultural_claim_id' => $claim->id,
+            'event_source_id' => $source->id,
+            'calendar_event_id' => $this->event1->id,
+            'citation_locator' => 'Стр. 55-58',
+            'citation_excerpt' => null,
+            'verification_status' => 'verified_authentic',
+            'verified_by_user_id' => $this->curator66->id,
+            'verified_at' => now(),
+            'notes' => 'Произвольный комментарий без цитаты',
+        ]);
+
+        $status = $this->service->evaluateStatus($dbRecord);
+        $this->assertEquals('unverified', $status, 'Record without citation_excerpt must evaluate to unverified!');
+    }
+
+    /**
+     * BE-002.3 Scenario 2: Одобренный источник + сфабрикованная выдержка без подтверждения человеком -> невозможно подтвердить (unverified).
+     */
+    public function test_scenario_2_approved_source_with_fabricated_excerpt_without_human_attestation_is_unverified(): void
+    {
+        $source = EventSource::create([
+            'calendar_event_id' => $this->event1->id,
+            'source_type' => 'scientific_publication',
+            'title' => 'Одобренный академический источник',
+            'verified_by_user_id' => $this->curator66->id,
+        ]);
+
+        SourceReview::create([
+            'event_source_id' => $source->id,
+            'reviewer_user_id' => $this->curator66->id,
+            'decision' => 'approved',
+            'comments' => 'Источник подлинный.',
+            'reviewed_at' => now(),
+        ]);
+
+        $claim = CulturalClaim::create([
+            'calendar_event_id' => $this->event1->id,
+            'claim_text' => 'Сфабрикованный тезис, якобы содержащийся в источнике',
+            'culture_name' => 'Горнозаводская культура',
+            'provenance_notes' => 'Заметки',
+        ]);
+
+        // Fabricated record in DB with excerpt, but WITHOUT human verifier attestation
+        $unattestedRecord = CulturalClaimSource::create([
+            'cultural_claim_id' => $claim->id,
+            'event_source_id' => $source->id,
+            'calendar_event_id' => $this->event1->id,
+            'citation_locator' => 'Стр. 100',
+            'citation_excerpt' => 'Сфабрикованный фрагмент текста, не проверявшийся куратором',
+            'verification_status' => 'verified_authentic', // Attempted elevation without human verifier
+            'verified_by_user_id' => null,
+            'verified_at' => null,
+            'notes' => null,
+        ]);
+
+        // 1. Dynamic evaluation must strictly return unverified
+        $this->assertEquals('unverified', $this->service->evaluateStatus($unattestedRecord));
+
+        // 2. Calendar API must return unverified
+        $response = $this->actingAs($this->curator66, 'web')
+            ->getJson("/api/v1/calendar-events/{$this->event1->id}");
+
+        $response->assertStatus(200);
+        $recordStatus = $response->json('data.cultural_claims.0.evidence_records.0.verification_status');
+        $this->assertEquals('unverified', $recordStatus);
+
+        // 3. Attempting attestation with ordinary teacher without permissions throws ValidationException
+        try {
+            $this->service->verifyClaim(
+                claim: $claim,
+                source: $source,
+                citationLocator: 'Стр. 100',
+                verifier: $this->teacher,
+                evidenceExcerpt: 'Сфабрикованный фрагмент текста'
+            );
+            $this->fail('Unauthorized user cannot attest claims.');
+        } catch (ValidationException $e) {
+            $this->assertArrayHasKey('verified_by_user_id', $e->errors());
+        }
+    }
+
+    /**
+     * BE-002.3 Scenario 3: Верификация источника куратором вне своего региона -> отказ.
+     */
+    public function test_scenario_3_source_verification_by_out_of_scope_curator_is_rejected(): void
+    {
+        // Event 1 is regional for region 66 (Свердловская область)
+        $source = EventSource::create([
+            'calendar_event_id' => $this->event1->id,
+            'source_type' => 'scientific_publication',
+            'title' => 'Региональный источник Урала',
+            'verified_by_user_id' => $this->curator66->id,
+        ]);
+
+        SourceReview::create([
+            'event_source_id' => $source->id,
+            'reviewer_user_id' => $this->curator66->id,
+            'decision' => 'approved',
+            'comments' => 'Одобрено куратором 66 региона.',
+            'reviewed_at' => now(),
+        ]);
+
+        $claim = CulturalClaim::create([
+            'calendar_event_id' => $this->event1->id,
+            'claim_text' => 'Локальный уральский обычай',
+            'culture_name' => 'Культура Среднего Урала',
+            'provenance_notes' => 'Заметки',
+        ]);
+
+        // Curator 77 has scope ['77'] (Москва) and tries to verify a claim for region 66
+        $this->expectException(ValidationException::class);
+        $this->service->verifyClaim(
+            claim: $claim,
+            source: $source,
+            citationLocator: 'Стр. 25',
+            verifier: $this->curator77,
+            evidenceExcerpt: '«Народный обычай уральских горщиков...»'
+        );
+    }
+
+    /**
+     * BE-002.3 Scenario 4: Подтверждённый claim после последующего rejected source_review -> не verified_authentic.
+     */
+    public function test_scenario_4_confirmed_claim_after_subsequent_rejected_source_review_is_not_authentic(): void
+    {
+        $source = EventSource::create([
+            'calendar_event_id' => $this->event1->id,
+            'source_type' => 'scientific_publication',
+            'title' => 'Издание, первоначально признанное подлинным',
+            'verified_by_user_id' => $this->curator66->id,
+        ]);
+
+        // Review 1: Approved
+        SourceReview::create([
+            'event_source_id' => $source->id,
+            'reviewer_user_id' => $this->curator66->id,
+            'decision' => 'approved',
+            'comments' => 'Первичное положительное заключение.',
+            'reviewed_at' => now()->subHours(2),
+        ]);
+
+        $claim = CulturalClaim::create([
+            'calendar_event_id' => $this->event1->id,
+            'claim_text' => 'Сведения об уральской традиции',
+            'culture_name' => 'Горнозаводская культура',
+            'provenance_notes' => 'Первоначальная запись',
+        ]);
+
+        // Human attestation succeeds initially
+        $attested = $this->service->verifyClaim(
+            claim: $claim,
+            source: $source,
+            citationLocator: 'Том 2, стр. 88',
+            verifier: $this->curator66,
+            evidenceExcerpt: '«Подлинная цитата из полевых этнографических записей...»',
+            academicYear: '2026-2027',
+            notes: 'Первоначально подтверждено'
+        );
+
+        $this->assertEquals('verified_authentic', $this->service->evaluateStatus($attested));
+
+        // Review 2: Subsequent rejection due to discovered falsification
+        SourceReview::create([
+            'event_source_id' => $source->id,
+            'reviewer_user_id' => $this->curator66->id,
+            'decision' => 'rejected',
+            'comments' => 'Повторная академическая экспертиза установила подлог архивного документа.',
+            'reviewed_at' => now(),
+        ]);
+
+        // Dynamic evaluation must NOT return verified_authentic (returns rejected_fake)
+        $evaluatedStatus = $this->service->evaluateStatus($attested);
+        $this->assertNotEquals('verified_authentic', $evaluatedStatus);
+        $this->assertEquals('rejected_fake', $evaluatedStatus);
+
+        // Serving through API must not return verified_authentic
+        $response = $this->actingAs($this->curator66, 'web')
+            ->getJson("/api/v1/calendar-events/{$this->event1->id}");
+
+        $response->assertStatus(200);
+        $apiStatus = $response->json('data.cultural_claims.0.evidence_records.0.verification_status');
+        $this->assertNotEquals('verified_authentic', $apiStatus);
+    }
+
+    /**
+     * BE-002.3 Scenario 5: Полная цепочка с валидным подтверждением claim-to-evidence -> verified_authentic.
+     */
+    public function test_scenario_5_full_chain_with_valid_claim_to_evidence_attestation(): void
+    {
+        // 1. Regional event (66)
+        $this->assertNotNull($this->event1);
+        $this->assertEquals('66', $this->event1->region_code);
+
+        // 2. Source created
+        $source = EventSource::create([
+            'calendar_event_id' => $this->event1->id,
+            'source_type' => 'scientific_publication',
+            'title' => 'Этнографические очерки Среднего Урала',
+            'author' => 'УрО РАН',
+            'url' => 'https://ural-ethnography.ru/vol-3',
+            'verified_by_user_id' => $this->curator66->id,
+        ]);
+
+        // 3. Level 1: Source Review approved by authorized regional curator
+        SourceReview::create([
+            'event_source_id' => $source->id,
+            'reviewer_user_id' => $this->curator66->id,
+            'decision' => 'approved',
+            'comments' => 'Академическая рецензия подтверждает научную достоверность источника.',
+            'reviewed_at' => now(),
+        ]);
+
+        // 4. Cultural claim created
+        $claim = CulturalClaim::create([
+            'calendar_event_id' => $this->event1->id,
+            'claim_text' => 'Традиция почитания духов рудных жил горнозаводскими рабочими Урала.',
+            'culture_name' => 'Горнозаводская традиция Урала',
+            'provenance_notes' => 'Этнографические экспедиции 1930-х годов.',
+        ]);
+
+        // 5. Level 2: Explicit human claim-to-evidence attestation by curator66
+        $exactLocator = 'Глава 4, § 2, стр. 142-148';
+        $exactExcerpt = '«Почитание хранителей недр в заводских поселках Урала зафиксировано в записях...»';
+        $expertNotes = 'Проверено по фондам Музея истории и археологии Урала.';
+        $academicYear = '2026-2027';
+
+        $claimSource = $this->service->verifyClaim(
+            claim: $claim,
+            source: $source,
+            citationLocator: $exactLocator,
+            verifier: $this->curator66,
+            evidenceExcerpt: $exactExcerpt,
+            academicYear: $academicYear,
+            notes: $expertNotes
+        );
+
+        // 6. Assert all fields persisted correctly with excerpt and notes separated
+        $this->assertInstanceOf(CulturalClaimSource::class, $claimSource);
+        $this->assertEquals('verified_authentic', $claimSource->verification_status);
+        $this->assertEquals($claim->id, $claimSource->cultural_claim_id);
+        $this->assertEquals($source->id, $claimSource->event_source_id);
+        $this->assertEquals($this->event1->id, $claimSource->calendar_event_id);
+        $this->assertEquals($exactLocator, $claimSource->citation_locator);
+        $this->assertEquals($exactExcerpt, $claimSource->citation_excerpt);
+        $this->assertEquals($expertNotes, $claimSource->notes);
+        $this->assertEquals($this->curator66->id, $claimSource->verified_by_user_id);
+        $this->assertNotNull($claimSource->verified_at);
+        $this->assertEquals($academicYear, $claimSource->applicable_academic_year);
+
+        // 7. Dynamic evaluation confirms verified_authentic
+        $evaluated = $this->service->evaluateStatus($claimSource);
+        $this->assertEquals('verified_authentic', $evaluated);
+
+        // 8. API served response includes verified_authentic and citation_excerpt
+        $response = $this->actingAs($this->curator66, 'web')
+            ->getJson("/api/v1/calendar-events/{$this->event1->id}");
+
+        $response->assertStatus(200);
+        $evidenceRecord = $response->json('data.cultural_claims.0.evidence_records.0');
+        $this->assertEquals('verified_authentic', $evidenceRecord['verification_status']);
+        $this->assertEquals($exactLocator, $evidenceRecord['citation_locator']);
+        $this->assertEquals($exactExcerpt, $evidenceRecord['citation_excerpt']);
+        $this->assertEquals($expertNotes, $evidenceRecord['notes']);
+    }
 }
+

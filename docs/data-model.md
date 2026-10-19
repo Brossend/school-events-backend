@@ -153,11 +153,12 @@
 | `cultural_claim_id` | `uuid` | NO | FK -> `cultural_claims.id` ON DELETE CASCADE |
 | `event_source_id` | `uuid` | NO | FK -> `event_sources.id` ON DELETE RESTRICT |
 | `citation_locator` | `varchar(255)`| NO | Конкретная страница, глава, лист архивного дела |
+| `citation_excerpt` | `text` | YES | Конкретная выдержка / цитата из текста первоисточника |
 | `verification_status`| `varchar(32)` | NO | `CHECK (verification_status IN ('unverified', 'verified_authentic', 'disputed', 'rejected_fake'))` |
 | `verified_by_user_id`| `uuid`| YES | FK -> `users.id` (куратор/эксперт) |
 | `verified_at` | `timestamptz` | YES | Дата и время проверки |
 | `applicable_academic_year`| `varchar(9)`| YES | Применимость к учебному году |
-| `notes` | `text` | YES | Замечания куратора по цитате |
+| `notes` | `text` | YES | Экспертные замечания/комментарии куратора (отдельно от цитаты) |
 | `created_at` | `timestamptz` | NO | DEFAULT `CURRENT_TIMESTAMP` |
 
 - **Составные внешние ключи:**

@@ -14,7 +14,7 @@ class ProvenanceVerificationService
 {
     /**
      * Attach and verify an event source for a cultural claim.
-     * Enforces all provenance, cultural safety, and claim-to-evidence invariants.
+     * Enforces Level 1 Source Provenance and Level 2 Human Claim-to-Evidence Attestation.
      *
      * @throws ValidationException
      */
@@ -23,10 +23,17 @@ class ProvenanceVerificationService
         EventSource $source,
         string $citationLocator,
         User $verifier,
-        ?string $academicYear = null,
         ?string $evidenceExcerpt = null,
+        ?string $academicYear = null,
         ?string $notes = null
     ): CulturalClaimSource {
+        // Positional argument swap if called as ($claim, $source, $locator, $verifier, $academicYear, $evidenceExcerpt, $notes)
+        if ($evidenceExcerpt !== null && preg_match('/^\d{4}-\d{4}$/', $evidenceExcerpt) && $academicYear !== null && ! preg_match('/^\d{4}-\d{4}$/', $academicYear)) {
+            $temp = $evidenceExcerpt;
+            $evidenceExcerpt = $academicYear;
+            $academicYear = $temp;
+        }
+
         $citationLocator = trim($citationLocator);
 
         // 1. Mandatory and specific citation locator
@@ -36,11 +43,17 @@ class ProvenanceVerificationService
             ]);
         }
 
-        // 2. Mandatory concrete evidence excerpt
-        $evidenceExcerpt = trim($evidenceExcerpt ?? ($notes ?? ''));
-        if ($evidenceExcerpt === '' || mb_strlen($evidenceExcerpt) < 10 || $this->isGenericPlaceholder($evidenceExcerpt)) {
+        // 2. Mandatory concrete evidence excerpt (Strictly separated from notes, no fallback)
+        if ($evidenceExcerpt === null || trim($evidenceExcerpt) === '') {
             throw ValidationException::withMessages([
-                'evidence_excerpt' => 'Для подтверждения факта обязательна конкретная выдержка или цитата из текста источника (не менее 10 символов).',
+                'evidence_excerpt' => 'Для подтверждения факта обязательна конкретная выдержка или цитата из текста источника.',
+            ]);
+        }
+
+        $evidenceExcerpt = trim($evidenceExcerpt);
+        if (mb_strlen($evidenceExcerpt) < 10 || $this->isGenericPlaceholder($evidenceExcerpt)) {
+            throw ValidationException::withMessages([
+                'evidence_excerpt' => 'Выдержка из источника должна содержать содержательный проверяемый фрагмент текста (не менее 10 символов) и не может быть заполнителем.',
             ]);
         }
 
@@ -133,12 +146,9 @@ class ProvenanceVerificationService
             }
         }
 
-        $recordedNotes = $evidenceExcerpt;
-        if ($notes !== null && $notes !== '' && $notes !== $evidenceExcerpt) {
-            $recordedNotes .= "\nПримечание: " . $notes;
-        }
+        $cleanNotes = ($notes !== null && trim($notes) !== '') ? trim($notes) : null;
 
-        // 9. Record and return verified claim source
+        // 9. Level 2: Record explicit claim-to-evidence attestation with separated excerpt and notes
         return CulturalClaimSource::updateOrCreate(
             [
                 'cultural_claim_id' => $claim->id,
@@ -147,18 +157,19 @@ class ProvenanceVerificationService
             ],
             [
                 'calendar_event_id' => $claim->calendar_event_id,
+                'citation_excerpt' => $evidenceExcerpt,
                 'verification_status' => 'verified_authentic',
                 'verified_by_user_id' => $verifier->id,
                 'verified_at' => now(),
                 'applicable_academic_year' => $academicYear,
-                'notes' => $recordedNotes,
+                'notes' => $cleanNotes,
             ]
         );
     }
 
     /**
      * Dynamically evaluate the effective verification status of a cultural claim source.
-     * Prevents false verification: requires both source approval AND valid claim-to-evidence attestation.
+     * Prevents false verification: requires both source approval AND valid claim-to-evidence human attestation.
      */
     public function evaluateStatus(CulturalClaimSource $claimSource): string
     {
@@ -167,22 +178,26 @@ class ProvenanceVerificationService
             return $claimSource->verification_status;
         }
 
-        // Level 2: Claim-to-Evidence check (Cannot elevate automatically without human verifier)
+        // Level 2: Human claim-to-evidence attestation is mandatory
+        // Having an approved source review alone does not replace human attestation.
+        // Fabricated excerpt or unreviewed claim without human verifier cannot be elevated.
         if (! $claimSource->verified_by_user_id || ! $claimSource->verified_at) {
             return 'unverified';
         }
 
+        // Must have concrete, non-empty, non-placeholder citation locator
         if (empty($claimSource->citation_locator) || $this->isGenericPlaceholder($claimSource->citation_locator)) {
             return 'unverified';
         }
 
-        if (empty($claimSource->notes) || mb_strlen(trim($claimSource->notes)) < 10) {
+        // Must have concrete, non-empty, non-placeholder citation excerpt (checked separately from notes)
+        if (empty($claimSource->citation_excerpt) || mb_strlen(trim($claimSource->citation_excerpt)) < 10 || $this->isGenericPlaceholder($claimSource->citation_excerpt)) {
             return 'unverified';
         }
 
         // Level 1: Source Provenance check
         $source = $claimSource->source;
-        if (! $source) {
+        if (! $source || $source->calendar_event_id !== $claimSource->calendar_event_id) {
             return 'unverified';
         }
 
@@ -260,6 +275,9 @@ class ProvenanceVerificationService
             'n/a',
             'none',
             'test',
+            'placeholder',
+            'цитата',
+            'выдержка',
         ];
 
         return in_array($normalized, $placeholders, true);
