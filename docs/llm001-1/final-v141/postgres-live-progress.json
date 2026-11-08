@@ -1,0 +1,104 @@
+{
+    "database": "school_events_test",
+    "role": "school_test_user",
+    "provider": "litellm",
+    "model": "GigaChat-2-Max",
+    "secretPresent": true,
+    "queue": "redis",
+    "runId": "7caf9dc7e2",
+    "requests": [
+        {
+            "id": "01a191ec-e5bf-7077-aa86-136dce4f0b2e",
+            "school_id": "01a191eb-cee2-70ec-974d-491cd6ca1016",
+            "user_id": "01a191eb-d035-705c-8619-a9e3b3b42101",
+            "calendar_event_id": null,
+            "tradition_version_id": null,
+            "custom_event_title": "LLM0011 7caf9dc7e2: мастерская взаимопомощи (class_level)",
+            "scale": "class_level",
+            "format_type": "class_hour",
+            "target_grades": [
+                5,
+                6
+            ],
+            "participants_count": 30,
+            "duration_minutes": 45,
+            "value_direction": "mutual_aid",
+            "family_involvement": false,
+            "available_resources": [
+                "бумага",
+                "карандаши",
+                "доска"
+            ],
+            "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана.",
+            "context_snapshot": {
+                "author": {
+                    "name": "LLM0011 teacher · synthetic",
+                    "email": "llm0011-7caf9dc7e2-teacher@example.test",
+                    "user_id": "01a191eb-d035-705c-8619-a9e3b3b42101"
+                },
+                "school": {
+                    "id": "01a191eb-cee2-70ec-974d-491cd6ca1016",
+                    "name": "LLM0011 7caf9dc7e2 A · synthetic test school",
+                    "region_code": "66"
+                },
+                "occasion": {
+                    "type": "custom_title",
+                    "title": "LLM0011 7caf9dc7e2: мастерская взаимопомощи (class_level)",
+                    "calendar_event": null,
+                    "tradition_version": null,
+                    "custom_event_title": "LLM0011 7caf9dc7e2: мастерская взаимопомощи (class_level)",
+                    "custom_region_code": "66"
+                },
+                "schema_version": "1.0.0",
+                "snapshot_timestamp": "2026-10-31T12:26:24+00:00",
+                "cultural_provenance": {
+                    "claims": [],
+                    "sources": []
+                },
+                "pedagogical_parameters": {
+                    "scale": "class_level",
+                    "format_type": "class_hour",
+                    "target_grades": [
+                        5,
+                        6
+                    ],
+                    "value_direction": "mutual_aid",
+                    "duration_minutes": 45,
+                    "family_involvement": false,
+                    "participants_count": 30,
+                    "available_resources": [
+                        "бумага",
+                        "карандаши",
+                        "доска"
+                    ],
+                    "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана."
+                }
+            },
+            "created_at": "2026-10-31T12:26:24.000000Z"
+        }
+    ],
+    "generationRuns": [
+        {
+            "id": "01a191ec-f505-7387-9ce5-971375bc0450",
+            "scenario_request_id": "01a191ec-e5bf-7077-aa86-136dce4f0b2e",
+            "provider_name": "litellm",
+            "model_identifier": "GigaChat-2-Max",
+            "prompt_version": "school-methodist-1.4.1",
+            "schema_version": "1.0.0",
+            "status": "running",
+            "attempts": 2,
+            "latency_ms": null,
+            "prompt_tokens": null,
+            "completion_tokens": null,
+            "error_code": null,
+            "error_message": null,
+            "sanitized_prompt": "{\"execution_started_at\":\"2026-10-31T12:26:30+00:00\"}",
+            "sanitized_response": null,
+            "created_at": "2026-10-31T12:26:27.000000Z",
+            "completed_at": null
+        }
+    ],
+    "scenarios": [],
+    "revisions": [],
+    "comparisons": []
+}

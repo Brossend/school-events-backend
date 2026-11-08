@@ -201,3 +201,52 @@
    - Параметр `{version}` из URL сравнивается с текущей версией сценария:
      `if ($version !== $scenario->currentRevision->version_number) { throw new StaleRevisionEditConflictException(); }`
      При несовпадении возвращается `409 Conflict`.
+
+---
+
+## 7. Внешние LLM-провайдеры и архитектура генерации
+
+Генерация сценариев полностью абстрагирована через `LlmProviderInterface`. В кодовой базе чётко разграничены текущая реализация и архитектурные контракты:
+- **Действующий провайдер (РЕАЛИЗОВАН):** `MockLlmProvider` (`app/Services/Llm/MockLlmProvider.php`) — активен по умолчанию, детерминирован, генерирует валидные методические сценарии и полностью протестирован (16 тестов в `LlmGenerationTest`).
+- **Промышленные адаптеры (СПЕЦИФИЦИРОВАНЫ АРХИТЕКТУРНО):**
+  - **Сбер GigaChat:** Корпоративный API со строгим структурированным выводом и поддержкой mTLS Минцифры.
+  - **OpenAI / Qwen / DeepSeek:** Совместимый API `/v1/chat/completions` со строгим `response_format: { type: "json_schema" }`.
+  - **YandexGPT:** Yandex Cloud Foundation Models API со структурированным выводом.
+  *(Реализация боевых сетевых вызовов к внешним API не внедрялась во избежание фиктивной симуляции без действующих ключей доступа и договоров со стороны заказчика).*
+
+Подробная спецификация адаптеров, таймаутов, ретраев, промпт-инжиниринга и пошаговый план переключения задокументированы в [`docs/llm-provider-integration.md`](llm-provider-integration.md).
+
+---
+
+## 8. Изоляция сред, тестовый стенд и релизная безопасность (BE-009 Hardening)
+
+1. **Изоляция профилей Docker Compose:**
+   - Сервисы тестового контура `app-test` и `nginx-test` вынесены в явный профиль `profiles: ["testing"]`.
+   - Основной стек `docker compose up -d` запускает только рабочие контейнеры (`app`, `nginx`, `postgres`, `redis`, `queue`).
+2. **Строгая привязка портов:**
+   - Тестовый шлюз привязан строго к локальному интерфейсу: `127.0.0.1:8001:80`.
+3. **Безопасность на уровне PostgreSQL:**
+   - Выделенный тестовый пользователь `school_test_user` имеет права исключительно на `school_events_test`.
+   - Доступ к рабочей БД `school_events` физически заблокирован (`REVOKE CONNECT ON DATABASE school_events FROM PUBLIC;`).
+4. **Изоляция сессий, кэша и файлов:**
+   - Сессионная кука тестов: `school_events_test_session`.
+   - Префиксы Redis: `school_events_test_redis_`, кэш: `school_events_test_cache_`.
+   - Файловое хранилище экспортных артефактов тестов: `storage/app/testing/private`.
+5. **Тестовые зонды (Environment Probe):**
+   - Эндпоинт `/api/v1/test/environment-probe` имеет двойную защиту: регистрируется только в средах `local` и `testing` и немедленно возвращает `404 Not Found` при `app()->isProduction()`.
+   - Зонд возвращает динамическое имя базы данных через `SELECT current_database()`.
+6. **Live Provenance Gate:**
+   - Экспорт документов (PDF, DOCX, PPTX, Print Pack) динамически валидирует отпечаток этнографических свидетельств на момент отдачи файла. При отзыве куратором первоисточника скачивание мгновенно блокируется HTTP `409 Conflict`.
+
+
+
+## LLM-001 — реальный переключаемый генератор
+
+Provider выбирается config/llm.php; mock сохранён для регрессии, litellm не имеет автоматического fallback. LiteLLM вызывается только вне транзакций, structured output проходит исходные schema/semantic validators, дополнительные проверки соответствия запросу и готовности материалов, затем server normalization и автоматическую модерацию. Внешние контекстные строки — недоверенные данные, каталог не передаёт LLM полномочий подтверждать факты.
+
+A/B через реальную модель асинхронно: durable pending → отдельные GenerationRun/LLM вызовы → атомарное сохранение двух проверенных вариантов → completed. Частичная пара остаётся failed. Provider/model/usage принадлежат фактическим вызовам. Повтор прежнего ключа не вызывает платную генерацию заново. Подробности: llm-provider-integration.md, queues-llm001.md, LLM-001-review.md.
+
+
+### LLM-001.1: независимый quality layer
+
+Full-tree CulturalTextCoverage и PedagogicalQualityGate не меняют исходные schema/normalization/provenance. Fresh quality_review отделяет технические проверки, экспертную оценку и Teacher Sign-Off; complete=false для семантического покрытия. Отчёт генерации сохраняется в GenerationRun.sanitized_prompt, legacy metadata immutable. Миграции не добавлены.

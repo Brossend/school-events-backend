@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\School;
 use App\Models\SchoolMembership;
 use App\Models\User;
+use Database\Seeders\DatabaseSeeder;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -14,7 +16,9 @@ class AuthTest extends TestCase
     use DatabaseTransactions;
 
     protected User $activeTeacher;
+
     protected User $inactiveUser;
+
     protected School $school;
 
     protected function setUp(): void
@@ -94,9 +98,10 @@ class AuthTest extends TestCase
     {
         // Disable Laravel's automatic unit-test CSRF bypass to enforce real CSRF validation
         $this->app->bind(
-            \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
+            ValidateCsrfToken::class,
             function ($app) {
-                return new class($app, $app['encrypter']) extends \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken {
+                return new class($app, $app['encrypter']) extends ValidateCsrfToken
+                {
                     protected function runningUnitTests()
                     {
                         return false;
@@ -174,6 +179,17 @@ class AuthTest extends TestCase
             ->assertJsonStructure([
                 'error' => ['code', 'message', 'details', 'trace_id'],
             ]);
+    }
+
+    /**
+     * Test unauthenticated API request without Accept: application/json returns 401 without redirecting to login route.
+     */
+    public function test_unauthenticated_request_without_accept_header_returns_401_without_redirect(): void
+    {
+        $response = $this->get('/api/v1/auth/me');
+
+        $response->assertStatus(401);
+        $this->assertFalse($response->isRedirection());
     }
 
     /**
@@ -327,7 +343,7 @@ class AuthTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('DatabaseSeeder (demo data) cannot be executed in production environment.');
 
-        $seeder = new \Database\Seeders\DatabaseSeeder();
+        $seeder = new DatabaseSeeder;
         $seeder->run();
     }
 
@@ -379,14 +395,14 @@ class AuthTest extends TestCase
     {
         $admin = User::factory()->systemAdmin()->create([
             'email' => 'admin_active@system.ru',
-            'password' => Hash::make('AdminSecret2026!'),
+            'password' => Hash::make('FE012-isolated-auth-test-only'),
             'is_active' => true,
         ]);
 
         // 1. Login as system admin
         $loginResponse = $this->postWithCsrf('/api/v1/auth/login', [
             'email' => 'admin_active@system.ru',
-            'password' => 'AdminSecret2026!',
+            'password' => 'FE012-isolated-auth-test-only',
         ]);
         $loginResponse->assertStatus(200);
 
@@ -459,5 +475,43 @@ class AuthTest extends TestCase
             ->getJson('/api/v1/tenant/current')
             ->assertStatus(401)
             ->assertJsonPath('error.code', 'UNAUTHORIZED');
+    }
+
+    /**
+     * Test healthcheck endpoint returns 200 OK and connected services.
+     */
+    public function test_healthcheck_returns_ok(): void
+    {
+        $response = $this->getJson('/api/v1/health');
+        $response->assertStatus(200)
+            ->assertJsonPath('status', 'ok')
+            ->assertJsonPath('services.database', 'connected')
+            ->assertJsonPath('services.redis', 'connected');
+    }
+
+    /**
+     * Negative test: Diagnostic endpoint /api/v1/test/environment-probe is strictly
+     * inaccessible (404) when running in local or production environments.
+     */
+    public function test_diagnostic_environment_probe_inaccessible_in_local_or_production_environments(): void
+    {
+        // 1. In standard testing environment, verify probe is accessible
+        $testResp = $this->getJson('/api/v1/test/environment-probe');
+        $testResp->assertStatus(200)
+            ->assertJsonPath('environment', 'testing')
+            ->assertJsonPath('database', 'school_events_test');
+
+        // 2. Simulate local environment: probe must be blocked with 404
+        $originalEnv = app()->environment();
+        app()->detectEnvironment(fn () => 'local');
+        config(['app.env' => 'local']);
+
+        try {
+            $localResp = $this->getJson('/api/v1/test/environment-probe');
+            $localResp->assertStatus(404);
+        } finally {
+            app()->detectEnvironment(fn () => $originalEnv);
+            config(['app.env' => $originalEnv]);
+        }
     }
 }

@@ -1,0 +1,282 @@
+[
+  {
+    "path": "README.md",
+    "before": "4f58280983fc745279562467b57d70e22d6e936a96b5b92c9fe68d6c6f2b90ed",
+    "after": "b34449cde3e252eac976859ba0843be3b14a1db47ea4a2c52912b3d639c5b09d"
+  },
+  {
+    "path": "app/Http/Controllers/Api/V1/ScenarioComparisonController.php",
+    "before": "b2591bcd7528c38cfa73869c50b09c5fa511d6cbed2c97dd47cc12852aa5d307",
+    "after": "633ff110d01f617439f28ee7cf2852f2eaf83a1413a3ebf97620db5d32a37f89"
+  },
+  {
+    "path": "app/Http/Controllers/Api/V1/ScenarioController.php",
+    "before": "bf6a8ff798ced91c5cdea91746f4b13f9bf32eaa22e5db5b86ea893eafc07c63",
+    "after": "9cf562a6f769083743927254127b8f2c63478bbf585235185ae3c7ef085af25d"
+  },
+  {
+    "path": "app/Http/Controllers/Api/V1/ScenarioExportController.php",
+    "before": "8a6e606f391ed395a7bc88326f0b766a8484a098271075debac2d04aafe4a7b2",
+    "after": "27d5fe7933fe08e11e7c575bb4aebbd21873e50b7f5d6b9fe27cbc185b4483c8"
+  },
+  {
+    "path": "app/Http/Controllers/Api/V1/ScenarioRequestController.php",
+    "before": "73e087aca2447d9917eff624bfcaca5a59257694eee4aff2bf4f1e275371dc63",
+    "after": "c5d250ed7335de8d5d136e7e4eefb7d750890cdf5cd1dccf3b51bcde5f164c77"
+  },
+  {
+    "path": "app/Http/Controllers/Api/V1/ScenarioRevisionController.php",
+    "before": "446ac0a858bd6154ac4ff14c8406dcad43bfafed1cf137035f9886bfab4b2a39",
+    "after": "0794f16342315dc649afebaa5dfd43bd95f57361de0dcdeb8c3d7d8ef4351db7"
+  },
+  {
+    "path": "app/Http/Controllers/Api/V1/TeacherSignoffController.php",
+    "before": "4c78637318fdee07624d1fa978f10263d61adf61a13ae5ee1ad92f7ab07e5056",
+    "after": "1f744435c436d337300b44c7870ba1c77fc6528dbe3741ab54f87d546231fc5b"
+  },
+  {
+    "path": "app/Jobs/ExecuteGenerationRunJob.php",
+    "before": "2bb1baa1402a2a136b27de234354201e581ae6e246a53b04fe84888c1ed4b0e2",
+    "after": "096cf0382b7b3f7e41952edc56d842edf50b72d54aff63984c64ed9b9b1a1189"
+  },
+  {
+    "path": "app/Jobs/GenerateComparisonJob.php",
+    "before": "ad7ad0856420ba4cf3202543c6137cbf6e29b76212b7505dfe7d3f7dc0a9ad19",
+    "after": "263ff00bd6e878f567d2d885dd09c778def888c1337d14c4bb3629dc9872ede4"
+  },
+  {
+    "path": "app/Services/Llm/CulturalTextCoverage.php",
+    "before": null,
+    "after": "1c9bd3dbf98fcef17346af899d1a708de338d7cfda248e8182c0bc0ae94bde23"
+  },
+  {
+    "path": "app/Services/Llm/LiteLlmProvider.php",
+    "before": "24dfaab32fb9053c2182c2b5769e3da302a4243ab5f4886becd310a8ab77f2f1",
+    "after": "ce642c15a088dce732fd2f43f33e5b24e2e3733326e2dce924a31edf78923d86"
+  },
+  {
+    "path": "app/Services/Llm/LlmRuntime.php",
+    "before": "4df9f04cf818aa67d520e9caaf0c425dfbdf8e93fedaf1464d73b9ac6bd96c70",
+    "after": "d8173338c5b1d6ff09345f21d2d1739cd2175bae8fbdf1dba75b70de02c45a95"
+  },
+  {
+    "path": "app/Services/Llm/PedagogicalQualityGate.php",
+    "before": null,
+    "after": "a73cbc5f86d7b9b717722195d9321cd645af50274d240f5a9ab5fe6644a3f327"
+  },
+  {
+    "path": "app/Services/Llm/PedagogicalTaskBrief.php",
+    "before": null,
+    "after": "d5609fcb8fa08cecd19ccd9ca8cab48abc9baa78ffc688136760cebf370e00c1"
+  },
+  {
+    "path": "app/Services/Llm/PrintableTextFormatter.php",
+    "before": null,
+    "after": "8a17ecb2eaa70d8b5fb61a6401dd5de1dd78217873ef75e157edc0a185f36ff6"
+  },
+  {
+    "path": "app/Services/Llm/ScenarioOutputTemplate.php",
+    "before": "10f94237b4c761160a541f6acef5409c5db6aa608dd6e3fb4e066b4f48a21e1f",
+    "after": "38bda0a80982596fc8e3979a9b9eed86429aa67885e4a7ef31974742ac58257c"
+  },
+  {
+    "path": "app/Services/Llm/ScenarioPromptBuilder.php",
+    "before": "fc2e14e761ea4c50a0b0d35b98ab03f690bc20ad5b7dc83ae5b624e82164dba7",
+    "after": "8ee38deaac6b9f69b7380c4b060b534c08568d68d2cba5ae24ca230d9c2f7921"
+  },
+  {
+    "path": "app/Services/Llm/ScenarioRepairPlanner.php",
+    "before": null,
+    "after": "fc2c93ebb3014415da751997a004f2e7896c2c78e43356dcfe6e536d9cea6c08"
+  },
+  {
+    "path": "app/Services/ScenarioComparisonService.php",
+    "before": "505db8610bb86f04f1eb86fda53e067204d4205ae77f6e24303e0c5e9d6590b2",
+    "after": "943e88bd376c26b9ba2aa9482dd820308b46da1a759ae13c82403ba37399747e"
+  },
+  {
+    "path": "composer.json",
+    "before": null,
+    "after": "47dec233d7c2e8c3d15ba87f35e63cbc761f9c73c66d4c1a2612ea439721360f"
+  },
+  {
+    "path": "composer.lock",
+    "before": null,
+    "after": "0c7d6cf9c3eba8005da504f223f95c6b6e1f8c3adedf8ed1abb798d71cec3400"
+  },
+  {
+    "path": "docker-compose.yml",
+    "before": "e337668b47d96ec0204e0d72f0b44a4cc9c04079f24a696a6668a50882dca230",
+    "after": "f75e315360c786d127426609eb95936a959afbc5c4b38c9a37dbc9b49862a8b6"
+  },
+  {
+    "path": "docker/nginx/default.conf",
+    "before": null,
+    "after": "20c879f53fb6020f836335be15c05222c621a8e03dda6715d09a6ee843261cb9"
+  },
+  {
+    "path": "docker/nginx/test.conf",
+    "before": null,
+    "after": "0583c630f753034f39ae47b3ca2bd0b7b1b16afd411802b33464b626a6aafb85"
+  },
+  {
+    "path": "docker/php/Dockerfile",
+    "before": null,
+    "after": "64605bbc17e06506b1126b66801e41d6d8cc7c80528126eb436a907b4bd131df"
+  },
+  {
+    "path": "docker/postgres/init-databases.sh",
+    "before": null,
+    "after": "a79fe53178e68781d5afd732b9ee00e24ee394d2df4a2516ddafa0a25b7d1e20"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.3.0.txt",
+    "before": null,
+    "after": "68b4b4c0af4c3523ac21c8476b5c7d161fb8ea0a62e9b0bd1fc60654576f6fca"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.3.1.txt",
+    "before": null,
+    "after": "aad03d2cdd2131ec9e70c3bc407d11ada593026df631ba11b77585d4ac477454"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.4.0.txt",
+    "before": null,
+    "after": "596d5f972215e75bb0201feca660b95969aaf3d2e44358892618e773139e257f"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.4.1.txt",
+    "before": null,
+    "after": "f9600720184a2a2726f0483a8e52b88bd3d6fc0596e9ec808bcbe019722bd7e6"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.4.2.txt",
+    "before": null,
+    "after": "f9600720184a2a2726f0483a8e52b88bd3d6fc0596e9ec808bcbe019722bd7e6"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.5.0.txt",
+    "before": null,
+    "after": "47e46422c8a092c6e12f222dd507469f1da44ed34399329ce182f4eafa45b9a2"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.5.1.txt",
+    "before": null,
+    "after": "47e46422c8a092c6e12f222dd507469f1da44ed34399329ce182f4eafa45b9a2"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.5.2.txt",
+    "before": null,
+    "after": "3b3bcc070262188ec5d7d8af5664dcc649dc80e00fa662db7dd2a3166cd0339f"
+  },
+  {
+    "path": "scripts/llm0011-regression-review.php",
+    "before": null,
+    "after": "4898d006b81f50ef81a08360603c81c49dc1f7b001474fd0444090d067dfe19b"
+  },
+  {
+    "path": "scripts/llm0011-result-review.php",
+    "before": null,
+    "after": "d1a6ec8f104fdf0cdde2913d0e889f0f4ff14a56c47f922b30c506fb5360eb18"
+  },
+  {
+    "path": "scripts/llm0011-worker.php",
+    "before": null,
+    "after": "9f9df8d569c571c23774c1aeede40f9c2e342fc2673b1323089ffb3ee18c88ec"
+  },
+  {
+    "path": "tests/Feature/LiteLlmProviderTest.php",
+    "before": "340f1f85b3bf610b38d06fd432d8e2880684e4b6b7042c8007dbc51646e49013",
+    "after": "7e1053c2c64cec6302ed7fab336e4c548fb45a25db395279e5938219466f6ea2"
+  },
+  {
+    "path": "tests/Feature/PedagogicalQualityGateTest.php",
+    "before": null,
+    "after": "a1609f0ae6dbe514278d97369b6c5e67b9dbc87a155022cc37091ac1c7176fcf"
+  },
+  {
+    "path": "tests/Feature/ScenarioRepairPlannerTest.php",
+    "before": null,
+    "after": "84481934da131f8e6ebb4810359c661195608f8cbf816188e414f6b7b6e9c0f0"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/class.json",
+    "before": null,
+    "after": "ae16a6659e36c20c531d5e769b990d292ed1e2ca3de1a220cb416690efd9b8d1"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/cultural-b.json",
+    "before": null,
+    "after": "11a613199bbb6872b4d9696e60be91a59b133daa7845012ba7a7c00027634b2a"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/family.json",
+    "before": null,
+    "after": "abab6ef89f759400a6f46543eb1f023862c8006ea8f2fb524876ec149893c876"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/school.json",
+    "before": null,
+    "after": "437ec188db072b788124d73f386bc0f25b508937281ab45b20044e11d3753459"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v131-family.json",
+    "before": null,
+    "after": "f54179a7bb16c2079c64f63a469839cba0e1a52d5f163b0c9eeac455b7e67507"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v131-school.json",
+    "before": null,
+    "after": "13ae7a0c532f4254ba05015026f8e1f0c084f7f75fdc96df71ab7e048d357fda"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v131-universal.json",
+    "before": null,
+    "after": "82712d327ecfc3430a6bd98fafe83ec83d8bb89a961d93b8017b704fb417d1f5"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v140-class.json",
+    "before": null,
+    "after": "0435f9c3e7338f82e0f465e7c76ec90afeb3fd4a681c6a9be0152b929c22c847"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v142-cultural-repair.json",
+    "before": null,
+    "after": "b6b2012819503e3022150d292f658fd0cc87a729cc91fce0f27c36d217ad9802"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v150-class.json",
+    "before": null,
+    "after": "abbe838bbd651056efd5fafaf192cd08ef6fc8af4f2a7e4ba11f53aea049210f"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v151-deleted-slide.json",
+    "before": null,
+    "after": "c6c73bfa870e79b326fe06a4ab9d57f789beb116c99c159c5e3d81f10a07c2a8"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v151-front-answer.json",
+    "before": null,
+    "after": "628390017c70367a21adbd3c9aa4385dd3178ae442f254800250810f323eb089"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v151-generic-handout.json",
+    "before": null,
+    "after": "121cd81c0dc1c377c3e620b4e443e473eee32eb19ace59b28df4cb968faccd07"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v151-indexed-leak.json",
+    "before": null,
+    "after": "502fdaec564f365df5931a2077b448253b5454e1afe1267f6e8a664605adfd8b"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v151-school-echo.json",
+    "before": null,
+    "after": "a446b9e92b17d6dc9caf30427ea0c6555556e77ad9cc5a01984d0f9649e0ab59"
+  },
+  {
+    "path": "tests/Fixtures/llm0011/v151-school.json",
+    "before": null,
+    "after": "94b889547895693888e5a46743071f20d6f9e7c2d1fef4b728f4f3ea028cee96"
+  }
+]

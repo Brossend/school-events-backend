@@ -1,0 +1,441 @@
+{
+  "probes": [
+    {
+      "path": "/v1/chat/completions",
+      "status": 200,
+      "latency_ms": 9500,
+      "retry_after": null,
+      "response": {
+        "id": "chatcmpl-bd2cbda18879aabc",
+        "created": 1793347670,
+        "model": "Qwen3.8-27B",
+        "object": "chat.completion",
+        "system_fingerprint": "vllm-0.31.0-dp6-80945cab",
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "reasoning_content": "We need answer user in Russian. User: \"Синтетический smoke-test. Предложи два этапа классного часа о взаимопомощи для 5 класса, на 15 и 30 минут. Название и действия должны быть конкретными, на русском языке.\" System: \"Ты педагог-методист. Верни только JSON по схеме, без рассуждений.\" Need return only JSON according to schema? No explicit schema given except likely need JSON with two stages? Need infer. They ask propose two stages of class hour about mutual help for 5th grade, for 15 and 30 minutes. Names and actions concrete, Russian. Need only JSON. Need maybe schema: {\"stages\":[{\"duration_minutes\":15,\"name\":\"...\",\"actions\":[\"...\"]},{\"duration_minutes\":30,...}]}? Since no schema, produce valid JSON only. Ensure no markdown. Need maybe include \"class_hour\"? Let's craft concise. Two stages: 15 min and 30 min. Names concrete. Actions concrete. For 5th grade. Mutual help. Could be:\nStage 1 15 min: \"Разминка «Добрый круг»\" actions: teacher asks students stand in circle, pass ball, say one kind thing about neighbor, discuss what helped.\nStage 2 30 min: \"Практикум «Команда на помощь»\" actions: split into groups, solve task \"help classmate with homework\" etc, create poster, present.\nNeed maybe JSON keys in Russian? Since user Russian. But schema unknown. Use English keys? \"Верни только JSON по схеме\" but no schema. Maybe expected from synthetic smoke-test: likely JSON with fields: \"этапы\": [ {\"название\":..., \"длительность_минут\":..., \"действия\":[...] } ]. Need decide. Since no schema, safest use simple JSON with Russian keys? Many tasks expect JSON only, maybe keys can be Russian. But \"по схеме\" maybe hidden? Could be they expect specific schema? We need infer from prompt: \"Предложи два этапа классного часа о взаимопомощи для 5 класса, на 15 и 30 минут. Название и действия должны быть конкретными, на русском языке.\" Could be output: {\"этапы\":[{\"название\":\"...\",\"длительность_минут\":15,\"действия\":[\"...\"]}, ...]}. That's likely.",
+              "provider_specific_fields": {
+                "refusal": null,
+                "reasoning": "We need answer user in Russian. User: \"Синтетический smoke-test. Предложи два этапа классного часа о взаимопомощи для 5 класса, на 15 и 30 минут. Название и действия должны быть конкретными, на русском языке.\" System: \"Ты педагог-методист. Верни только JSON по схеме, без рассуждений.\" Need return only JSON according to schema? No explicit schema given except likely need JSON with two stages? Need infer. They ask propose two stages of class hour about mutual help for 5th grade, for 15 and 30 minutes. Names and actions concrete, Russian. Need only JSON. Need maybe schema: {\"stages\":[{\"duration_minutes\":15,\"name\":\"...\",\"actions\":[\"...\"]},{\"duration_minutes\":30,...}]}? Since no schema, produce valid JSON only. Ensure no markdown. Need maybe include \"class_hour\"? Let's craft concise. Two stages: 15 min and 30 min. Names concrete. Actions concrete. For 5th grade. Mutual help. Could be:\nStage 1 15 min: \"Разминка «Добрый круг»\" actions: teacher asks students stand in circle, pass ball, say one kind thing about neighbor, discuss what helped.\nStage 2 30 min: \"Практикум «Команда на помощь»\" actions: split into groups, solve task \"help classmate with homework\" etc, create poster, present.\nNeed maybe JSON keys in Russian? Since user Russian. But schema unknown. Use English keys? \"Верни только JSON по схеме\" but no schema. Maybe expected from synthetic smoke-test: likely JSON with fields: \"этапы\": [ {\"название\":..., \"длительность_минут\":..., \"действия\":[...] } ]. Need decide. Since no schema, safest use simple JSON with Russian keys? Many tasks expect JSON only, maybe keys can be Russian. But \"по схеме\" maybe hidden? Could be they expect specific schema? We need infer from prompt: \"Предложи два этапа классного часа о взаимопомощи для 5 класса, на 15 и 30 минут. Название и действия должны быть конкретными, на русском языке.\" Could be output: {\"этапы\":[{\"название\":\"...\",\"длительность_минут\":15,\"действия\":[\"...\"]}, ...]}. That's likely.",
+                "reasoning_content": "We need answer user in Russian. User: \"Синтетический smoke-test. Предложи два этапа классного часа о взаимопомощи для 5 класса, на 15 и 30 минут. Название и действия должны быть конкретными, на русском языке.\" System: \"Ты педагог-методист. Верни только JSON по схеме, без рассуждений.\" Need return only JSON according to schema? No explicit schema given except likely need JSON with two stages? Need infer. They ask propose two stages of class hour about mutual help for 5th grade, for 15 and 30 minutes. Names and actions concrete, Russian. Need only JSON. Need maybe schema: {\"stages\":[{\"duration_minutes\":15,\"name\":\"...\",\"actions\":[\"...\"]},{\"duration_minutes\":30,...}]}? Since no schema, produce valid JSON only. Ensure no markdown. Need maybe include \"class_hour\"? Let's craft concise. Two stages: 15 min and 30 min. Names concrete. Actions concrete. For 5th grade. Mutual help. Could be:\nStage 1 15 min: \"Разминка «Добрый круг»\" actions: teacher asks students stand in circle, pass ball, say one kind thing about neighbor, discuss what helped.\nStage 2 30 min: \"Практикум «Команда на помощь»\" actions: split into groups, solve task \"help classmate with homework\" etc, create poster, present.\nNeed maybe JSON keys in Russian? Since user Russian. But schema unknown. Use English keys? \"Верни только JSON по схеме\" but no schema. Maybe expected from synthetic smoke-test: likely JSON with fields: \"этапы\": [ {\"название\":..., \"длительность_минут\":..., \"действия\":[...] } ]. Need decide. Since no schema, safest use simple JSON with Russian keys? Many tasks expect JSON only, maybe keys can be Russian. But \"по схеме\" maybe hidden? Could be they expect specific schema? We need infer from prompt: \"Предложи два этапа классного часа о взаимопомощи для 5 класса, на 15 и 30 минут. Название и действия должны быть конкретными, на русском языке.\" Could be output: {\"этапы\":[{\"название\":\"...\",\"длительность_минут\":15,\"действия\":[\"...\"]}, ...]}. That's likely."
+              },
+              "content": null
+            },
+            "provider_specific_fields": {}
+          }
+        ],
+        "usage": {
+          "completion_tokens": 512,
+          "prompt_tokens": 122,
+          "total_tokens": 634,
+          "completion_tokens_details": {
+            "reasoning_tokens": 512
+          }
+        }
+      },
+      "model": "Qwen3.8-27B",
+      "requested_mode": "json_schema",
+      "request": {
+        "model": "Qwen3.8-27B",
+        "temperature": 0.3,
+        "max_tokens": 512,
+        "stream": false,
+        "messages": [
+          {
+            "role": "system",
+            "content": "Ты педагог-методист. Верни только JSON по схеме, без рассуждений."
+          },
+          {
+            "role": "user",
+            "content": "Синтетический smoke-test. Предложи два этапа классного часа о взаимопомощи для 5 класса, на 15 и 30 минут. Название и действия должны быть конкретными, на русском языке."
+          }
+        ],
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "pedagogical_smoke",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "title",
+                "stages"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "stages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "title",
+                      "minutes"
+                    ],
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "minutes": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "path": "/v1/chat/completions",
+      "status": 200,
+      "latency_ms": 2422,
+      "retry_after": null,
+      "response": {
+        "id": "chatcmpl-a2bd1513-849f-4b59-8723-d231d7a1ad1e",
+        "created": 1793347671,
+        "model": "GigaChat-3-Pro",
+        "object": "chat.completion",
+        "system_fingerprint": "fp_a2bd1513-849f-4b59-8723-d231d7a1ad1e",
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "content": "{\"stages\": [{\"minutes\": 15, \"title\": \"Круг доверия: 15 минут\"}, {\"minutes\": 30, \"title\": \"Проект 'Карман помощи': 30 минут\"}], \"title\": \"Взаимопомощь в 5 классе: два шага к дружбе\"}",
+              "role": "assistant",
+              "provider_specific_fields": {
+                "refusal": null,
+                "functions_state_id": "01a18bd9-d725-723e-a53f-6a0fb6d4ce33",
+                "attachments": null,
+                "id_": null,
+                "name": null,
+                "data_for_context": null
+              }
+            },
+            "provider_specific_fields": {}
+          }
+        ],
+        "usage": {
+          "completion_tokens": 83,
+          "prompt_tokens": 143,
+          "total_tokens": 226,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "metadata": {
+          "gigachat_x_request_id": "98dd359f-8f5e-40fc-8c11-d868a0d11283",
+          "gigachat_x_session_id": "c3c8709c-2566-413d-946f-e039d63ba021"
+        }
+      },
+      "model": "GigaChat-3-Pro",
+      "requested_mode": "json_schema",
+      "request": {
+        "model": "GigaChat-3-Pro",
+        "temperature": 0.3,
+        "max_tokens": 512,
+        "stream": false,
+        "messages": [
+          {
+            "role": "system",
+            "content": "Ты педагог-методист. Верни только JSON по схеме, без рассуждений."
+          },
+          {
+            "role": "user",
+            "content": "Синтетический smoke-test. Предложи два этапа классного часа о взаимопомощи для 5 класса, на 15 и 30 минут. Название и действия должны быть конкретными, на русском языке."
+          }
+        ],
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "pedagogical_smoke",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "title",
+                "stages"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "stages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "title",
+                      "minutes"
+                    ],
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "minutes": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "path": "/v1/chat/completions",
+      "status": 200,
+      "latency_ms": 781,
+      "retry_after": null,
+      "response": {
+        "id": "chatcmpl-32fc135d-d38f-4ac9-88ae-26843cd1eca6",
+        "created": 1793347672,
+        "model": "GigaChat-3-Lightning",
+        "object": "chat.completion",
+        "system_fingerprint": "fp_32fc135d-d38f-4ac9-88ae-26843cd1eca6",
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "content": "{\"stages\": [{\"minutes\": 15, \"title\": \"Введение и обсуждение понятия взаимопомощи\"}, {\"minutes\": 30, \"title\": \"Практикум: решение кейсовой ситуации в группах\"}], \"title\": \"Классный час на тему \\\"Взаимопомощь: сила в единстве\\\"\"}",
+              "role": "assistant",
+              "provider_specific_fields": {
+                "refusal": null,
+                "functions_state_id": "01a18bd9-da4e-705e-8001-21dcc5b8be4e",
+                "attachments": null,
+                "id_": null,
+                "name": null,
+                "data_for_context": null
+              }
+            },
+            "provider_specific_fields": {}
+          }
+        ],
+        "usage": {
+          "completion_tokens": 85,
+          "prompt_tokens": 143,
+          "total_tokens": 228,
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "metadata": {
+          "gigachat_x_request_id": "d44c4b9d-6eb9-4f08-a360-e117dfc0f9a1",
+          "gigachat_x_session_id": "d316f61d-0df0-42ea-9061-45adac9d37a9"
+        }
+      },
+      "model": "GigaChat-3-Lightning",
+      "requested_mode": "json_schema",
+      "request": {
+        "model": "GigaChat-3-Lightning",
+        "temperature": 0.3,
+        "max_tokens": 512,
+        "stream": false,
+        "messages": [
+          {
+            "role": "system",
+            "content": "Ты педагог-методист. Верни только JSON по схеме, без рассуждений."
+          },
+          {
+            "role": "user",
+            "content": "Синтетический smoke-test. Предложи два этапа классного часа о взаимопомощи для 5 класса, на 15 и 30 минут. Название и действия должны быть конкретными, на русском языке."
+          }
+        ],
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "pedagogical_smoke",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "title",
+                "stages"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "stages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "title",
+                      "minutes"
+                    ],
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "minutes": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "model_info": {
+    "status": 200,
+    "latency_ms": 328,
+    "models": [
+      {
+        "model_name": "frida-decisions",
+        "limits": {
+          "input_cost_per_token": 0.0,
+          "output_cost_per_token": 0.0,
+          "mode": "evaluation",
+          "max_tokens": null,
+          "max_input_tokens": null,
+          "max_output_tokens": null,
+          "supports_response_schema": null,
+          "supports_function_calling": null
+        }
+      },
+      {
+        "model_name": "EmbeddingsGigaR",
+        "limits": {
+          "input_cost_per_token": 1.7958664285860887e-07,
+          "output_cost_per_token": 1.7958664285860887e-07,
+          "max_tokens": null,
+          "max_input_tokens": null,
+          "max_output_tokens": null,
+          "mode": null,
+          "supports_response_schema": null,
+          "supports_function_calling": null
+        }
+      },
+      {
+        "model_name": "Qwen3.8-27B",
+        "limits": {
+          "input_cost_per_token": 6e-07,
+          "output_cost_per_token": 3.6e-06,
+          "max_tokens": 262144,
+          "max_input_tokens": 262144,
+          "max_output_tokens": 262144
+        }
+      },
+      {
+        "model_name": "Qwen3.8-27B",
+        "limits": {
+          "input_cost_per_token": 4e-08,
+          "output_cost_per_token": 1.35e-06,
+          "mode": "chat",
+          "max_tokens": null,
+          "max_input_tokens": null,
+          "max_output_tokens": null,
+          "supports_response_schema": null,
+          "supports_function_calling": null
+        }
+      },
+      {
+        "model_name": "GigaChat-2",
+        "limits": {
+          "input_cost_per_token": 8.33795127557827e-07,
+          "output_cost_per_token": 8.33795127557827e-07,
+          "max_tokens": null,
+          "max_input_tokens": null,
+          "max_output_tokens": null,
+          "mode": null,
+          "supports_response_schema": null,
+          "supports_function_calling": null
+        }
+      },
+      {
+        "model_name": "GigaChat-2-Pro",
+        "limits": {
+          "input_cost_per_token": 6.413808673521745e-06,
+          "output_cost_per_token": 6.413808673521745e-06,
+          "max_tokens": null,
+          "max_input_tokens": null,
+          "max_output_tokens": null,
+          "mode": null,
+          "supports_response_schema": null,
+          "supports_function_calling": null
+        }
+      },
+      {
+        "model_name": "GigaChat-2-Max",
+        "limits": {
+          "input_cost_per_token": 8.337951275578268e-06,
+          "output_cost_per_token": 8.337951275578268e-06,
+          "max_tokens": null,
+          "max_input_tokens": null,
+          "max_output_tokens": null,
+          "mode": null,
+          "supports_response_schema": null,
+          "supports_function_calling": null
+        }
+      },
+      {
+        "model_name": "GigaChat-3-Lightning",
+        "limits": {
+          "max_tokens": null,
+          "max_input_tokens": null,
+          "max_output_tokens": null,
+          "input_cost_per_token": null,
+          "output_cost_per_token": null,
+          "mode": null,
+          "supports_response_schema": null,
+          "supports_function_calling": null
+        }
+      },
+      {
+        "model_name": "GigaChat-3-Pro",
+        "limits": {
+          "input_cost_per_token": 6.413808673521745e-06,
+          "output_cost_per_token": 6.413808673521745e-06,
+          "max_tokens": null,
+          "max_input_tokens": null,
+          "max_output_tokens": null,
+          "mode": null,
+          "supports_response_schema": null,
+          "supports_function_calling": null
+        }
+      }
+    ]
+  },
+  "unauthorized": {
+    "path": "/v1/models",
+    "status": 401,
+    "latency_ms": 188,
+    "retry_after": null,
+    "response": {
+      "error": {
+        "message": "Authentication Error, No api key passed in.",
+        "type": "auth_error",
+        "param": "None",
+        "code": "401"
+      }
+    }
+  }
+}

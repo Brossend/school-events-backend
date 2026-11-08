@@ -1,0 +1,15 @@
+{
+    "mode": "dispatch",
+    "queue": "llm0011-8cc15da6b6",
+    "database": "school_events_test",
+    "role": "school_test_user",
+    "gatewayCalls": 16,
+    "scenarios": 4,
+    "revisions": 4,
+    "generationRuns": 9,
+    "comparisons": 3,
+    "statuses": {
+        "completed": 4,
+        "failed": 5
+    }
+}

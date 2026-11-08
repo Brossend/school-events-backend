@@ -1,0 +1,94 @@
+{
+  "status": "PENDING INDEPENDENT REVIEW",
+  "executed_cases": 5,
+  "acceptance_complete": false,
+  "technical_cases_completed": 3,
+  "expert_cases_approved": 0,
+  "cases": [
+    {
+      "case": "class_level",
+      "status": "completed",
+      "generation_run_id": "01a18db5-e50d-70a4-848a-ed95162062b5",
+      "scenario_id": "01a18db8-0e90-7343-a741-19e5eb65259e",
+      "error_code": null,
+      "error_message": null,
+      "prompt_version": "school-methodist-1.3.1",
+      "latency_ms": 126836,
+      "prompt_tokens": 15451,
+      "completion_tokens": 5575,
+      "content_acceptance": "requires_review_not_expert_approved"
+    },
+    {
+      "case": "all_school",
+      "status": "failed",
+      "generation_run_id": "01a18dc9-dbc1-7241-85fe-618f7f6c2dc0",
+      "scenario_id": null,
+      "error_code": "VALIDATION_FAILED",
+      "error_message": "{\"QUALITY_SCHOOL_LOGISTICS_$.stages\":[\"Для 100+ участников явно опишите: очерёдность\\/потоки. Текст: \"]}",
+      "prompt_version": "school-methodist-1.3.1",
+      "latency_ms": 136003,
+      "prompt_tokens": 16190,
+      "completion_tokens": 5821,
+      "content_acceptance": "requires_review_not_expert_approved"
+    },
+    {
+      "case": "family_community",
+      "status": "completed",
+      "generation_run_id": "01a18dba-df7a-73a0-a16a-bad35290d4f1",
+      "scenario_id": "01a18dbd-4e7a-731c-8924-1ff8b0877c6c",
+      "error_code": null,
+      "error_message": null,
+      "prompt_version": "school-methodist-1.3.1",
+      "latency_ms": 145389,
+      "prompt_tokens": 8374,
+      "completion_tokens": 6151,
+      "content_acceptance": "requires_review_not_expert_approved"
+    },
+    {
+      "case": "universal_vs_personalized",
+      "status": "failed",
+      "comparison_id": "01a18dcc-547d-7002-be75-369af6616f24",
+      "generation_run_ids": [
+        "01a18dcc-5a21-7319-a0d4-0563e35f11c7"
+      ],
+      "prompt_version": "school-methodist-1.3.1",
+      "latency_ms": [
+        155126
+      ],
+      "prompt_tokens": [
+        15279
+      ],
+      "completion_tokens": [
+        5445
+      ],
+      "error_code": "VALIDATION_FAILED",
+      "error_message": "{\"RULE_READY_CARD_0\":[\"Карточка 0: нужен готовый конкретный текст задания >=120 символов и проверяемый ответ\\/решение >=40 символов, а не заглушка или обещание подготовить задание.\"]}",
+      "content_acceptance": "requires_review_not_expert_approved"
+    },
+    {
+      "case": "cultural_context",
+      "status": "completed",
+      "comparison_id": "01a18dc0-c08b-71a7-8e5c-48d57529cf5d",
+      "generation_run_ids": [
+        "01a18dc0-c5b3-7337-98a6-de1f02c11091",
+        "01a18dc2-5141-7054-b1f8-811118a08c08"
+      ],
+      "prompt_version": "school-methodist-1.3.1",
+      "latency_ms": [
+        92884,
+        127813
+      ],
+      "prompt_tokens": [
+        6489,
+        15860
+      ],
+      "completion_tokens": [
+        3313,
+        5706
+      ],
+      "error_code": null,
+      "error_message": null,
+      "content_acceptance": "requires_review_not_expert_approved"
+    }
+  ]
+}

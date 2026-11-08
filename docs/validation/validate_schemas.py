@@ -408,7 +408,7 @@ def run_tests():
     assert "cookieAuth" in sec_schemes, "Missing cookieAuth!"
     print("PASS: cookieAuth registered as primary Nuxt SPA session authentication.")
 
-    # Check path parameters
+    # 1. Check path parameters
     missing_params = []
     total_ops = 0
     for path_str, path_item in paths.items():
@@ -427,36 +427,83 @@ def run_tests():
 
     print(f"Total Operations across all paths: {total_ops}")
     if missing_params:
-        print(f"FAIL: Missing/non-required path parameters: {missing_params}")
-    else:
-        print("PASS: All path parameters in 22 routes are strictly declared with required: true!")
+        raise AssertionError(f"Missing/non-required path parameters: {missing_params}")
+    print("PASS: All path parameters in 22 routes are strictly declared with required: true!")
 
-    # Check unresolved $ref
-    unresolved = []
-    def check_ref(obj, cur=""):
-        if isinstance(obj, dict):
-            for k, v in obj.items():
-                if k == "$ref":
-                    ref_name = v.split("/")[-1]
-                    if v.startswith("#/components/schemas/") and ref_name not in schemas:
-                        unresolved.append((cur, v))
-                    elif v.startswith("#/components/responses/") and ref_name not in responses:
-                        unresolved.append((cur, v))
-                else:
-                    check_ref(v, f"{cur}.{k}")
-        elif isinstance(obj, list):
-            for i, it in enumerate(obj):
-                check_ref(it, f"{cur}[{i}]")
+    # 2. Comprehensive Reference and YAML key validation
+    def validate_openapi_references(doc_spec):
+        doc_schemas = doc_spec.get("components", {}).get("schemas", {})
+        doc_responses = doc_spec.get("components", {}).get("responses", {})
+        structural_errors = []
 
-    check_ref(spec)
-    if unresolved:
-        print(f"FAIL: Unresolved $refs found: {unresolved}")
-    else:
-        print(f"PASS: All 23 component schemas and 4 responses resolve with zero broken references!")
+        def check_node(obj, cur=""):
+            if isinstance(obj, dict):
+                for k, v in obj.items():
+                    # Catch empty or null YAML keys
+                    if k == "" or k is None:
+                        structural_errors.append(f"Empty or null YAML key at '{cur}': {k!r} -> {v!r}")
+                    # Catch broken reference objects where key is corrupted but value looks like a reference
+                    elif isinstance(v, str) and v.startswith("#/components/") and k != "$ref":
+                        structural_errors.append(f"Broken Reference Object at '{cur}': key {k!r} has reference target {v!r} instead of '$ref'")
+                    elif k == "$ref":
+                        if not isinstance(v, str):
+                            structural_errors.append(f"Invalid $ref type at '{cur}': expected string, got {type(v).__name__}")
+                        elif v.startswith("#/components/schemas/"):
+                            ref_name = v.split("/")[-1]
+                            if ref_name not in doc_schemas:
+                                structural_errors.append(f"Unresolved schema $ref at '{cur}': {v}")
+                        elif v.startswith("#/components/responses/"):
+                            ref_name = v.split("/")[-1]
+                            if ref_name not in doc_responses:
+                                structural_errors.append(f"Unresolved response $ref at '{cur}': {v}")
+                        else:
+                            structural_errors.append(f"Unsupported $ref prefix at '{cur}': {v}")
+                    check_node(v, f"{cur}.{k}")
+            elif isinstance(obj, list):
+                for i, it in enumerate(obj):
+                    check_node(it, f"{cur}[{i}]")
+
+        check_node(doc_spec, "")
+        return structural_errors
+
+    spec_errors = validate_openapi_references(spec)
+    if spec_errors:
+        for err in spec_errors:
+            print(f"FAIL: {err}")
+        raise AssertionError(f"OpenAPI structural verification failed with {len(spec_errors)} errors:\n" + "\n".join(spec_errors))
+    print(f"PASS: All {len(schemas)} component schemas and {len(responses)} responses resolve with zero broken or empty-key references!")
+
+    print("\n" + "=" * 70)
+    print("STEP 7: NEGATIVE TEST — CORRUPTED OPENAPI REFS DETECTION")
+    print("=" * 70)
+    # Reproduce the exact 4 corrupted references from BE-FINAL.1:
+    # responses 200, 401, 403, 404 with empty key '' instead of '$ref'
+    corrupted_spec = yaml.safe_load(yaml.dump(spec))
+    scenario_responses = corrupted_spec["paths"]["/scenario-requests/{id}"]["get"]["responses"]
+    scenario_responses["200"]["content"]["application/json"]["schema"] = {"": "#/components/schemas/ScenarioRequestEnvelope"}
+    scenario_responses["401"] = {"": "#/components/responses/Unauthorized"}
+    scenario_responses["403"] = {"": "#/components/responses/Forbidden"}
+    scenario_responses["404"] = {"": "#/components/responses/NotFound"}
+
+    corrupted_errors = validate_openapi_references(corrupted_spec)
+    print(f"Negative test verified {len(corrupted_errors)} detected errors:")
+    for err in corrupted_errors:
+        print(f"  - Caught expected error: {err}")
+
+    assert len(corrupted_errors) == 4, f"Expected exactly 4 corrupted errors, caught {len(corrupted_errors)}"
+    assert any("ScenarioRequestEnvelope" in e for e in corrupted_errors)
+    assert any("Unauthorized" in e for e in corrupted_errors)
+    assert any("Forbidden" in e for e in corrupted_errors)
+    assert any("NotFound" in e for e in corrupted_errors)
+    print("PASS (Neg OpenAPI): Structural validator successfully caught all 4 corrupted empty-key references from BE-FINAL.1!")
 
     print("\n" + "=" * 70)
     print("SUMMARY: ALL DRAFT 2020-12, SEMANTIC VALIDATOR, PROVENANCE, AND OPENAPI TESTS PASSED!")
     print("=" * 70)
 
 if __name__ == "__main__":
-    run_tests()
+    try:
+        run_tests()
+    except Exception as exc:
+        print(f"\nFATAL TEST FAILURE: {exc}", file=sys.stderr)
+        sys.exit(1)

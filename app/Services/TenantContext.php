@@ -13,7 +13,7 @@ class TenantContext
     /**
      * Set active tenant context.
      */
-    public function set(School $school, SchoolMembership $membership): void
+    public function set(School $school, ?SchoolMembership $membership = null): void
     {
         $this->school = $school;
         $this->membership = $membership;

@@ -1,0 +1,25 @@
+{
+  "model": "GigaChat-2-Max",
+  "prompt_version": "school-methodist-1.5.2",
+  "max_selected_variants": 7,
+  "max_completions_per_variant": 3,
+  "max_initial_paid_completions": 21,
+  "http_timeout_seconds": 240,
+  "total_variant_budget_seconds": 360,
+  "automatic_network_retries": 0,
+  "database": "school_events_test",
+  "status": "PENDING INDEPENDENT REVIEW",
+  "bounded_content_correction": {
+    "scale": "family_community",
+    "max_new_generation_runs": 1,
+    "max_additional_completions": 3,
+    "reason": "Actual completed output incorrectly claims 6+5+4 leaves2 from18; original output and usage retained. Current gate2.3.6 blocks this result."
+  },
+  "bounded_cultural_retry": {
+    "max_new_comparisons": 2,
+    "max_additional_completions": 12,
+    "reason": "Terminal primary comparison failed closed after bounded repairs omitted closed card numeric key. Preserve original audits and usage; same final prompt and validators.",
+    "final_retry_reason": "Observed final repair schema failure (front_text97<120); schema unchanged, no provider/network defect. One final fresh comparison permitted; no further retries in this acceptance run."
+  },
+  "content_retry_request_note": "Completed requests cannot be regenerated (409 SCENARIO_ALREADY_GENERATED); corrective-preflight-rejected.json retained. A fresh synthetic request with identical family conditions is used; the rejected POST sent no model request."
+}

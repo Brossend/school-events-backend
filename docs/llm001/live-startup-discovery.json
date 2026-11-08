@@ -1,0 +1,13 @@
+{
+  "origin": "http://localhost:8001",
+  "runId": "9ba5dbe1b6",
+  "completed": false,
+  "trace": [],
+  "scenarios": [],
+  "comparisons": [],
+  "syntheticOnly": true,
+  "failure": {
+    "name": "SyntaxError",
+    "message": "Unexpected token '<', \"<html>\r\n<h\"... is not valid JSON"
+  }
+}

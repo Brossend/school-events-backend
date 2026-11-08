@@ -5,6 +5,7 @@ namespace Tests;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Testing\TestResponse;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -16,8 +17,20 @@ abstract class TestCase extends BaseTestCase
         $_ENV['APP_ENV'] = 'testing';
         $_SERVER['APP_ENV'] = 'testing';
 
+        putenv('DB_DATABASE=school_events_test');
+        $_ENV['DB_DATABASE'] = 'school_events_test';
+        $_SERVER['DB_DATABASE'] = 'school_events_test';
+
         $app = parent::createApplication();
         $app['env'] = 'testing';
+        // Container env/config-cache may currently serve a LIVE isolated acceptance run.
+        // Deterministic tests must never inherit its provider, Redis queue or sessions.
+        // Provider-specific tests explicitly set their own fake configuration after boot.
+        $app['config']->set('llm.provider', 'mock');
+        $app['config']->set('queue.default', 'sync');
+        $app['config']->set('session.driver', 'file');
+        $app['config']->set('session.cookie', 'laravel_session');
+        $app['config']->set('cache.default', 'array');
 
         return $app;
     }
@@ -42,7 +55,7 @@ abstract class TestCase extends BaseTestCase
             $result = DB::connection('pgsql')->selectOne('SELECT current_database() AS db');
             $activeDb = $result ? $result->db : null;
         } catch (\Throwable $e) {
-            throw new \RuntimeException("FATAL: Could not establish active PostgreSQL connection for tests: ".$e->getMessage(), 0, $e);
+            throw new \RuntimeException('FATAL: Could not establish active PostgreSQL connection for tests: '.$e->getMessage(), 0, $e);
         }
 
         if ($activeDb === 'school_events' || $activeDb !== 'school_events_test') {
@@ -90,7 +103,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Send POST request with valid CSRF header and session cookies.
      */
-    protected function postWithCsrf(string $uri, array $data = [], array $headers = []): \Illuminate\Testing\TestResponse
+    protected function postWithCsrf(string $uri, array $data = [], array $headers = []): TestResponse
     {
         $csrf = $this->fetchCsrf();
 

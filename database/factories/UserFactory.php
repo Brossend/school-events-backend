@@ -28,7 +28,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'email' => Str::uuid().'@example.test',
             'password' => static::$password ??= Hash::make('password'),
             'system_role' => 'none',
             'curator_scope' => null,

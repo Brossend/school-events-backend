@@ -1,0 +1,26 @@
+{
+  "status": "PENDING INDEPENDENT REVIEW",
+  "archives": [
+    {
+      "file": "school-backend-llm001-1.zip",
+      "bytes": 6086271,
+      "files": 514,
+      "sha256": "c33419e0c7d394832b95c0b06d7feb98212b01257ee0da1bb3d7f2a1502448de",
+      "crc": "PASS",
+      "manifest": "PASS",
+      "secretScan": "PASS"
+    },
+    {
+      "file": "school-events-frontend-llm001-1.zip",
+      "bytes": 82463810,
+      "files": 1802,
+      "sha256": "b686b8ea12e786fa40b734c59d02b139e594fb5e211242df806b1fbf68ca882c",
+      "crc": "PASS",
+      "manifest": "PASS",
+      "secretScan": "PASS"
+    }
+  ],
+  "knownSecretsScanned": 26,
+  "liveAcceptanceComplete": false,
+  "warning": "Source delivery for review; failed live cases and content issues are not accepted functionality."
+}

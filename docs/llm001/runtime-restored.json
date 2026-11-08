@@ -1,0 +1,8 @@
+{
+    "environment": "testing",
+    "database": "school_events_test",
+    "role": "school_test_user",
+    "provider": "mock",
+    "queue": "sync",
+    "configCache": "\/var\/www\/html\/bootstrap\/cache\/config.php"
+}

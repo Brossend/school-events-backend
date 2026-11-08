@@ -32,7 +32,7 @@ class CalendarEventController extends Controller
         $user = $request->user();
         $school = $this->tenantResolver->resolve($request, $user, $tenantContext, allowSystemWithoutSchool: true);
 
-        $query = CalendarEvent::query()->visibleTo($user, $school);
+        $query = CalendarEvent::query()->with('occurrences')->visibleTo($user, $school);
 
         // Filter by region_code within allowed visibility
         if ($request->filled('region_code')) {
@@ -135,6 +135,14 @@ class CalendarEventController extends Controller
                 'event_type' => $event->event_type,
                 'region_code' => $event->region_code,
                 'description' => $event->description,
+                'date_type' => $event->date_type,
+                'fixed_month' => $event->fixed_month,
+                'fixed_day' => $event->fixed_day,
+                'occurrences' => $event->occurrences->sortBy('start_date')->values()->map(fn ($row) => [
+                    'id' => $row->id, 'academic_year' => $row->academic_year,
+                    'start_date' => $row->start_date->format('Y-m-d'), 'end_date' => $row->end_date?->format('Y-m-d'),
+                    'source_reference' => $row->source_reference,
+                ]),
             ];
         });
 
@@ -205,6 +213,11 @@ class CalendarEventController extends Controller
             'event_type' => $event->event_type,
             'region_code' => $event->region_code,
             'description' => $event->description,
+            'date_type' => $event->date_type, 'fixed_month' => $event->fixed_month, 'fixed_day' => $event->fixed_day,
+            'occurrences' => $event->occurrences->sortBy('start_date')->values()->map(fn ($row) => [
+                'id' => $row->id, 'academic_year' => $row->academic_year, 'start_date' => $row->start_date->format('Y-m-d'),
+                'end_date' => $row->end_date?->format('Y-m-d'), 'source_reference' => $row->source_reference,
+            ]),
             'sources' => $sources,
             'cultural_claims' => $culturalClaims,
         ]);
@@ -332,6 +345,14 @@ class CalendarEventController extends Controller
                 'event_type' => $event->event_type,
                 'region_code' => $event->region_code,
                 'description' => $event->description,
+                'date_type' => $event->date_type,
+                'fixed_month' => $event->fixed_month,
+                'fixed_day' => $event->fixed_day,
+                'occurrences' => $event->occurrences->sortBy('start_date')->values()->map(fn ($row) => [
+                    'id' => $row->id, 'academic_year' => $row->academic_year,
+                    'start_date' => $row->start_date->format('Y-m-d'), 'end_date' => $row->end_date?->format('Y-m-d'),
+                    'source_reference' => $row->source_reference,
+                ]),
                 'sources' => [],
                 'cultural_claims' => [],
             ],

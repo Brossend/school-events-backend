@@ -1,0 +1,242 @@
+[
+  {
+    "path": ".env.example",
+    "before": "9b022b855f792da000ad1a07793ce23e5db21802db51d93220ac627aabd091e6",
+    "after": "9efb33464ced2de23d0620b2a68db90c8557cfdf7ca271e661395c78fa3672b9"
+  },
+  {
+    "path": ".env.testing.example",
+    "before": "be08ba839ae12464cbe0cede00e930e724aa3ce59ff925cea504be2bb54c9b5e",
+    "after": "9153c4cb1f92d4754509eb60258a04f18101ea3f0292961e24564b4a5e4ed135"
+  },
+  {
+    "path": ".gitignore",
+    "before": "4f5c1e547394a9e6b060d82dc2ea79219b84669d91bdb9c5abb8f5deffcb4bbe",
+    "after": "a1ea31877c0cb413132902496ae1f1875b4662c456270fb2da9adf48352164d6"
+  },
+  {
+    "path": "README.md",
+    "before": "dfa88efc3c70f75c1ee75445e63aaba4beaa7b7ea6ffca5056eff8c342a6e90b",
+    "after": "4f58280983fc745279562467b57d70e22d6e936a96b5b92c9fe68d6c6f2b90ed"
+  },
+  {
+    "path": "app/Http/Controllers/Api/V1/ScenarioComparisonController.php",
+    "before": "bd10a71287af962674e70fa4155735c20edc02bcdd76d07235b2d4ac85b0aecf",
+    "after": "b2591bcd7528c38cfa73869c50b09c5fa511d6cbed2c97dd47cc12852aa5d307"
+  },
+  {
+    "path": "app/Http/Controllers/Api/V1/ScenarioController.php",
+    "before": "e99640c1c03c38cb1b6605f826745dce00f9483280139cf7d356369954887fe9",
+    "after": "bf6a8ff798ced91c5cdea91746f4b13f9bf32eaa22e5db5b86ea893eafc07c63"
+  },
+  {
+    "path": "app/Http/Controllers/Api/V1/ScenarioRequestController.php",
+    "before": "76ca00ddde829a44abdd4ca449b8c54beba06280616eafc0459e197d8f557402",
+    "after": "73e087aca2447d9917eff624bfcaca5a59257694eee4aff2bf4f1e275371dc63"
+  },
+  {
+    "path": "app/Jobs/ExecuteGenerationRunJob.php",
+    "before": "177fbd998d124896c61967b7ef0ef72b703c002bcadf8580a8f218cba488ddf4",
+    "after": "2bb1baa1402a2a136b27de234354201e581ae6e246a53b04fe84888c1ed4b0e2"
+  },
+  {
+    "path": "app/Jobs/GenerateComparisonJob.php",
+    "before": null,
+    "after": "ad7ad0856420ba4cf3202543c6137cbf6e29b76212b7505dfe7d3f7dc0a9ad19"
+  },
+  {
+    "path": "app/Providers/AppServiceProvider.php",
+    "before": "5b9e967f6b3fe82b19e432b0e43ad42965b3e79622e8d4945501b7e6fbf94255",
+    "after": "f24e9c454b7b75cd6868ac2d035ce13ca66292272b2905991d410f57af84bee2"
+  },
+  {
+    "path": "app/Services/Llm/ComparisonGenerationService.php",
+    "before": null,
+    "after": "e55327926504b4a8dc6708f04a5390887b863abbe328531ce01a3889e80ac619"
+  },
+  {
+    "path": "app/Services/Llm/LiteLlmProvider.php",
+    "before": null,
+    "after": "24dfaab32fb9053c2182c2b5769e3da302a4243ab5f4886becd310a8ab77f2f1"
+  },
+  {
+    "path": "app/Services/Llm/LlmProviderException.php",
+    "before": null,
+    "after": "ed7ed293f45c80f98ea540712e53369a6a491ec9a4f56c98cb0a4a39125dfc05"
+  },
+  {
+    "path": "app/Services/Llm/LlmProviderInterface.php",
+    "before": "9665087d9bf460243433c8b02151fec18701a4b8b07767d7c16c5aa6fb90027e",
+    "after": "0e27d4c627bbd0cb4a63618a3b8137daa5c89e6b4e7a5748b6d99f9fd2e82d77"
+  },
+  {
+    "path": "app/Services/Llm/LlmRuntime.php",
+    "before": null,
+    "after": "4df9f04cf818aa67d520e9caaf0c425dfbdf8e93fedaf1464d73b9ac6bd96c70"
+  },
+  {
+    "path": "app/Services/Llm/MockLlmProvider.php",
+    "before": "5cd1164680fed6a9c2ac73c30430a572dbb74a626728c9d515b162455a7d3ec8",
+    "after": "afbeabfa9bf572543320d72683abbf7a6c5297bc0261c00af7a6fbb55d7dfc0b"
+  },
+  {
+    "path": "app/Services/Llm/RequestedScenarioValidator.php",
+    "before": null,
+    "after": "fe7b22f6cea0134b7470286b41f4293d0483dac50996cb2d4bcbd3971b60ae7e"
+  },
+  {
+    "path": "app/Services/Llm/ScenarioOutputTemplate.php",
+    "before": null,
+    "after": "10f94237b4c761160a541f6acef5409c5db6aa608dd6e3fb4e066b4f48a21e1f"
+  },
+  {
+    "path": "app/Services/Llm/ScenarioPromptBuilder.php",
+    "before": null,
+    "after": "fc2e14e761ea4c50a0b0d35b98ab03f690bc20ad5b7dc83ae5b624e82164dba7"
+  },
+  {
+    "path": "app/Services/Llm/ScenarioQualityValidator.php",
+    "before": null,
+    "after": "272804b3f5b34b135081dc7a4e4a445684544ed72d767cb79bd30aa9d3c2db4a"
+  },
+  {
+    "path": "app/Services/Llm/TrustedGenerationContext.php",
+    "before": null,
+    "after": "52c694bd34957e488541f68c6ecf9694c905bb5a3bff05c4e906ec295a38ebd9"
+  },
+  {
+    "path": "app/Services/Llm/VariantLlmProviderInterface.php",
+    "before": null,
+    "after": "60a4f0934d59ae533ef3265b95743766e37218f8151c491ec230987afc238d80"
+  },
+  {
+    "path": "app/Services/ScenarioComparisonService.php",
+    "before": "12de4da71645b5d258c974f6392fb2d91bb9e8931863bcf5e8f7f9d9140dc8e2",
+    "after": "505db8610bb86f04f1eb86fda53e067204d4205ae77f6e24303e0c5e9d6590b2"
+  },
+  {
+    "path": "bootstrap/app.php",
+    "before": "0bcb7002a34e5590864f29d6ccc9904284e197c9e2d84f584fe6fb271fc8766b",
+    "after": "2439365eaadb84400ed51a86d78d7747ca15ab72d9165c7164647a3e0d0ab6e0"
+  },
+  {
+    "path": "config/llm.php",
+    "before": null,
+    "after": "492c1b6ee5e78c9ad0793dd43d99dbc595c7689153fe281d1119c567ee541cf3"
+  },
+  {
+    "path": "config/queue.php",
+    "before": "6101774da7c8b79af46d0028f2b8b31a484c3f7eda10b76e5b27b6093ad364a4",
+    "after": "111b3ced7091bccaf5e69e3c1da7556c5fa5003d97ac7c7d8a79a6c22fa6ddec"
+  },
+  {
+    "path": "database/factories/UserFactory.php",
+    "before": "4e7285ebd1f118b5fa99ef8106fbf745436492019626f647e2d17d4a32bf5e5f",
+    "after": "53ffda6b8f6ce42ae009060ad5f43ce789d18b7b215aad724b6094f4a3420836"
+  },
+  {
+    "path": "docker-compose.yml",
+    "before": "6301fd516cfdfa475f00538fe66784bca4ac05bd0c8960b053caae5997594626",
+    "after": "e337668b47d96ec0204e0d72f0b44a4cc9c04079f24a696a6668a50882dca230"
+  },
+  {
+    "path": "docs/LLM-001-review.md",
+    "before": null,
+    "after": "5d75c7894e5b2cff9eb16bca537a20ed14e565ca30012d50eaf2607ff79a910d"
+  },
+  {
+    "path": "docs/api-contract.md",
+    "before": "e6d025887c52944598ad394bee51086bfe3fcb7882f1570a7dc63a24ead2ae9d",
+    "after": "89d454fdeb9687ba308655ac990d66b891aabe1f5dfe7f30a582b0cf556d5780"
+  },
+  {
+    "path": "docs/architecture.md",
+    "before": "0738be7232588e93b016bc55bfdee7bbb2af0102fc778f1dd3fb8786f229ddf8",
+    "after": "7e323a19f1d079f4905010635e3a2f0c44dfab2b9144f3c32a62866f4794709a"
+  },
+  {
+    "path": "docs/llm-provider-integration.md",
+    "before": "a485c7e522bbcd48fc4dc0121e2c96358bafb5ed38410a272010cfb453e22aa2",
+    "after": "fa388c5b7b83d0ccdaf3904530b9668ede6091e375382d4e3e9da4bf67c6107f"
+  },
+  {
+    "path": "docs/openapi.yaml",
+    "before": "c1ea25be28cb5568efb106fecb6fa85eccdde8ef384889522e6a0e19e58a4ac8",
+    "after": "5d0d6067dcdd7311d00e88658e6f61160a472cd93846c3c2d046bd71258057c0"
+  },
+  {
+    "path": "docs/queues-llm001.md",
+    "before": null,
+    "after": "9c594779509a6f823ac0b34ab3e6ab8e1307925cb34451778bbd49b8b84fefbd"
+  },
+  {
+    "path": "phpunit.xml",
+    "before": "1d20aa94bf9e3216b784e393e856afcd82339ab6bc079f78a34f8dbbad7a2673",
+    "after": "09df6fbe580c189ab8b5abe4f156402932d4a4f1ea49a98140550853f40a16f1"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.0.0.txt",
+    "before": null,
+    "after": "3c677991cb232f41ae016f5568edd3dd45c8669cc349848dc7765daae2471026"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.0.1.txt",
+    "before": null,
+    "after": "419dcaa00607e17812c30f8806608dbac86ca6cb876760a72b9c69632eeedf80"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.0.2.txt",
+    "before": null,
+    "after": "6cda5c1fc7b30ba3fe45aaef4e75727602e495ad7fab7a499fc7d73b5a4004ad"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.1.0.txt",
+    "before": null,
+    "after": "6cda5c1fc7b30ba3fe45aaef4e75727602e495ad7fab7a499fc7d73b5a4004ad"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.2.0.txt",
+    "before": null,
+    "after": "6cda5c1fc7b30ba3fe45aaef4e75727602e495ad7fab7a499fc7d73b5a4004ad"
+  },
+  {
+    "path": "resources/prompts/scenario-methodist-1.2.1.txt",
+    "before": null,
+    "after": "debef1d99c742fb7495ed09eeba62ca029e36502be4fbd9b04e7854445183b46"
+  },
+  {
+    "path": "scripts/llm001-gateway-probe.py",
+    "before": null,
+    "after": "5b0f0335ca19068ee931fce1a919e23930f69da54a41f73c9e76ad6d0fe739d0"
+  },
+  {
+    "path": "scripts/llm001-provider-smoke.php",
+    "before": null,
+    "after": "02c7beca1be27ed632ecc352e980cecde588dd41d05cc23d34cc172a67dba5f1"
+  },
+  {
+    "path": "scripts/llm001-worker.php",
+    "before": null,
+    "after": "a29c57f4d9a6139832569e811354360b7ee000c902bb048fb2c8dc33244b40cb"
+  },
+  {
+    "path": "tests/Feature/LiteLlmPipelineTest.php",
+    "before": null,
+    "after": "d8504725a1919c69b95b9559c62d5424cfcbbf84f26bfd7e82cac977c62533e0"
+  },
+  {
+    "path": "tests/Feature/LiteLlmProviderTest.php",
+    "before": null,
+    "after": "340f1f85b3bf610b38d06fd432d8e2880684e4b6b7042c8007dbc51646e49013"
+  },
+  {
+    "path": "tests/Feature/LlmGenerationTest.php",
+    "before": "b35ab3d0059062451f9446f1177e9810a5dab2529ef6c29c2719f2e4e01efed8",
+    "after": "c63f7b8bd47635cb301e08021b2c1983bb4da085875ac171cfcce91091df41ea"
+  },
+  {
+    "path": "tests/TestCase.php",
+    "before": "328fbe80f7e7eebb99258e05ff472adea0d87a90bf6e3d91aef4ba3edec532b5",
+    "after": "2e9136cf726e9cced92b7fb6fd1111a92c5a9514b2b5b1c82e714316d9be101e"
+  }
+]

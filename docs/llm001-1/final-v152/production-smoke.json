@@ -1,0 +1,48 @@
+{
+  "url": "http://127.0.0.1:3001/",
+  "status": 200,
+  "assets": [
+    {
+      "path": "/_nuxt/entry.B_-rr3qI.css",
+      "status": 200,
+      "bytes": 61439
+    },
+    {
+      "path": "/_nuxt/CfPS29kr.js",
+      "status": 200,
+      "bytes": 107669
+    },
+    {
+      "path": "/_nuxt/26P8NaWu.js",
+      "status": 200,
+      "bytes": 17474
+    },
+    {
+      "path": "/_nuxt/xfpO2uTb.js",
+      "status": 200,
+      "bytes": 78025
+    },
+    {
+      "path": "/_nuxt/ZYXvPAUY.js",
+      "status": 200,
+      "bytes": 11182
+    },
+    {
+      "path": "/_nuxt/C4tdExf6.js",
+      "status": 200,
+      "bytes": 7208
+    },
+    {
+      "path": "/_nuxt/dX5XqHpT.js",
+      "status": 200,
+      "bytes": 5965
+    },
+    {
+      "path": "/_nuxt/CfPS29kr.js",
+      "status": 200,
+      "bytes": 107669
+    }
+  ],
+  "apiOrigin": "http://localhost:8000",
+  "scope": "Built Nuxt HTTP shell and static assets only; authenticated generation covered separately by isolated HTTP E2E. No visual review performed."
+}

@@ -3,10 +3,13 @@
 use App\Http\Middleware\AssignTraceId;
 use App\Http\Middleware\EnsureActiveUser;
 use App\Http\Middleware\IdentifyTenantScope;
+use App\Http\Middleware\PreventTenantInjection;
+use App\Services\Llm\LlmProviderException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Log;
@@ -28,9 +31,12 @@ return Application::configure(basePath: dirname(__DIR__))
         // 2. Sanctum standard stateful API session pipeline for Nuxt 4 SPA
         $middleware->statefulApi();
 
+        // Never attempt route('login') redirects on API routes for guests
+        $middleware->redirectGuestsTo(fn (Request $request) => null);
+
         // 3. Prevent tenant injection globally on API group
         $middleware->api(append: [
-            \App\Http\Middleware\PreventTenantInjection::class,
+            PreventTenantInjection::class,
         ]);
 
         // 4. Aliases for route-level guards
@@ -133,8 +139,13 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         // Direct HTTP Response Exceptions (e.g. RateLimiter custom response, abort())
-        $exceptions->render(function (\Illuminate\Http\Exceptions\HttpResponseException $e) {
+        $exceptions->render(function (HttpResponseException $e) {
             return $e->getResponse();
+        });
+
+        $exceptions->render(function (LlmProviderException $e, Request $request) {
+            return response()->json(['error' => ['code' => $e->errorCode, 'message' => $e->getMessage(), 'details' => [],
+                'trace_id' => $request->attributes->get('trace_id') ?: 'req-system']], 503);
         });
 
         // 500 Uncaught / Internal Server Error (never leak stack trace or internal paths)

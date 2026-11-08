@@ -267,7 +267,7 @@
 
 ---
 
-## 6. Домен Сценариев и Ревизий (5 таблиц)
+## 6. Домен Сценариев и Ревизий (6 таблиц)
 
 ### 6.1. `scenarios` (Контейнер сценария мероприятия)
 | Поле | Тип | Nullable | Описание / Ограничения |
@@ -348,6 +348,27 @@
 | `updated_at` | `timestamptz` | NO | DEFAULT `CURRENT_TIMESTAMP` |
 
 *(Обратите внимание: статус `signed_off` исключён из перечисления, так как подтверждение педагога вынесено в отдельный журнал `teacher_signoffs`).*
+
+### 6.6. `scenario_comparisons` (Сессии A/B-сравнения сценариев) (BE-008)
+| Поле | Тип | Nullable | Описание / Ограничения |
+|---|---|---|---|
+| `id` | `uuid` | NO | PK (UUIDv7) |
+| `school_id` | `uuid` | NO | FK -> `schools.id` ON DELETE RESTRICT |
+| `user_id` | `uuid` | NO | FK -> `users.id` ON DELETE RESTRICT (автор сессии) |
+| `scenario_request_id`| `uuid` | NO | FK -> `scenario_requests.id` ON DELETE RESTRICT |
+| `comparison_type` | `varchar(64)` | NO | `CHECK (comparison_type IN ('universal_vs_personalized', 'cultural_context'))` |
+| `variant_a_scenario_id`| `uuid` | NO | FK -> `scenarios.id` ON DELETE CASCADE (Вариант A) |
+| `variant_b_scenario_id`| `uuid` | NO | FK -> `scenarios.id` ON DELETE CASCADE (Вариант B) |
+| `differences_summary`| `jsonb` | YES | Структурированное резюме методических отличий |
+| `selected_variant` | `varchar(32)` | YES | `CHECK (selected_variant IN ('variant_a', 'variant_b'))` (выбор педагога) |
+| `selected_by_user_id`| `uuid` | YES | FK -> `users.id` (пользователь, зафиксировавший выбор) (BE-008.1) |
+| `selection_rationale`| `text` | YES | Методическое обоснование выбора педагога |
+| `selected_at` | `timestamptz` | YES | Время фиксации выбора (неизменяемое) |
+| `is_synthetic` | `boolean` | NO | DEFAULT `false` (признак синтетических тестовых данных) (BE-008.1) |
+| `created_at` | `timestamptz` | NO | DEFAULT `CURRENT_TIMESTAMP` |
+| `updated_at` | `timestamptz` | NO | DEFAULT `CURRENT_TIMESTAMP` |
+
+- **Правило целостности:** Зафиксированный выбор педагога (`selected_variant`) строго неизменяем (защита от фальсификации). Повторный выбор отклоняется ошибкой `409 Conflict`.
 
 ---
 
@@ -434,12 +455,17 @@
 |---|---|---|---|
 | `id` | `uuid` | NO | PK (UUIDv7) |
 | `school_id` | `uuid` | NO | FK -> `schools.id` ON DELETE RESTRICT |
-| `anonymous_code` | `varchar(64)` | NO | Псевдоним (напр. `'TEACHER-URFU-014'`) (UNIQUE) |
-| `invite_token_hash`| `varchar(64)`| NO | Хэш одноразового пригласительного токена |
+| `anonymous_code` | `varchar(64)` | NO | Псевдоним (напр. `'TEACHER-SVR-014'`) (UNIQUE) |
+| `invite_token_hash`| `varchar(64)`| NO | SHA-256 хэш одноразового пригласительного токена (UNIQUE) |
 | `subject_area` | `varchar(100)` | NO | Предметная область |
 | `teaching_experience_years`| `smallint`| NO | Стаж работы |
 | `is_submitted` | `boolean` | NO | DEFAULT `false` |
+| `is_synthetic` | `boolean` | NO | DEFAULT `false` (признак синтетических тестовых данных) (BE-008.1) |
+| `expires_at` | `timestamptz` | NO | Срок действия токена |
+| `revoked_at` | `timestamptz` | YES | Дата отзыва приглашения |
+| `used_at` | `timestamptz` | YES | Дата использования токена |
 | `created_at` | `timestamptz` | NO | DEFAULT `CURRENT_TIMESTAMP` |
+| `updated_at` | `timestamptz` | NO | DEFAULT `CURRENT_TIMESTAMP` |
 
 ### 9.2. `pilot_responses` (Метрики эффективности подготовки)
 | Поле | Тип | Nullable | Описание / Ограничения |
@@ -447,14 +473,16 @@
 | `id` | `uuid` | NO | PK (UUIDv7) |
 | `participant_id` | `uuid` | NO | FK -> `pilot_participants.id` ON DELETE CASCADE (1:1) |
 | `scenario_id` | `uuid` | NO | FK -> `scenarios.id` ON DELETE RESTRICT |
+| `comparison_id` | `uuid` | YES | FK -> `scenario_comparisons.id` ON DELETE SET NULL (BE-008.1) |
 | `prep_time_baseline_minutes`| `integer`| NO | Базовое время без ИИ в минутах |
 | `prep_time_ai_minutes` | `integer` | NO | Время с ИИ в минутах |
 | `relative_time_saving` | `numeric(5,4)`| NO | Относительное сокращение: `(T_base - T_ai) / T_base` |
-| `personalization_selected`| `boolean` | NO | Выбран персонализированный вариант |
+| `personalization_selected`| `boolean` | NO | Субъективный выбор персонализации в опросе (`self_reported`) |
 | `manual_edit_percentage` | `numeric(5,2)`| NO | Процент ручной доработки (0.00%..100.00%) |
 | `cultural_context_used` | `boolean` | NO | Использован этнокультурный контекст |
 | `cultural_usefulness_score`| `smallint`| NO | Оценка полезности (1..5) |
 | `feedback_text` | `text` | YES | Текстовый отзыв |
+| `is_synthetic` | `boolean` | NO | DEFAULT `false` (признак синтетических тестовых данных) (BE-008.1) |
 | `created_at` | `timestamptz` | NO | DEFAULT `CURRENT_TIMESTAMP` |
 
 - **Ограничения:** `UNIQUE (participant_id)`.
@@ -464,8 +492,13 @@
 |---|---|---|---|
 | `id` | `uuid` | NO | PK (UUIDv7) |
 | `pilot_response_id` | `uuid` | NO | FK -> `pilot_responses.id` ON DELETE CASCADE |
+| `expert_user_id` | `uuid` | YES | FK -> `users.id` (эксперт) |
 | `expert_name` | `varchar(255)` | NO | ФИО эксперта-этнографа |
-| `expert_audit_status`| `varchar(32)` | NO | `CHECK (expert_audit_status IN ('pending_audit', 'audited'))` |
+| `expert_audit_status`| `varchar(32)` | NO | `CHECK (expert_audit_status IN ('pending_audit', 'audited', 'rejected'))` |
 | `critical_cultural_errors`| `integer` | NO | Количество P0-ошибок (цель по ТЗ: строго 0) |
 | `methodological_remarks`| `text` | YES | Замечания эксперта |
+| `finding_version` | `integer` | NO | DEFAULT `1` (версия экспертизы, инкрементируется при правках) (BE-008.1) |
+| `is_effective` | `boolean` | NO | DEFAULT `true` (актуальная действующая версия) (BE-008.1) |
 | `reviewed_at` | `timestamptz` | YES | Дата проведения экспертизы |
+
+- **Правило хранения истории (BE-008.1):** Таблица `pilot_review_findings` является строго **Append-only**. Повторные экспертизы или правки не перезаписывают запись, а создают новую версию (`finding_version = N+1, is_effective = true`), переводя предыдущие версии в `is_effective = false`. В расчет метрик входит строго последняя действующая версия (`is_effective = true`).

@@ -1,0 +1,107 @@
+[
+  {
+    "path": "app/assets/css/fe010.css",
+    "before": "8d4610c69eccc46e819653da45ae0ff4daf5d3fedd8fc49c4061bf12c014e47a",
+    "after": "a491e14f446ff70ab4fc4b844de14f187c0e44a3282878a24cbcf0beb671a162"
+  },
+  {
+    "path": "app/components/features/scenarios/ScenarioJson.vue",
+    "before": "3e53c89f75cdf49dfe2c652e4179978ef8fdf5429a63e53f1216f56541a41529",
+    "after": "9972e6134832936a08d3889a96ca9b58c69fb5d63e505969c4bc0abdd9a7d54b"
+  },
+  {
+    "path": "app/components/features/scenarios/ScenarioResult.vue",
+    "before": "a6f69a2ac7943cfee50d0b49ee8c8097f02e2d796b3f4325db94a6a8656847b8",
+    "after": "3fe0bcbbe74d77d490b09d1fe7c4f807d43a028d63befa6353bf648b011ba59e"
+  },
+  {
+    "path": "app/pages/comparisons.vue",
+    "before": "9e1ea492167b801e450044a8dcfa810a1e37d57450c602d0235956df05dd207d",
+    "after": "5c5da42cbd94d9bc9ecea60f28efef1a594f30218cf164359204ed32f462c411"
+  },
+  {
+    "path": "app/types/generation.ts",
+    "before": "59b35a5d86de32602292581029a4a2069065bd77c6c11a7558e20459ef2a4e0c",
+    "after": "36062517ffa0d2ed74bc244849e5233b487e01764f49bd8f8fda53a6fd47a2f1"
+  },
+  {
+    "path": "app/types/openapi.d.ts",
+    "before": "1d3953609233a04b89058e4fbc5cba86a26015156d31b0a05ff66c51eabf077d",
+    "after": "0901ea991d9b99c35ce8a8f9b4d16f5d54067d73c0d0b2a0420ac8e3d01d4426"
+  },
+  {
+    "path": "app/utils/comparisons-api.ts",
+    "before": "c2cb7ecfcb77393ecda61826645a9a2a639fa67423e0affe4e8dd12ad939c20c",
+    "after": "bd0df909d039eb2cae8cfbfc035cba2ad1cca7dda4201255b2c1fb43e1230b64"
+  },
+  {
+    "path": "app/utils/comparisons-controller.ts",
+    "before": "774e9b4c145671119204b91e014cfbe6fdf5dad5ebf4849d8a5d16aec33f1d81",
+    "after": "4eeb57d6696dce39f3ebc55f2219321cebfac70b35dcb128a04c1d1230bf9b1d"
+  },
+  {
+    "path": "app/utils/generation.ts",
+    "before": "74bf36fd8793dd3f760d5ea8a5f6f88d9f547896b2cff3c383400b756a62d355",
+    "after": "1856c023d8de52c2785abb2aae2d513a30cd46d84f5bcb7abb85367145ba7d3d"
+  },
+  {
+    "path": "scripts/llm001-sync-openapi.mjs",
+    "before": null,
+    "after": "621b12ec33aa9fd49f21be44792b3df2131db9fbfa2bfb17cf58b32b88a7bbc1"
+  },
+  {
+    "path": "scripts/package-llm001.py",
+    "before": null,
+    "after": "c4b94d00a20f355337218b59a1f11f3b57a0db6f4ed69152e055f799f05a5307"
+  },
+  {
+    "path": "scripts/verify-llm001.py",
+    "before": null,
+    "after": "3c1988139c8116404370bfbc265e0ed65dcaeb357dc4b1dfa5d57de621d18873"
+  },
+  {
+    "path": "tests/backend/llm001-compose.override.yml",
+    "before": null,
+    "after": "511d14598636731eb84d70fa169e791e7ee623dceee09ef49108494606889170"
+  },
+  {
+    "path": "tests/backend/llm001-fixtures.php",
+    "before": null,
+    "after": "b5af94942b79a19ff9fce172509e2fa7b406d2d3cdbd6a90e223566c1483aff3"
+  },
+  {
+    "path": "tests/backend/llm001-redelivery.php",
+    "before": null,
+    "after": "e86dcc9e780fb383da6a5b0abff3b59d4d62de2cd23787da2e4665d64d4c2e10"
+  },
+  {
+    "path": "tests/backend/llm001-revalidate.php",
+    "before": null,
+    "after": "633070ef53a37adb2cc04f410eec90645c6bced3c4854ebaef63993d30fa6196"
+  },
+  {
+    "path": "tests/backend/llm001-state.php",
+    "before": null,
+    "after": "be2a7321b125604a16aef218b02bad6a534ba1f237036868be9eb58e651b46fd"
+  },
+  {
+    "path": "tests/llm001.corrective.mjs",
+    "before": null,
+    "after": "182552d8821c43d4076394655559d92d893330ae6c22ce18463814236814eadf"
+  },
+  {
+    "path": "tests/llm001.live.mjs",
+    "before": null,
+    "after": "52832ca6b8ca5fbdf9b32b4979e5982d0eecd58ebeacabaaee3729001ff789b6"
+  },
+  {
+    "path": "tests/llm001.provenance.mjs",
+    "before": null,
+    "after": "1c8e74cc188b18b04213703f84806e7746d13cade0dd8aa6577bab06b1609d46"
+  },
+  {
+    "path": "tests/llm001.test.ts",
+    "before": null,
+    "after": "3dae7e32894fbb7d9f4a0e67116f5297f5e4502e1ddc54e88e1969d2211b273a"
+  }
+]

@@ -31,12 +31,19 @@ class CulturalClaimSource extends Model
         'verified_at',
         'applicable_academic_year',
         'notes',
+        'is_detached',
+        'detached_at',
+        'detached_by_user_id',
+        'detachment_reason',
+        'previous_verification_status',
         'created_at',
     ];
 
     protected function casts(): array
     {
         return [
+            'is_detached' => 'boolean',
+            'detached_at' => 'datetime',
             'verified_at' => 'datetime',
             'created_at' => 'datetime',
         ];
@@ -60,5 +67,15 @@ class CulturalClaimSource extends Model
     public function verifiedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'verified_by_user_id');
+    }
+
+    public function detachedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'detached_by_user_id');
+    }
+
+    public function auditEvents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CulturalClaimEvidenceAuditEvent::class, 'cultural_claim_source_id')->orderBy('created_at', 'asc');
     }
 }

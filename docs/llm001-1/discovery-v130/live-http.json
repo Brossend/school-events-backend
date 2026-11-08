@@ -1,0 +1,1837 @@
+{
+  "origin": "http://localhost:8001",
+  "runId": "7584e60137",
+  "completed": false,
+  "trace": [
+    {
+      "role": "guest",
+      "method": "GET",
+      "path": "/auth/me",
+      "status": 401
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/sanctum/csrf-cookie",
+      "status": 204,
+      "response": null
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200
+    },
+    {
+      "role": "regional",
+      "method": "GET",
+      "path": "/sanctum/csrf-cookie",
+      "status": 204,
+      "response": null
+    },
+    {
+      "role": "regional",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200
+    },
+    {
+      "role": "other",
+      "method": "GET",
+      "path": "/sanctum/csrf-cookie",
+      "status": 204,
+      "response": null
+    },
+    {
+      "role": "other",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/auth/me",
+      "status": 200
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/tenant/current",
+      "status": 200,
+      "response": {
+        "data": {
+          "school_id": "01a18da9-01dd-72ce-ada2-285b7f3b1852",
+          "school_name": "LLM0011 7584e60137 A · synthetic test school",
+          "role": "teacher"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests",
+      "status": 201,
+      "response": {
+        "data": {
+          "school_id": "01a18da9-01dd-72ce-ada2-285b7f3b1852",
+          "user_id": "01a18da9-02ee-72c5-a781-af28184122cd",
+          "calendar_event_id": null,
+          "tradition_version_id": null,
+          "custom_event_title": "LLM0011 7584e60137: мастерская взаимопомощи (class_level)",
+          "scale": "class_level",
+          "format_type": "class_hour",
+          "target_grades": [
+            5,
+            6
+          ],
+          "participants_count": 30,
+          "duration_minutes": 45,
+          "value_direction": "mutual_aid",
+          "family_involvement": false,
+          "available_resources": [
+            "бумага",
+            "карандаши",
+            "доска"
+          ],
+          "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана.",
+          "context_snapshot": {
+            "schema_version": "1.0.0",
+            "snapshot_timestamp": "2026-10-30T16:37:20+00:00",
+            "author": {
+              "user_id": "01a18da9-02ee-72c5-a781-af28184122cd",
+              "name": "LLM0011 teacher · synthetic",
+              "email": "llm0011-7584e60137-teacher@example.test"
+            },
+            "school": {
+              "id": "01a18da9-01dd-72ce-ada2-285b7f3b1852",
+              "name": "LLM0011 7584e60137 A · synthetic test school",
+              "region_code": "66"
+            },
+            "occasion": {
+              "type": "custom_title",
+              "title": "LLM0011 7584e60137: мастерская взаимопомощи (class_level)",
+              "calendar_event": null,
+              "tradition_version": null,
+              "custom_event_title": "LLM0011 7584e60137: мастерская взаимопомощи (class_level)",
+              "custom_region_code": "66"
+            },
+            "pedagogical_parameters": {
+              "scale": "class_level",
+              "format_type": "class_hour",
+              "target_grades": [
+                5,
+                6
+              ],
+              "participants_count": 30,
+              "duration_minutes": 45,
+              "value_direction": "mutual_aid",
+              "family_involvement": false,
+              "available_resources": [
+                "бумага",
+                "карандаши",
+                "доска"
+              ],
+              "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана."
+            },
+            "cultural_provenance": {
+              "sources": [],
+              "claims": []
+            }
+          },
+          "id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a18dac-49ff-72cb-bc06-da0480ec7b5b/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "generation_run_id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "run_id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "status": "queued",
+          "estimated_wait_seconds": 15,
+          "poll_url": "/api/v1/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "created_at": "2026-10-30T16:37:22+00:00"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a18dac-49ff-72cb-bc06-da0480ec7b5b/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "run_id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "queued",
+          "poll_url": "/api/v1/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "generation_run_id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "estimated_wait_seconds": 15
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+          "status": "failed",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": 122824,
+          "prompt_tokens": 18592,
+          "completion_tokens": 5438,
+          "error_code": "VALIDATION_FAILED",
+          "error_message": "{\"QUALITY_LITERAL_NEWLINE_$.materials.handouts.0.template_content\":[\"Используйте настоящие переносы строк JSON, не буквальные слеш-n. Текст: Бланк для решения задачи:\\\\n\\\\nГруппа: ___________\\\\n\\\\nДанные:\\\\n- Количество участников: ___________\\\\n- Бюджет: ___________\\\\n- Ресурсы и материалы: ___________\\\\n\\\\nРешение:\\\\n- Список ресурсов и их стоимость: ___________\\\\n- Количество участников и бюджет: ___________\\\\n\\\\nПример заполнения (все данные вымышлены):\\\\n\\\\nГруппа: 1\\\\n\\\\nДанные:\\\\n- Количество участников: 15\\\\n- Бюджет: 3000 рублей\\\\n- Ресурсы и материалы: 10 ноутбуков, 5 проекторов\\\\n\\\\nРешение:\\\\n- Список ресурсов и их стоимость: 10 ноутбуков (200 рублей за штуку), 5 проекторов (100 рублей за штуку)\\\\n- Количество участников и бюджет: 15 участников, бюджет 3000 рублей\"]}",
+          "created_at": "2026-10-30T16:37:22+00:00",
+          "completed_at": "2026-10-30T16:39:40+00:00"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests",
+      "status": 201,
+      "response": {
+        "data": {
+          "school_id": "01a18da9-01dd-72ce-ada2-285b7f3b1852",
+          "user_id": "01a18da9-02ee-72c5-a781-af28184122cd",
+          "calendar_event_id": null,
+          "tradition_version_id": null,
+          "custom_event_title": "LLM0011 7584e60137: мастерская взаимопомощи (all_school)",
+          "scale": "all_school",
+          "format_type": "quest",
+          "target_grades": [
+            5,
+            6
+          ],
+          "participants_count": 150,
+          "duration_minutes": 60,
+          "value_direction": "mutual_aid",
+          "family_involvement": false,
+          "available_resources": [
+            "бумага",
+            "карандаши",
+            "доска"
+          ],
+          "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана.",
+          "context_snapshot": {
+            "schema_version": "1.0.0",
+            "snapshot_timestamp": "2026-10-30T16:39:44+00:00",
+            "author": {
+              "user_id": "01a18da9-02ee-72c5-a781-af28184122cd",
+              "name": "LLM0011 teacher · synthetic",
+              "email": "llm0011-7584e60137-teacher@example.test"
+            },
+            "school": {
+              "id": "01a18da9-01dd-72ce-ada2-285b7f3b1852",
+              "name": "LLM0011 7584e60137 A · synthetic test school",
+              "region_code": "66"
+            },
+            "occasion": {
+              "type": "custom_title",
+              "title": "LLM0011 7584e60137: мастерская взаимопомощи (all_school)",
+              "calendar_event": null,
+              "tradition_version": null,
+              "custom_event_title": "LLM0011 7584e60137: мастерская взаимопомощи (all_school)",
+              "custom_region_code": "66"
+            },
+            "pedagogical_parameters": {
+              "scale": "all_school",
+              "format_type": "quest",
+              "target_grades": [
+                5,
+                6
+              ],
+              "participants_count": 150,
+              "duration_minutes": 60,
+              "value_direction": "mutual_aid",
+              "family_involvement": false,
+              "available_resources": [
+                "бумага",
+                "карандаши",
+                "доска"
+              ],
+              "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана."
+            },
+            "cultural_provenance": {
+              "sources": [],
+              "claims": []
+            }
+          },
+          "id": "01a18dae-792b-72dc-808f-59cbb0748c97"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a18dae-792b-72dc-808f-59cbb0748c97/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "generation_run_id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "run_id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "status": "queued",
+          "estimated_wait_seconds": 15,
+          "poll_url": "/api/v1/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "created_at": "2026-10-30T16:39:46+00:00"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a18dae-792b-72dc-808f-59cbb0748c97/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "run_id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "queued",
+          "poll_url": "/api/v1/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "generation_run_id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "estimated_wait_seconds": 15
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+          "status": "failed",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": 90878,
+          "prompt_tokens": 13620,
+          "completion_tokens": 5331,
+          "error_code": "VALIDATION_FAILED",
+          "error_message": "{\"QUALITY_LITERAL_NEWLINE_$.materials.handouts.0.template_content\":[\"Используйте настоящие переносы строк JSON, не буквальные слеш-n. Текст: Бланк для записи результатов:\\\\n\\\\nКоманда: ___________\\\\n\\\\nЗадание 1: ___________\\\\nРезультат: ___________\\\\n\\\\nЗадание 2: ___________\\\\nРезультат: ___________\\\\n\\\\nПример заполнения (все данные вымышлены):\\\\n\\\\nКоманда: 5А\\\\n\\\\nЗадание 1: Расчет общего количества фруктов\\\\nРезультат: 200 фруктов\\\\n\\\\nЗадание 2: Расчет общего времени на выполнение задач\\\\nРезультат: 75 минут\"],\"QUALITY_SCHOOL_LOGISTICS_$.stages\":[\"Для 100+ участников явно опишите: группы и количество в них. Текст: \",\"Для 100+ участников явно опишите: переходы с длительностью. Текст: \",\"Для 100+ участников явно опишите: очерёдность\\/потоки. Текст: \"]}",
+          "created_at": "2026-10-30T16:39:46+00:00",
+          "completed_at": "2026-10-30T16:41:26+00:00"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests",
+      "status": 201,
+      "response": {
+        "data": {
+          "school_id": "01a18da9-01dd-72ce-ada2-285b7f3b1852",
+          "user_id": "01a18da9-02ee-72c5-a781-af28184122cd",
+          "calendar_event_id": null,
+          "tradition_version_id": null,
+          "custom_event_title": "LLM0011 7584e60137: мастерская взаимопомощи (family_community)",
+          "scale": "family_community",
+          "format_type": "workshop",
+          "target_grades": [
+            5,
+            6
+          ],
+          "participants_count": 60,
+          "duration_minutes": 90,
+          "value_direction": "mutual_aid",
+          "family_involvement": true,
+          "available_resources": [
+            "бумага",
+            "карандаши",
+            "доска"
+          ],
+          "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана.",
+          "context_snapshot": {
+            "schema_version": "1.0.0",
+            "snapshot_timestamp": "2026-10-30T16:41:38+00:00",
+            "author": {
+              "user_id": "01a18da9-02ee-72c5-a781-af28184122cd",
+              "name": "LLM0011 teacher · synthetic",
+              "email": "llm0011-7584e60137-teacher@example.test"
+            },
+            "school": {
+              "id": "01a18da9-01dd-72ce-ada2-285b7f3b1852",
+              "name": "LLM0011 7584e60137 A · synthetic test school",
+              "region_code": "66"
+            },
+            "occasion": {
+              "type": "custom_title",
+              "title": "LLM0011 7584e60137: мастерская взаимопомощи (family_community)",
+              "calendar_event": null,
+              "tradition_version": null,
+              "custom_event_title": "LLM0011 7584e60137: мастерская взаимопомощи (family_community)",
+              "custom_region_code": "66"
+            },
+            "pedagogical_parameters": {
+              "scale": "family_community",
+              "format_type": "workshop",
+              "target_grades": [
+                5,
+                6
+              ],
+              "participants_count": 60,
+              "duration_minutes": 90,
+              "value_direction": "mutual_aid",
+              "family_involvement": true,
+              "available_resources": [
+                "бумага",
+                "карандаши",
+                "доска"
+              ],
+              "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана."
+            },
+            "cultural_provenance": {
+              "sources": [],
+              "claims": []
+            }
+          },
+          "id": "01a18db0-36bc-70f5-af70-f48b1ae6242b"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a18db0-36bc-70f5-af70-f48b1ae6242b/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "generation_run_id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "run_id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "status": "queued",
+          "estimated_wait_seconds": 15,
+          "poll_url": "/api/v1/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "created_at": "2026-10-30T16:41:40+00:00"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a18db0-36bc-70f5-af70-f48b1ae6242b/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "run_id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "queued",
+          "poll_url": "/api/v1/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "generation_run_id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "estimated_wait_seconds": 15
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a18db0-3faf-712a-88dd-5bf21cc141a0",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a18db0-3faf-712a-88dd-5bf21cc141a0",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a18db0-36bc-70f5-af70-f48b1ae6242b",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-30T16:41:40+00:00",
+          "completed_at": null
+        }
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "scale": "class_level",
+      "requestId": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+      "runId": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+      "result": {
+        "id": "01a18dac-515e-738f-96b7-5bc07b2731b9",
+        "status": "failed",
+        "scenario_id": null,
+        "revision_id": null,
+        "moderation_status": null,
+        "scenario_request_id": "01a18dac-49ff-72cb-bc06-da0480ec7b5b",
+        "provider_name": "litellm",
+        "model_identifier": "GigaChat-2-Max",
+        "attempts": 2,
+        "latency_ms": 122824,
+        "prompt_tokens": 18592,
+        "completion_tokens": 5438,
+        "error_code": "VALIDATION_FAILED",
+        "error_message": "{\"QUALITY_LITERAL_NEWLINE_$.materials.handouts.0.template_content\":[\"Используйте настоящие переносы строк JSON, не буквальные слеш-n. Текст: Бланк для решения задачи:\\\\n\\\\nГруппа: ___________\\\\n\\\\nДанные:\\\\n- Количество участников: ___________\\\\n- Бюджет: ___________\\\\n- Ресурсы и материалы: ___________\\\\n\\\\nРешение:\\\\n- Список ресурсов и их стоимость: ___________\\\\n- Количество участников и бюджет: ___________\\\\n\\\\nПример заполнения (все данные вымышлены):\\\\n\\\\nГруппа: 1\\\\n\\\\nДанные:\\\\n- Количество участников: 15\\\\n- Бюджет: 3000 рублей\\\\n- Ресурсы и материалы: 10 ноутбуков, 5 проекторов\\\\n\\\\nРешение:\\\\n- Список ресурсов и их стоимость: 10 ноутбуков (200 рублей за штуку), 5 проекторов (100 рублей за штуку)\\\\n- Количество участников и бюджет: 15 участников, бюджет 3000 рублей\"]}",
+        "created_at": "2026-10-30T16:37:22+00:00",
+        "completed_at": "2026-10-30T16:39:40+00:00"
+      }
+    },
+    {
+      "scale": "all_school",
+      "requestId": "01a18dae-792b-72dc-808f-59cbb0748c97",
+      "runId": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+      "result": {
+        "id": "01a18dae-83a9-7201-9d5f-60a2a6cbae2d",
+        "status": "failed",
+        "scenario_id": null,
+        "revision_id": null,
+        "moderation_status": null,
+        "scenario_request_id": "01a18dae-792b-72dc-808f-59cbb0748c97",
+        "provider_name": "litellm",
+        "model_identifier": "GigaChat-2-Max",
+        "attempts": 2,
+        "latency_ms": 90878,
+        "prompt_tokens": 13620,
+        "completion_tokens": 5331,
+        "error_code": "VALIDATION_FAILED",
+        "error_message": "{\"QUALITY_LITERAL_NEWLINE_$.materials.handouts.0.template_content\":[\"Используйте настоящие переносы строк JSON, не буквальные слеш-n. Текст: Бланк для записи результатов:\\\\n\\\\nКоманда: ___________\\\\n\\\\nЗадание 1: ___________\\\\nРезультат: ___________\\\\n\\\\nЗадание 2: ___________\\\\nРезультат: ___________\\\\n\\\\nПример заполнения (все данные вымышлены):\\\\n\\\\nКоманда: 5А\\\\n\\\\nЗадание 1: Расчет общего количества фруктов\\\\nРезультат: 200 фруктов\\\\n\\\\nЗадание 2: Расчет общего времени на выполнение задач\\\\nРезультат: 75 минут\"],\"QUALITY_SCHOOL_LOGISTICS_$.stages\":[\"Для 100+ участников явно опишите: группы и количество в них. Текст: \",\"Для 100+ участников явно опишите: переходы с длительностью. Текст: \",\"Для 100+ участников явно опишите: очерёдность\\/потоки. Текст: \"]}",
+        "created_at": "2026-10-30T16:39:46+00:00",
+        "completed_at": "2026-10-30T16:41:26+00:00"
+      }
+    }
+  ],
+  "comparisons": [],
+  "syntheticOnly": true,
+  "probe": {
+    "app_name": "Школьные события (Тестовый контур)",
+    "environment": "testing",
+    "database": "school_events_test",
+    "configured_database": "school_events_test",
+    "hostname": "72a8051e1567",
+    "server_port": "80"
+  }
+}

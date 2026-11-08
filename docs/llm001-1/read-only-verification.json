@@ -1,0 +1,26 @@
+{
+  "status": "PENDING INDEPENDENT REVIEW",
+  "result": [
+    {
+      "archive": "school-backend-llm001-1.zip",
+      "sha256": "c33419e0c7d394832b95c0b06d7feb98212b01257ee0da1bb3d7f2a1502448de",
+      "files": 514,
+      "crc": "PASS",
+      "manifest": "PASS",
+      "secretScan": "PASS",
+      "acceptanceEvidence": "ALL_FIVE_CASES_RECORDED",
+      "liveAcceptanceComplete": false
+    },
+    {
+      "archive": "school-events-frontend-llm001-1.zip",
+      "sha256": "b686b8ea12e786fa40b734c59d02b139e594fb5e211242df806b1fbf68ca882c",
+      "files": 1802,
+      "crc": "PASS",
+      "manifest": "PASS",
+      "secretScan": "PASS",
+      "acceptanceEvidence": "ALL_FIVE_CASES_RECORDED",
+      "liveAcceptanceComplete": false
+    }
+  ],
+  "method": "Independent ZIP reader; checked CRC, all bytes against manifest, local/derived secrets, live evidence, unchanged core hashes and review limitations."
+}

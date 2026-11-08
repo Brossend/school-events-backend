@@ -1,0 +1,25 @@
+{
+  "environment": "testing",
+  "database": "school_events_test",
+  "role": "school_test_user",
+  "provider": "mock",
+  "queue": "sync",
+  "redis_prefix": "school_events_test_redis_",
+  "model": null,
+  "prompt": "school-methodist-1.5.2",
+  "gate": "quality-2.3.6",
+  "planner_sha256": "b701b47c10e5704106f4d2c27bd61dbebfb02925f43ed932168cf4382facf62c",
+  "production": {
+    "provider": "mock",
+    "queue": "redis"
+  },
+  "http_probe": {
+    "app_name": "Школьные события (Тестовый контур)",
+    "environment": "testing",
+    "database": "school_events_test",
+    "configured_database": "school_events_test",
+    "hostname": "8c5e399b3874",
+    "server_port": "80"
+  },
+  "isolated_worker_stopped": true
+}

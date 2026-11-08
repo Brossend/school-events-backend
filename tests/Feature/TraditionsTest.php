@@ -388,4 +388,59 @@ class TraditionsTest extends TestCase
             $pdo1->exec("DELETE FROM users WHERE id = '{$userId}'");
         }
     }
+
+    public function test_tradition_list_includes_active_version_and_versions_array(): void
+    {
+        $tradition = SchoolTradition::create([
+            'school_id' => $this->schoolA->id,
+            'title' => 'День лицея',
+            'description' => 'Традиционный осенний праздник лицея с торжественной частью и концертом.',
+            'established_year' => 1995,
+            'created_by_user_id' => $this->teacherA->id,
+        ]);
+
+        TraditionVersion::create([
+            'tradition_id' => $tradition->id,
+            'academic_year' => '2023-2024',
+            'parameters_snapshot' => ['theme' => 'Юбилейный'],
+            'notes' => 'Первая версия',
+            'created_by_user_id' => $this->teacherA->id,
+            'created_at' => now()->subYear(),
+        ]);
+
+        TraditionVersion::create([
+            'tradition_id' => $tradition->id,
+            'academic_year' => '2024-2025',
+            'parameters_snapshot' => ['theme' => 'Современный'],
+            'notes' => 'Вторая версия',
+            'created_by_user_id' => $this->teacherA->id,
+            'created_at' => now(),
+        ]);
+
+        $response = $this->actingAs($this->teacherA)
+            ->withHeader('X-School-Id', $this->schoolA->id)
+            ->getJson("/api/v1/schools/{$this->schoolA->id}/traditions");
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'id',
+                    'title',
+                    'description',
+                    'established_year',
+                    'active_version' => ['id', 'academic_year', 'notes', 'created_at'],
+                    'versions' => [
+                        '*' => ['id', 'academic_year', 'notes', 'created_at'],
+                    ],
+                ],
+            ],
+        ]);
+
+        $items = $response->json('data');
+        $item = collect($items)->firstWhere('id', $tradition->id);
+        $this->assertNotNull($item);
+        $this->assertEquals('2024-2025', $item['active_version']['academic_year']);
+        $this->assertCount(2, $item['versions']);
+    }
 }

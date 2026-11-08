@@ -163,6 +163,10 @@ class ProvenanceVerificationService
                 'verified_at' => now(),
                 'applicable_academic_year' => $academicYear,
                 'notes' => $cleanNotes,
+                'is_detached' => false,
+                'detached_at' => null,
+                'detached_by_user_id' => null,
+                'detachment_reason' => null,
             ]
         );
     }
@@ -173,6 +177,11 @@ class ProvenanceVerificationService
      */
     public function evaluateStatus(CulturalClaimSource $claimSource): string
     {
+        // Detached evidence records are never authentic
+        if ($claimSource->is_detached) {
+            return 'unverified';
+        }
+
         // Explicitly rejected or disputed claims remain so
         if (in_array($claimSource->verification_status, ['disputed', 'rejected_fake'], true)) {
             return $claimSource->verification_status;
@@ -328,5 +337,322 @@ class ProvenanceVerificationService
         }
 
         return false;
+    }
+
+    /**
+     * Resolve claim identifier to canonical UUID string.
+     */
+    public function resolveClaimUuid(string $claimId): ?string
+    {
+        $clean = trim($claimId);
+        if (\Illuminate\Support\Str::isUuid($clean)) {
+            return $clean;
+        }
+
+        if (str_starts_with($clean, 'claim_')) {
+            $rest = substr($clean, 6);
+            if (\Illuminate\Support\Str::isUuid($rest)) {
+                return $rest;
+            }
+            if (strlen($rest) === 32 && ctype_xdigit($rest)) {
+                $formatted = substr($rest, 0, 8) . '-' . substr($rest, 8, 4) . '-' . substr($rest, 12, 4) . '-' . substr($rest, 16, 4) . '-' . substr($rest, 20);
+                if (\Illuminate\Support\Str::isUuid($formatted)) {
+                    return $formatted;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Check whether all verified_authentic cultural claims in a revision currently retain valid provenance.
+     * Enforces Level 1 Source Provenance and Level 2 Claim-to-Evidence Attestation.
+     * Validates every single cited evidence record in content_payload.cultural_claims[].evidence_records.
+     * If any source review has been rejected, amended, revoked, unlinked, or locator mismatched, export is blocked.
+     *
+     * @param \App\Models\ScenarioRevision $revision
+     * @return array{valid: bool, revoked_claims: array, reason: ?string}
+     */
+    public function verifyRevisionProvenanceAuthenticity(\App\Models\ScenarioRevision $revision): array
+    {
+        $payload = $revision->content_payload ?? [];
+        $claims = [];
+        if (! empty($payload['cultural_claims']) && is_array($payload['cultural_claims'])) {
+            $claims = array_merge($claims, $payload['cultural_claims']);
+        }
+        if (! empty($payload['cultural_context']['verified_claims']) && is_array($payload['cultural_context']['verified_claims'])) {
+            $claims = array_merge($claims, $payload['cultural_context']['verified_claims']);
+        }
+        if (! empty($payload['cultural_context']['cultural_claims']) && is_array($payload['cultural_context']['cultural_claims'])) {
+            $claims = array_merge($claims, $payload['cultural_context']['cultural_claims']);
+        }
+
+        if (empty($claims)) {
+            return ['valid' => true, 'revoked_claims' => [], 'reason' => null];
+        }
+
+        $revokedClaims = [];
+        $scenarioEventId = $revision->scenario?->scenarioRequest?->calendar_event_id;
+
+        foreach ($claims as $claim) {
+            if (! is_array($claim)) {
+                continue;
+            }
+
+            $status = (string) ($claim['server_verification_status'] ?? $claim['status'] ?? $claim['verification_status'] ?? 'unverified');
+            if ($status !== 'verified_authentic') {
+                continue;
+            }
+
+            $rawClaimId = (string) ($claim['claim_id'] ?? '');
+            if ($rawClaimId === '') {
+                $revokedClaims[] = [
+                    'claim_id' => null,
+                    'reason' => 'CLAIM_ID_MISSING',
+                    'message' => 'Культурное утверждение помечено как verified_authentic, но отсутствует идентификатор в реестре первоисточников (claim_id).',
+                ];
+                continue;
+            }
+
+            $claimUuid = $this->resolveClaimUuid($rawClaimId);
+            if (! $claimUuid) {
+                $revokedClaims[] = [
+                    'claim_id' => $rawClaimId,
+                    'reason' => 'CLAIM_NOT_FOUND',
+                    'message' => "Культурное утверждение {$rawClaimId} не найдено в реестре первоисточников.",
+                ];
+                continue;
+            }
+
+            $dbClaim = CulturalClaim::with(['evidenceRecords.source.reviews.reviewer', 'evidenceRecords.verifiedBy', 'event'])->find($claimUuid);
+            if (! $dbClaim) {
+                $revokedClaims[] = [
+                    'claim_id' => $rawClaimId,
+                    'reason' => 'CLAIM_NOT_FOUND',
+                    'message' => "Культурное утверждение {$rawClaimId} не найдено в реестре первоисточников.",
+                ];
+                continue;
+            }
+
+            // 1. Canonical text matching
+            $claimText = trim((string) ($claim['claim_text'] ?? ($claim['text'] ?? '')));
+            if (mb_strtolower(trim($dbClaim->claim_text)) !== mb_strtolower($claimText)) {
+                $revokedClaims[] = [
+                    'claim_id' => $rawClaimId,
+                    'reason' => 'CANONICAL_TEXT_ALTERED',
+                    'message' => "Текст утверждения {$rawClaimId} был изменён после серверной аттестации подлинности.",
+                ];
+                continue;
+            }
+
+            // Check scenario calendar event binding
+            if ($scenarioEventId && $dbClaim->calendar_event_id !== $scenarioEventId) {
+                $revokedClaims[] = [
+                    'claim_id' => $rawClaimId,
+                    'reason' => 'EVENT_MISMATCH',
+                    'message' => "Культурное утверждение {$rawClaimId} принадлежит другому календарному событию.",
+                ];
+                continue;
+            }
+
+            // 2. Read content_payload.cultural_claims[].evidence_records
+            $citedEvidence = $claim['evidence_records'] ?? null;
+            if (! is_array($citedEvidence) || empty($citedEvidence)) {
+                $revokedClaims[] = [
+                    'claim_id' => $rawClaimId,
+                    'reason' => 'NO_EVIDENCE_RECORDS',
+                    'message' => "Утверждение {$rawClaimId} помечено как verified_authentic, но массив evidence_records пуст или отсутствует.",
+                ];
+                continue;
+            }
+
+            // 3. Validate each cited evidence record
+            foreach ($citedEvidence as $evIndex => $ev) {
+                if (! is_array($ev)) {
+                    $revokedClaims[] = [
+                        'claim_id' => $rawClaimId,
+                        'reason' => 'INVALID_EVIDENCE_RECORD',
+                        'message' => "Запись evidence_records[{$evIndex}] утверждения {$rawClaimId} имеет некорректный формат.",
+                    ];
+                    continue;
+                }
+
+                $sourceId = (string) ($ev['event_source_id'] ?? '');
+                if (! \Illuminate\Support\Str::isUuid($sourceId)) {
+                    $revokedClaims[] = [
+                        'claim_id' => $rawClaimId,
+                        'source_id' => $sourceId,
+                        'reason' => 'INVALID_SOURCE_UUID',
+                        'message' => "В evidence_records утверждения {$rawClaimId} указан некорректный идентификатор первоисточника: '{$sourceId}'.",
+                    ];
+                    continue;
+                }
+
+                // Find matching CulturalClaimSource bound to dbClaim and this event_source_id (must not be detached)
+                $claimSource = $dbClaim->evidenceRecords->first(function ($cs) use ($sourceId) {
+                    return (string) $cs->event_source_id === $sourceId && ! $cs->is_detached;
+                });
+
+                if (! $claimSource) {
+                    $revokedClaims[] = [
+                        'claim_id' => $rawClaimId,
+                        'source_id' => $sourceId,
+                        'reason' => 'SOURCE_NOT_BOUND',
+                        'message' => "Первоисточник {$sourceId} не привязан к культурному утверждению {$rawClaimId} в реестре или был отвязан.",
+                    ];
+                    continue;
+                }
+
+                if ($claimSource->calendar_event_id !== $dbClaim->calendar_event_id) {
+                    $revokedClaims[] = [
+                        'claim_id' => $rawClaimId,
+                        'source_id' => $sourceId,
+                        'reason' => 'SOURCE_EVENT_MISMATCH',
+                        'message' => "Первоисточник {$sourceId} привязан к другому календарному событию.",
+                    ];
+                    continue;
+                }
+
+                // Check citation locator exact match
+                $citedLocator = trim((string) ($ev['citation_locator'] ?? ''));
+                $attestedLocator = trim((string) $claimSource->citation_locator);
+                if ($citedLocator === '' || mb_strtolower($citedLocator) !== mb_strtolower($attestedLocator)) {
+                    $revokedClaims[] = [
+                        'claim_id' => $rawClaimId,
+                        'source_id' => $sourceId,
+                        'reason' => 'CITATION_LOCATOR_MISMATCH',
+                        'message' => "Локатор цитаты '{$citedLocator}' не соответствует серверной аттестации первоисточника ('{$attestedLocator}').",
+                    ];
+                    continue;
+                }
+
+                // Check effective dynamic status
+                $effectiveStatus = $this->evaluateStatus($claimSource);
+                if ($effectiveStatus !== 'verified_authentic') {
+                    $revokedClaims[] = [
+                        'claim_id' => $rawClaimId,
+                        'source_id' => $sourceId,
+                        'reason' => 'PROVENANCE_REVOKED',
+                        'message' => "Рецензия или аттестация первоисточника {$sourceId} для утверждения {$rawClaimId} не действительна (статус: '{$effectiveStatus}').",
+                    ];
+                    continue;
+                }
+            }
+        }
+
+        if (! empty($revokedClaims)) {
+            return [
+                'valid' => false,
+                'revoked_claims' => $revokedClaims,
+                'reason' => 'PROVENANCE_REVOKED',
+            ];
+        }
+
+        return ['valid' => true, 'revoked_claims' => [], 'reason' => null];
+    }
+
+    /**
+     * Compute a deterministic cryptographic fingerprint of the provenance & evidence state
+     * underpinning a specific scenario revision.
+     *
+     * Captures:
+     * - The revision's cited claims and evidence records
+     * - Each bound CulturalClaimSource's verification status, effective status, citation locator,
+     *   citation excerpt, verified_at, and detachment state
+     * - Each EventSource's latest review ID, decision, reviewed_at, and bibliographic attributes
+     * - The latest evidence audit event for each claim-source pair
+     */
+    public function computeRevisionProvenanceFingerprint(\App\Models\ScenarioRevision $revision): string
+    {
+        $payload = $revision->content_payload ?? [];
+        $claims = [];
+        if (! empty($payload['cultural_claims']) && is_array($payload['cultural_claims'])) {
+            $claims = array_merge($claims, $payload['cultural_claims']);
+        }
+        if (! empty($payload['cultural_context']['verified_claims']) && is_array($payload['cultural_context']['verified_claims'])) {
+            $claims = array_merge($claims, $payload['cultural_context']['verified_claims']);
+        }
+        if (! empty($payload['cultural_context']['cultural_claims']) && is_array($payload['cultural_context']['cultural_claims'])) {
+            $claims = array_merge($claims, $payload['cultural_context']['cultural_claims']);
+        }
+
+        if (empty($claims)) {
+            return hash('sha256', 'no_claims_revision_' . $revision->id);
+        }
+
+        $snapshot = [];
+
+        foreach ($claims as $claim) {
+            if (! is_array($claim)) {
+                continue;
+            }
+
+            $rawClaimId = (string) ($claim['claim_id'] ?? '');
+            $claimUuid = $this->resolveClaimUuid($rawClaimId);
+            $dbClaim = $claimUuid
+                ? CulturalClaim::with(['evidenceRecords.source.reviews', 'evidenceRecords.auditEvents'])->find($claimUuid)
+                : null;
+
+            $claimData = [
+                'claim_id' => $claimUuid ?: $rawClaimId,
+                'claim_text' => trim((string) ($claim['claim_text'] ?? ($claim['text'] ?? ($dbClaim?->claim_text ?? '')))),
+                'evidence' => [],
+            ];
+
+            $citedEvidence = $claim['evidence_records'] ?? [];
+            if (is_array($citedEvidence)) {
+                foreach ($citedEvidence as $ev) {
+                    if (! is_array($ev)) {
+                        continue;
+                    }
+                    $sourceId = (string) ($ev['event_source_id'] ?? '');
+                    $sourceUuid = \Illuminate\Support\Str::isUuid($sourceId) ? $sourceId : null;
+                    $claimSource = $dbClaim?->evidenceRecords->first(function ($cs) use ($sourceId) {
+                        return (string) $cs->event_source_id === $sourceId;
+                    });
+
+                    $source = $claimSource?->source ?? ($sourceUuid ? EventSource::with('reviews')->find($sourceUuid) : null);
+                    $latestReview = $source?->reviews()
+                        ->orderBy('reviewed_at', 'desc')
+                        ->orderBy('id', 'desc')
+                        ->first();
+
+                    $latestAuditEvent = ($claimUuid && $sourceUuid)
+                        ? \App\Models\CulturalClaimEvidenceAuditEvent::where('cultural_claim_id', $claimUuid)
+                            ->where('event_source_id', $sourceUuid)
+                            ->orderBy('created_at', 'desc')
+                            ->orderBy('id', 'desc')
+                            ->first()
+                        : null;
+
+                    $claimData['evidence'][] = [
+                        'source_id' => $sourceId,
+                        'source_title' => $source?->title,
+                        'source_url' => $source?->url,
+                        'source_author' => $source?->author,
+                        'source_updated_at' => $source?->updated_at?->toIso8601String(),
+                        'latest_review_id' => $latestReview?->id,
+                        'latest_review_decision' => $latestReview?->decision,
+                        'latest_review_date' => $latestReview?->reviewed_at?->toIso8601String(),
+                        'claim_source_id' => $claimSource?->id,
+                        'citation_locator' => $claimSource?->citation_locator ?? ($ev['citation_locator'] ?? null),
+                        'citation_excerpt' => $claimSource?->citation_excerpt ?? ($ev['citation_excerpt'] ?? null),
+                        'verification_status' => $claimSource?->verification_status,
+                        'is_detached' => (bool) ($claimSource?->is_detached ?? false),
+                        'verified_at' => $claimSource?->verified_at?->toIso8601String(),
+                        'latest_audit_event_id' => $latestAuditEvent?->id,
+                        'latest_audit_action' => $latestAuditEvent?->action,
+                    ];
+                }
+            }
+
+            usort($claimData['evidence'], fn ($a, $b) => strcmp((string) $a['source_id'], (string) $b['source_id']));
+            $snapshot[] = $claimData;
+        }
+
+        usort($snapshot, fn ($a, $b) => strcmp((string) $a['claim_id'], (string) $b['claim_id']));
+
+        return hash('sha256', json_encode($snapshot, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     }
 }

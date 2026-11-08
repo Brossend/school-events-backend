@@ -31,7 +31,7 @@ class TenantResolver
         $traceId = (string) $request->attributes->get('trace_id');
         $requestedSchoolId = $request->header('X-School-Id');
 
-        // 1. If explicit X-School-Id is provided, validate strictly
+        // 1. If explicit X-School-Id is provided, validate strictly against user memberships
         if ($requestedSchoolId) {
             $membership = $user->memberships()->with('school')->where('school_id', $requestedSchoolId)->first();
 
@@ -109,6 +109,109 @@ class TenantResolver
         }
 
         // 5. Multiple memberships without default: explicit selection strictly required
+        throw new HttpResponseException(response()->json([
+            'error' => [
+                'code' => 'SCHOOL_SELECTION_REQUIRED',
+                'message' => 'У вас несколько школ без установленной школы по умолчанию. Передайте заголовок X-School-Id.',
+                'details' => [],
+                'trace_id' => $traceId,
+            ],
+        ], 422));
+    }
+
+    /**
+     * Resolve school context specifically for analytical and curator operations.
+     * Enforces curator regional boundaries and system admin privileges without granting
+     * operational access to standard school tenant routes.
+     *
+     * @throws HttpResponseException
+     */
+    public function resolveAnalyticalSchool(Request $request, User $user): School
+    {
+        $traceId = (string) $request->attributes->get('trace_id');
+        $requestedSchoolId = $request->header('X-School-Id');
+
+        if ($requestedSchoolId) {
+            $school = School::where('id', $requestedSchoolId)->first();
+
+            if (! $school) {
+                throw new HttpResponseException(response()->json([
+                    'error' => [
+                        'code' => 'SCHOOL_NOT_FOUND',
+                        'message' => 'Указанная образовательная организация не найдена.',
+                        'details' => [],
+                        'trace_id' => $traceId,
+                    ],
+                ], 404));
+            }
+
+            // 1. System admin has global analytical access
+            if ($user->isSystemAdmin()) {
+                return $school;
+            }
+
+            // 2. Catalog curator: verify regional scope
+            if ($user->isCurator()) {
+                if ($user->curator_scope !== 'regional') {
+                    return $school;
+                }
+                $allowedRegions = $user->curated_region_codes ?? [];
+                if (in_array($school->region_code, $allowedRegions, true)) {
+                    return $school;
+                }
+
+                throw new HttpResponseException(response()->json([
+                    'error' => [
+                        'code' => 'FORBIDDEN_TENANT_ACCESS',
+                        'message' => "Куратор региона не имеет доступа к показателям школы региона '{$school->region_code}'.",
+                        'details' => [],
+                        'trace_id' => $traceId,
+                    ],
+                ], 403));
+            }
+
+            // 3. Regular users: must have active membership in this school
+            $hasMembership = $user->memberships()->where('school_id', $school->id)->exists();
+            if ($hasMembership) {
+                return $school;
+            }
+
+            throw new HttpResponseException(response()->json([
+                'error' => [
+                    'code' => 'FORBIDDEN_TENANT_ACCESS',
+                    'message' => 'Вы не являетесь участником указанной школы.',
+                    'details' => [],
+                    'trace_id' => $traceId,
+                ],
+            ], 403));
+        }
+
+        // No X-School-Id provided: check if user has school memberships
+        $memberships = $user->memberships()->with('school')->get();
+
+        if ($memberships->isEmpty()) {
+            throw new HttpResponseException(response()->json([
+                'error' => [
+                    'code' => 'SCHOOL_SELECTION_REQUIRED',
+                    'message' => 'Для просмотра аналитических данных школы передайте заголовок X-School-Id.',
+                    'details' => [],
+                    'trace_id' => $traceId,
+                ],
+            ], 422));
+        }
+
+        if ($memberships->count() === 1) {
+            $singleSchool = $memberships->first()->school;
+            if ($singleSchool) {
+                return $singleSchool;
+            }
+        }
+
+        $defaultMembership = $memberships->firstWhere('is_default', true);
+        if ($defaultMembership && $defaultMembership->school) {
+            return $defaultMembership->school;
+        }
+
         throw new HttpResponseException(response()->json([
             'error' => [
                 'code' => 'SCHOOL_SELECTION_REQUIRED',

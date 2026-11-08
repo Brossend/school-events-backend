@@ -32,7 +32,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app/private'),
+            'root' => env('FILESYSTEM_PRIVATE_ROOT') ? (str_starts_with(env('FILESYSTEM_PRIVATE_ROOT'), '/') ? env('FILESYSTEM_PRIVATE_ROOT') : base_path(env('FILESYSTEM_PRIVATE_ROOT'))) : storage_path('app/private'),
             'serve' => true,
             'throw' => false,
             'report' => false,

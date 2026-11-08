@@ -1,0 +1,20 @@
+[
+  {
+    "name": "gateway-openapi",
+    "status": 200,
+    "latency_ms": 5016,
+    "content_type": "application/json"
+  },
+  {
+    "name": "gateway-models",
+    "status": 200,
+    "latency_ms": 5172,
+    "content_type": "application/json"
+  },
+  {
+    "name": "gateway-swagger",
+    "status": 200,
+    "latency_ms": 703,
+    "content_type": "text/html; charset=utf-8"
+  }
+]

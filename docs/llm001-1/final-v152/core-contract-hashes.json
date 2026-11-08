@@ -1,0 +1,27 @@
+[
+  {
+    "path": "docs/generation-output.schema.json",
+    "sha256": "e591fb8fa81cd82890a704eedf876e9a3ccf5cdb76ed6858d15834e0bc1e7b46",
+    "unchanged": true
+  },
+  {
+    "path": "app/Services/Llm/GenerationOutputValidator.php",
+    "sha256": "9428ad44ca64647e3447cb928424140207f3610c7ef670646e52d1cf5b255005",
+    "unchanged": true
+  },
+  {
+    "path": "app/Services/Llm/ScenarioSemanticValidator.php",
+    "sha256": "8b78e6c359898bf3e26223f37eef793ade0bc6e8db894f76df3800683c4fe86b",
+    "unchanged": true
+  },
+  {
+    "path": "app/Services/Llm/ServerNormalizationService.php",
+    "sha256": "ac4630f8e60802011b6836b251c6b2a4f9c6dc7852a0e2720407d1a0b227f143",
+    "unchanged": true
+  },
+  {
+    "path": "app/Services/ProvenanceVerificationService.php",
+    "sha256": "34ccabaa5b74fa5f50b24442c9e0f03d3659760a5a24963d1ab72298e4571561",
+    "unchanged": true
+  }
+]

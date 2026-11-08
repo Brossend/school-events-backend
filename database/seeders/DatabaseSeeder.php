@@ -36,12 +36,12 @@ class DatabaseSeeder extends Seeder
         // 2. Resolve credentials from environment or generate cryptographic random passwords
         $isTesting = app()->environment('testing');
 
-        $adminPassword = env('DEMO_ADMIN_PASSWORD') ?: ($isTesting ? 'TestAdminSecret2026!' : Str::password(24));
-        $curatorPassword = env('DEMO_CURATOR_PASSWORD') ?: ($isTesting ? 'TestCuratorSecret2026!' : Str::password(24));
-        $teacherPassword = env('DEMO_TEACHER_PASSWORD') ?: ($isTesting ? 'TestTeacherSecret2026!' : Str::password(24));
-        $directorPassword = env('DEMO_DIRECTOR_PASSWORD') ?: ($isTesting ? 'TestDirectorSecret2026!' : Str::password(24));
-        $multiPassword = env('DEMO_MULTI_PASSWORD') ?: ($isTesting ? 'TestMultiSecret2026!' : Str::password(24));
-        $blockedPassword = env('DEMO_BLOCKED_PASSWORD') ?: ($isTesting ? 'TestBlockedSecret2026!' : 'TestBlockedSecret2026!');
+        $adminPassword = env('DEMO_ADMIN_PASSWORD') ?: Str::password(24);
+        $curatorPassword = env('DEMO_CURATOR_PASSWORD') ?: Str::password(24);
+        $teacherPassword = env('DEMO_TEACHER_PASSWORD') ?: Str::password(24);
+        $directorPassword = env('DEMO_DIRECTOR_PASSWORD') ?: Str::password(24);
+        $multiPassword = env('DEMO_MULTI_PASSWORD') ?: Str::password(24);
+        $blockedPassword = env('DEMO_BLOCKED_PASSWORD') ?: Str::password(24);
 
         if (! $isTesting && ! env('DEMO_ADMIN_PASSWORD')) {
             $this->command?->warn("Generated secure DEMO_ADMIN_PASSWORD for admin@school-events.ru: {$adminPassword}");
@@ -124,6 +124,38 @@ class DatabaseSeeder extends Seeder
             'school_id' => $school1->id,
             'user_id' => $director1->id,
             'role' => 'school_admin',
+            'is_default' => true,
+        ]);
+
+        // 7.2 School Admin in School 2 (Гимназия 9)
+        $director2 = User::create([
+            'name' => 'Ольга Николаевна Смирнова',
+            'email' => 'director@gymn9.ru',
+            'password' => Hash::make($directorPassword),
+            'system_role' => 'none',
+            'is_active' => true,
+        ]);
+
+        SchoolMembership::create([
+            'school_id' => $school2->id,
+            'user_id' => $director2->id,
+            'role' => 'school_admin',
+            'is_default' => true,
+        ]);
+
+        // 7.3 Teacher in School 2 (Гимназия 9)
+        $teacher2 = User::create([
+            'name' => 'Анна Павловна Воронова',
+            'email' => 'teacher@gymn9.ru',
+            'password' => Hash::make($teacherPassword),
+            'system_role' => 'none',
+            'is_active' => true,
+        ]);
+
+        SchoolMembership::create([
+            'school_id' => $school2->id,
+            'user_id' => $teacher2->id,
+            'role' => 'teacher',
             'is_default' => true,
         ]);
 

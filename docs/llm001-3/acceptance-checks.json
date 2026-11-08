@@ -1,0 +1,353 @@
+{
+  "comparison_id": "01a1985f-fa04-72d6-a868-5330ef0d1d24",
+  "single_comparison_post": true,
+  "external_calls": 5,
+  "usage": {
+    "prompt_tokens": 35130,
+    "completion_tokens": 11697,
+    "total_tokens": 46827
+  },
+  "repair": [
+    {
+      "variant": "A",
+      "addressed_patch": {
+        "card_4": {
+          "back_text": "Убедитесь, что решение соответствует всем условиям задачи: потребности зон, общий запас и минимальные резервы. Проверьте, что решение команды является справедливым и обоснованным. Числовой ключ: 3 комплекта, расход 15/9, остаток 3/3."
+        }
+      },
+      "other_card_fields_unchanged": true,
+      "handouts_unchanged": true,
+      "untouched_sections": [
+        "concept",
+        "cultural_claims",
+        "expected_outcomes",
+        "pedagogical_goal",
+        "pedagogical_mechanism",
+        "pedagogical_tasks",
+        "preparation_checklist",
+        "props",
+        "roles",
+        "target_audience",
+        "value_direction"
+      ],
+      "front_lengths": [
+        285,
+        323,
+        324,
+        276,
+        282
+      ],
+      "back_lengths": [
+        157,
+        136,
+        132,
+        171,
+        233
+      ]
+    },
+    {
+      "variant": "B",
+      "addressed_patch": {
+        "card_4": {
+          "back_text": "Учитель проверяет, правильно ли участник проанализировал информацию и сделал выводы. Числовой ключ: 3 комплекта, расход 15/9, остаток 3/3."
+        }
+      },
+      "other_card_fields_unchanged": true,
+      "handouts_unchanged": true,
+      "untouched_sections": [
+        "concept",
+        "expected_outcomes",
+        "pedagogical_goal",
+        "pedagogical_mechanism",
+        "pedagogical_tasks",
+        "preparation_checklist",
+        "props",
+        "roles",
+        "target_audience",
+        "value_direction"
+      ],
+      "front_lengths": [
+        208,
+        217,
+        222,
+        175,
+        126
+      ],
+      "back_lengths": [
+        98,
+        103,
+        104,
+        84,
+        138
+      ]
+    }
+  ],
+  "pre_revoke": {
+    "A": {
+      "gate_version": "quality-2.3.6",
+      "status": "requires_review",
+      "technical_checks": "passed",
+      "expert_assessment": "not_performed",
+      "teacher_signoff_required": true,
+      "payload_sha256": "bace8cfb15627c3239e6b9ccc354ba04a3b666ec49fbe2a2d20788bd53daeedd",
+      "cultural_coverage": {
+        "version": "cultural-text-1.0.0",
+        "status": "requires_review",
+        "complete": false,
+        "scanned_string_count": 143,
+        "supported_assertions": [],
+        "findings": [],
+        "whole_document_verified": false,
+        "method": "recursive_all_string_leaves_exact_live_claim_matching_and_cue_rules",
+        "limitation": "Словарные правила могут пропускать перефразы и факты без дат/имён. Пустой cultural_claims и отсутствие находок не означают культурный PASS."
+      },
+      "findings": [],
+      "limitations": [
+        "Детерминированные правила не доказывают полноту извлечения фактов или педагогическую пригодность. Требуется ручная оценка всего текста."
+      ]
+    },
+    "B": {
+      "gate_version": "quality-2.3.6",
+      "status": "requires_review",
+      "technical_checks": "passed",
+      "expert_assessment": "not_performed",
+      "teacher_signoff_required": true,
+      "payload_sha256": "553d195221e7c9f7589707fe58efe179da55a64363b327a32439935f9a24934c",
+      "cultural_coverage": {
+        "version": "cultural-text-1.0.0",
+        "status": "requires_review",
+        "complete": false,
+        "scanned_string_count": 151,
+        "supported_assertions": [
+          {
+            "path": "$.materials.presentation_slides.1.bullet_points.0",
+            "text": "4 ноября — День народного единства в Российской Федерации.",
+            "claim_id": "01a1985e-b01b-70d5-897b-676362f98aed",
+            "evidence_records": [
+              {
+                "event_source_id": "01a1985e-b00e-7035-a2b4-a21ee80d145c",
+                "source_title": "Федеральный закон от 29.12.2004 № 201-ФЗ",
+                "citation_locator": "Статья 1: изменение статьи 112 ТК РФ, абзац о 4 ноября",
+                "verified_at": "2026-11-01T18:29:43+00:00"
+              }
+            ],
+            "status": "exact_supported_claim"
+          },
+          {
+            "path": "$.cultural_claims.0.claim_text",
+            "text": "4 ноября — День народного единства в Российской Федерации.",
+            "claim_id": "01a1985e-b01b-70d5-897b-676362f98aed",
+            "evidence_records": [
+              {
+                "event_source_id": "01a1985e-b00e-7035-a2b4-a21ee80d145c",
+                "source_title": "Федеральный закон от 29.12.2004 № 201-ФЗ",
+                "citation_locator": "Статья 1: изменение статьи 112 ТК РФ, абзац о 4 ноября",
+                "verified_at": "2026-11-01T18:29:43+00:00"
+              }
+            ],
+            "status": "exact_supported_claim"
+          },
+          {
+            "path": "$.cultural_claims.0.claimed_meaning",
+            "text": "4 ноября — День народного единства в Российской Федерации.",
+            "claim_id": "01a1985e-b01b-70d5-897b-676362f98aed",
+            "evidence_records": [
+              {
+                "event_source_id": "01a1985e-b00e-7035-a2b4-a21ee80d145c",
+                "source_title": "Федеральный закон от 29.12.2004 № 201-ФЗ",
+                "citation_locator": "Статья 1: изменение статьи 112 ТК РФ, абзац о 4 ноября",
+                "verified_at": "2026-11-01T18:29:43+00:00"
+              }
+            ],
+            "status": "exact_supported_claim"
+          }
+        ],
+        "findings": [
+          {
+            "code": "UNSUPPORTED_CULTURAL_TEXT",
+            "path": "$.materials.presentation_slides.2.speaker_notes",
+            "text": "Учитель говорит: «4 ноября — День народного единства в Российской Федерации.",
+            "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+            "severity": "review"
+          }
+        ],
+        "whole_document_verified": false,
+        "method": "recursive_all_string_leaves_exact_live_claim_matching_and_cue_rules",
+        "limitation": "Словарные правила могут пропускать перефразы и факты без дат/имён. Пустой cultural_claims и отсутствие находок не означают культурный PASS."
+      },
+      "findings": [
+        {
+          "code": "UNSUPPORTED_CULTURAL_TEXT",
+          "path": "$.materials.presentation_slides.2.speaker_notes",
+          "text": "Учитель говорит: «4 ноября — День народного единства в Российской Федерации.",
+          "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+          "severity": "review"
+        }
+      ],
+      "limitations": [
+        "Детерминированные правила не доказывают полноту извлечения фактов или педагогическую пригодность. Требуется ручная оценка всего текста."
+      ]
+    }
+  },
+  "post_revoke": {
+    "A": {
+      "gate_version": "quality-2.3.6",
+      "status": "requires_review",
+      "technical_checks": "passed",
+      "expert_assessment": "not_performed",
+      "teacher_signoff_required": true,
+      "payload_sha256": "bace8cfb15627c3239e6b9ccc354ba04a3b666ec49fbe2a2d20788bd53daeedd",
+      "cultural_coverage": {
+        "version": "cultural-text-1.0.0",
+        "status": "requires_review",
+        "complete": false,
+        "scanned_string_count": 143,
+        "supported_assertions": [],
+        "findings": [],
+        "whole_document_verified": false,
+        "method": "recursive_all_string_leaves_exact_live_claim_matching_and_cue_rules",
+        "limitation": "Словарные правила могут пропускать перефразы и факты без дат/имён. Пустой cultural_claims и отсутствие находок не означают культурный PASS."
+      },
+      "findings": [],
+      "limitations": [
+        "Детерминированные правила не доказывают полноту извлечения фактов или педагогическую пригодность. Требуется ручная оценка всего текста."
+      ]
+    },
+    "B": {
+      "gate_version": "quality-2.3.6",
+      "status": "blocked",
+      "technical_checks": "failed",
+      "expert_assessment": "not_performed",
+      "teacher_signoff_required": true,
+      "payload_sha256": "553d195221e7c9f7589707fe58efe179da55a64363b327a32439935f9a24934c",
+      "cultural_coverage": {
+        "version": "cultural-text-1.0.0",
+        "status": "requires_review",
+        "complete": false,
+        "scanned_string_count": 151,
+        "supported_assertions": [],
+        "findings": [
+          {
+            "code": "UNSUPPORTED_CULTURAL_TEXT",
+            "path": "$.materials.presentation_slides.1.bullet_points.0",
+            "text": "4 ноября — День народного единства в Российской Федерации.",
+            "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+            "severity": "review"
+          },
+          {
+            "code": "UNSUPPORTED_CULTURAL_TEXT",
+            "path": "$.materials.presentation_slides.2.speaker_notes",
+            "text": "Учитель говорит: «4 ноября — День народного единства в Российской Федерации.",
+            "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+            "severity": "review"
+          },
+          {
+            "code": "UNSUPPORTED_CULTURAL_TEXT",
+            "path": "$.cultural_claims.0.claim_text",
+            "text": "4 ноября — День народного единства в Российской Федерации.",
+            "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+            "severity": "review"
+          },
+          {
+            "code": "UNSUPPORTED_CULTURAL_TEXT",
+            "path": "$.cultural_claims.0.claimed_origin",
+            "text": "Федеральный закон от 29.12.2004 № 201-ФЗ",
+            "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+            "severity": "error"
+          },
+          {
+            "code": "UNSUPPORTED_CULTURAL_TEXT",
+            "path": "$.cultural_claims.0.claimed_meaning",
+            "text": "4 ноября — День народного единства в Российской Федерации.",
+            "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+            "severity": "review"
+          },
+          {
+            "code": "UNSUPPORTED_CULTURAL_TEXT",
+            "path": "$.cultural_claims.0.evidence_records.0.source_title",
+            "text": "Федеральный закон от 29.12.2004 № 201-ФЗ",
+            "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+            "severity": "error"
+          },
+          {
+            "code": "UNSUPPORTED_CULTURAL_TEXT",
+            "path": "$.cultural_claims.0.evidence_records.0.citation_locator",
+            "text": "Статья 1: изменение статьи 112 ТК РФ, абзац о 4 ноября",
+            "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+            "severity": "review"
+          }
+        ],
+        "whole_document_verified": false,
+        "method": "recursive_all_string_leaves_exact_live_claim_matching_and_cue_rules",
+        "limitation": "Словарные правила могут пропускать перефразы и факты без дат/имён. Пустой cultural_claims и отсутствие находок не означают культурный PASS."
+      },
+      "findings": [
+        {
+          "code": "UNSUPPORTED_CULTURAL_TEXT",
+          "path": "$.materials.presentation_slides.1.bullet_points.0",
+          "text": "4 ноября — День народного единства в Российской Федерации.",
+          "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+          "severity": "review"
+        },
+        {
+          "code": "UNSUPPORTED_CULTURAL_TEXT",
+          "path": "$.materials.presentation_slides.2.speaker_notes",
+          "text": "Учитель говорит: «4 ноября — День народного единства в Российской Федерации.",
+          "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+          "severity": "review"
+        },
+        {
+          "code": "UNSUPPORTED_CULTURAL_TEXT",
+          "path": "$.cultural_claims.0.claim_text",
+          "text": "4 ноября — День народного единства в Российской Федерации.",
+          "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+          "severity": "review"
+        },
+        {
+          "code": "UNSUPPORTED_CULTURAL_TEXT",
+          "path": "$.cultural_claims.0.claimed_origin",
+          "text": "Федеральный закон от 29.12.2004 № 201-ФЗ",
+          "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+          "severity": "error"
+        },
+        {
+          "code": "UNSUPPORTED_CULTURAL_TEXT",
+          "path": "$.cultural_claims.0.claimed_meaning",
+          "text": "4 ноября — День народного единства в Российской Федерации.",
+          "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+          "severity": "review"
+        },
+        {
+          "code": "UNSUPPORTED_CULTURAL_TEXT",
+          "path": "$.cultural_claims.0.evidence_records.0.source_title",
+          "text": "Федеральный закон от 29.12.2004 № 201-ФЗ",
+          "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+          "severity": "error"
+        },
+        {
+          "code": "UNSUPPORTED_CULTURAL_TEXT",
+          "path": "$.cultural_claims.0.evidence_records.0.citation_locator",
+          "text": "Статья 1: изменение статьи 112 ТК РФ, абзац о 4 ноября",
+          "message": "Этот фрагмент не совпадает с предоставленным подтверждённым утверждением. Исправьте, удалите или передайте на ручную проверку; дата праздника не подтверждает его историю.",
+          "severity": "review"
+        }
+      ],
+      "limitations": [
+        "Детерминированные правила не доказывают полноту извлечения фактов или педагогическую пригодность. Требуется ручная оценка всего текста."
+      ]
+    }
+  },
+  "request_latencies_ms": null,
+  "variant_latencies_ms": [
+    123729,
+    93064
+  ],
+  "note": "Per-call duration estimated from second-resolution request/response timestamps; variant latency is provider-measured.",
+  "request_latencies_seconds_timestamp_resolution": [
+    74.0,
+    29.0,
+    18.0,
+    63.0,
+    30.0
+  ]
+}

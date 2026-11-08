@@ -24,6 +24,7 @@ class SchoolTradition extends Model
         'title',
         'description',
         'established_year',
+        'is_archived',
         'created_by_user_id',
     ];
 
@@ -31,6 +32,7 @@ class SchoolTradition extends Model
     {
         return [
             'established_year' => 'integer',
+            'is_archived' => 'boolean',
         ];
     }
 

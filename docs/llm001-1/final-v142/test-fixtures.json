@@ -1,0 +1,117 @@
+{
+  "runId": "32941ae5a9",
+  "origin": "http://localhost:8001",
+  "database": "school_events_test",
+  "environment": "testing",
+  "databaseUser": "school_test_user",
+  "queue": "redis",
+  "passwordDerivation": "HMAC-SHA256(APP_KEY, LLM0011:runId); never persist password",
+  "completed": false,
+  "schools": {
+    "A": {
+      "id": "01a191f4-0441-72db-8f0c-177159c00afd",
+      "name": "LLM0011 32941ae5a9 A · synthetic test school",
+      "region_code": "66"
+    },
+    "B": {
+      "id": "01a191f4-047d-73fb-9b1e-6fdb17419764",
+      "name": "LLM0011 32941ae5a9 B · synthetic test school",
+      "region_code": "66"
+    },
+    "C": {
+      "id": "01a191f4-047f-7118-9838-63ffaac442b5",
+      "name": "LLM0011 32941ae5a9 C · synthetic test school",
+      "region_code": "77"
+    }
+  },
+  "users": {
+    "teacher": {
+      "id": "01a191f4-0571-72cd-9696-8a7b8a752b00",
+      "email": "llm0011-32941ae5a9-teacher@example.test",
+      "system_role": "none"
+    },
+    "schoolAdmin": {
+      "id": "01a191f4-0584-715d-ad99-8bb5c6799ede",
+      "email": "llm0011-32941ae5a9-schoolAdmin@example.test",
+      "system_role": "none"
+    },
+    "other": {
+      "id": "01a191f4-058a-72b3-bfe9-0af09a0be8dd",
+      "email": "llm0011-32941ae5a9-other@example.test",
+      "system_role": "none"
+    },
+    "foreign": {
+      "id": "01a191f4-0590-708d-ac31-df204a4ee6bd",
+      "email": "llm0011-32941ae5a9-foreign@example.test",
+      "system_role": "none"
+    },
+    "regional": {
+      "id": "01a191f4-0599-722e-91e0-87d39ed0c690",
+      "email": "llm0011-32941ae5a9-regional@example.test",
+      "system_role": "catalog_curator"
+    },
+    "system": {
+      "id": "01a191f4-059c-70dd-b869-15e23c9e67ad",
+      "email": "llm0011-32941ae5a9-system@example.test",
+      "system_role": "system_admin"
+    },
+    "inactive": {
+      "id": "01a191f4-059f-715c-8de0-724333c805ba",
+      "email": "llm0011-32941ae5a9-inactive@example.test",
+      "system_role": "none"
+    },
+    "multi": {
+      "id": "01a191f4-05a5-7179-b808-78e44cf8f8f2",
+      "email": "llm0011-32941ae5a9-multi@example.test",
+      "system_role": "none"
+    }
+  },
+  "events": {
+    "regional66": "01a191f4-05c7-73fa-b290-4593c0c4fae4",
+    "regional77": "01a191f4-05f1-70c7-bd17-cf9bd3b5d2cf",
+    "federal": "01a191f4-05f7-7394-b11f-3ce068e12ba8",
+    "schoolA": "01a191f4-05fc-726b-a21d-a4af36128d16",
+    "schoolB": "01a191f4-0602-71b8-b076-bd68210491f6",
+    "schoolC": "01a191f4-0608-738c-820c-d210c5e912a4",
+    "draft": "01a191f4-060f-73f5-b4f0-92f6d410adb6"
+  },
+  "sources": {
+    "regional66": "01a191f4-05e0-706d-b9a9-d8dbe7744f05",
+    "regional77": "01a191f4-05f2-7197-9f72-5006b7cc31c6",
+    "federal": "01a191f4-05f8-70ed-86c9-5b10334fcabc",
+    "schoolA": "01a191f4-05fd-73d1-86d2-b4440da37955",
+    "schoolB": "01a191f4-0604-7142-9cbc-7c7b208e11f4",
+    "schoolC": "01a191f4-060a-7174-94fc-19e8b722e9da",
+    "draft": "01a191f4-0611-7386-af12-b14daedefeae"
+  },
+  "claims": {
+    "regional66": {
+      "primary": "01a191f4-05ec-707c-bcf9-74d8100259c0",
+      "sibling": "01a191f4-05ef-71b8-876e-eda746f1dc34"
+    },
+    "regional77": {
+      "primary": "01a191f4-05f4-704a-b23a-008fc54b5419",
+      "sibling": "01a191f4-05f5-72b1-a151-28a0411a9962"
+    },
+    "federal": {
+      "primary": "01a191f4-05f9-7300-8f47-62fae64476df",
+      "sibling": "01a191f4-05fa-7388-bd68-a50d74789647"
+    },
+    "schoolA": {
+      "primary": "01a191f4-05ff-7064-883f-b0dc0efabaf4",
+      "sibling": "01a191f4-0600-710c-a6a0-79c83709feca"
+    },
+    "schoolB": {
+      "primary": "01a191f4-0605-717b-a6b4-c925e2998edd",
+      "sibling": "01a191f4-0606-71e8-83f7-2f003b3ce547"
+    },
+    "schoolC": {
+      "primary": "01a191f4-060c-726e-8d7d-047f723f326b",
+      "sibling": "01a191f4-060d-71dd-8c5f-092673dc22c4"
+    },
+    "draft": {
+      "primary": "01a191f4-0613-7114-9b58-012c97c61fd8",
+      "sibling": "01a191f4-0615-71c4-ae41-3f3e033cf098"
+    }
+  }
+}

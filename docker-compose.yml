@@ -1,5 +1,8 @@
 services:
   app:
+    env_file:
+      - path: .env
+        required: true
     build:
       context: .
       dockerfile: docker/php/Dockerfile
@@ -42,6 +45,72 @@ services:
       retries: 5
       start_period: 15s
 
+  app-test:
+    env_file:
+      - path: .env.testing
+        required: true
+    profiles:
+      - testing
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    restart: "no"
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - APP_ENV=testing
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=school_events_test
+      - DB_USERNAME=${DB_TEST_USERNAME:-school_test_user}
+    command: >
+      sh -c '
+        if [ ! -f /var/www/html/.env.testing ]; then
+          echo "[FATAL FAIL-CLOSED] .env.testing is missing! Test contour refusal: app-test will NOT start using main .env." >&2;
+          exit 1;
+        fi;
+        TEST_PASS=$${DB_PASSWORD};
+        if [ -z "$$TEST_PASS" ]; then
+          TEST_PASS=$$(grep -E "^DB_PASSWORD=" /var/www/html/.env.testing | head -n1 | cut -d= -f2- | tr -d " \r\n");
+        fi;
+        if [ -z "$$TEST_PASS" ]; then
+          echo "[FATAL FAIL-CLOSED] DB_TEST_PASSWORD / DB_PASSWORD in .env.testing is empty! Refusing to start app-test until secret is configured." >&2;
+          exit 1;
+        fi;
+        export DB_PASSWORD="$$TEST_PASS";
+        exec php-fpm
+      '
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - school_network
+
+  nginx-test:
+    profiles:
+      - testing
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${FORWARD_NGINX_TEST_PORT:-8001}:80"
+    volumes:
+      - ./:/var/www/html:ro
+      - ./docker/nginx/test.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app-test
+    networks:
+      - school_network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
@@ -49,6 +118,8 @@ services:
       POSTGRES_DB: ${DB_DATABASE:-school_events}
       POSTGRES_USER: ${DB_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_TEST_USERNAME: ${DB_TEST_USERNAME:-school_test_user}
+      DB_TEST_PASSWORD: ${DB_TEST_PASSWORD:-}
     ports:
       - "127.0.0.1:${FORWARD_DB_PORT:-5432}:5432"
     volumes:
@@ -76,12 +147,15 @@ services:
       retries: 5
 
   queue:
+    env_file:
+      - path: .env
+        required: true
     build:
       context: .
       dockerfile: docker/php/Dockerfile
     restart: unless-stopped
     working_dir: /var/www/html
-    command: php artisan queue:work --tries=3 --timeout=90
+    command: php artisan queue:work --tries=1 --timeout=840
     environment:
       - APP_ENV=${APP_ENV:-local}
       - DB_CONNECTION=${DB_CONNECTION:-pgsql}

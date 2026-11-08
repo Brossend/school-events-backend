@@ -1,0 +1,7 @@
+{
+  "url": "http://127.0.0.1:3100/login",
+  "status": 200,
+  "htmlRoot": true,
+  "api8000": true,
+  "productionBuild": true
+}

@@ -18,7 +18,8 @@ RUN install-php-extensions \
     zip \
     intl \
     pcntl \
-    opcache
+    opcache \
+    mbstring
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer

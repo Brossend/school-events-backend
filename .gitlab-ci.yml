@@ -1,0 +1,125 @@
+stages: [validate, test, build, mirror]
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+
+variables:
+  APP_ENV: testing
+  APP_DEBUG: "false"
+  LLM_PROVIDER: mock
+  LITELLM_API_KEY: ""
+  QUEUE_CONNECTION: sync
+  CACHE_STORE: array
+  SESSION_DRIVER: file
+  DB_CONNECTION: pgsql
+  DB_HOST: postgres
+  DB_PORT: "5432"
+  DB_DATABASE: school_events_test
+  DB_USERNAME: school_test_user
+  REDIS_HOST: redis
+  REDIS_CLIENT: predis
+  POSTGRES_USER: postgres
+  POSTGRES_DB: postgres
+  POSTGRES_PASSWORD: $CI_POSTGRES_PASSWORD
+  COMPOSER_CACHE_DIR: $CI_PROJECT_DIR/.composer-cache
+
+.php:
+  image: php:8.4-cli-bookworm
+  interruptible: true
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq git unzip curl libpq-dev libzip-dev libicu-dev libonig-dev libpng-dev libjpeg62-turbo-dev libfreetype6-dev postgresql-client
+    - docker-php-ext-configure gd --with-freetype --with-jpeg
+    - docker-php-ext-install -j2 pdo_pgsql pgsql bcmath zip intl pcntl mbstring gd
+    - |
+      curl --fail --silent --show-error https://composer.github.io/installer.sig -o /tmp/composer.sig
+      curl --fail --silent --show-error https://getcomposer.org/installer -o /tmp/composer-setup.php
+      php -r 'if (trim(file_get_contents("/tmp/composer.sig")) !== hash_file("sha384", "/tmp/composer-setup.php")) { exit(1); }'
+      php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet
+      rm /tmp/composer-setup.php /tmp/composer.sig
+
+php_dependencies:
+  extends: .php
+  stage: validate
+  cache:
+    key:
+      files: [composer.lock]
+    paths: [.composer-cache/]
+  script:
+    - composer validate --no-check-publish
+    - composer install --prefer-dist --no-interaction --no-progress
+    - find app bootstrap config database routes tests -name '*.php' -not -path 'bootstrap/cache/*' -print0 | xargs -0 -n1 php -l
+  artifacts:
+    expire_in: 1 day
+    paths: [vendor/]
+
+schema_contracts:
+  stage: validate
+  image: python:3.12-slim
+  script:
+    - pip install --disable-pip-version-check PyYAML==6.0.3 jsonschema==4.25.1
+    - python docs/validation/validate_schemas.py
+
+phpunit:
+  extends: .php
+  stage: test
+  needs: [php_dependencies]
+  services:
+    - name: postgres:16-alpine
+      alias: postgres
+    - name: redis:7-alpine
+      alias: redis
+  script:
+    - test -n "$CI_POSTGRES_PASSWORD" || { echo 'Configure masked CI_POSTGRES_PASSWORD in GitLab CI/CD Variables.'; exit 1; }
+    - export APP_KEY="$(php -r 'echo "base64:".base64_encode(random_bytes(32));')"
+    - export DB_PASSWORD="$(php -r 'echo bin2hex(random_bytes(24));')"
+    - |
+      export PGPASSWORD="$CI_POSTGRES_PASSWORD"
+      for attempt in $(seq 1 30); do pg_isready -h postgres -U postgres && break; sleep 1; done
+      psql -v ON_ERROR_STOP=1 -h postgres -U postgres -d postgres -v test_password="$DB_PASSWORD" <<'SQL'
+      CREATE ROLE school_test_user LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD :'test_password';
+      CREATE DATABASE school_events_test OWNER school_test_user;
+      SQL
+      unset PGPASSWORD
+    - cp .env.testing.example .env.testing
+    - php artisan migrate --force --no-interaction
+    - php artisan test --compact
+
+laravel_build:
+  extends: .php
+  stage: build
+  dependencies: [php_dependencies]
+  script:
+    - export APP_KEY="$(php -r 'echo "base64:".base64_encode(random_bytes(32));')"
+    - composer install --no-dev --prefer-dist --no-interaction --no-progress --no-scripts --optimize-autoloader
+    - php artisan package:discover --ansi
+    - php artisan config:cache
+    - php artisan route:cache
+    - php artisan view:cache
+
+github_mirror:
+  stage: mirror
+  image:
+    name: alpine/git:latest
+    entrypoint: [""]
+  variables:
+    GIT_DEPTH: "0"
+  dependencies: []
+  interruptible: false
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $GITHUB_MIRROR_TOKEN'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
+      allow_failure: true
+  script:
+    - test -n "$GITHUB_MIRROR_TOKEN"
+    - |
+      umask 077
+      trap 'rm -f "$HOME/.netrc"' EXIT
+      printf 'machine github.com\nlogin x-access-token\npassword %s\n' "$GITHUB_MIRROR_TOKEN" > "$HOME/.netrc"
+      git push https://github.com/Brossend/school-events-backend.git "$CI_COMMIT_SHA:refs/heads/main"

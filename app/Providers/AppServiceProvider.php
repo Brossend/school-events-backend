@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Services\Llm\LiteLlmProvider;
+use App\Services\Llm\LlmProviderInterface;
+use App\Services\Llm\LlmRuntime;
+use App\Services\Llm\MockLlmProvider;
+use App\Services\Llm\VariantLlmProviderInterface;
 use App\Services\TenantContext;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -21,8 +26,17 @@ class AppServiceProvider extends ServiceProvider
     {
         // Scoped to HTTP request / queue job lifecycle
         $this->app->scoped(TenantContext::class, function () {
-            return new TenantContext();
+            return new TenantContext;
         });
+
+        $this->app->bind(LlmProviderInterface::class, function ($app) {
+            $metadata = LlmRuntime::metadata();
+
+            return $app->make($metadata['provider_name'] === 'mock'
+                ? MockLlmProvider::class : LiteLlmProvider::class);
+        });
+        $this->app->bind(VariantLlmProviderInterface::class,
+            fn ($app) => $app->make(LlmProviderInterface::class));
     }
 
     /**
@@ -58,5 +72,20 @@ class AppServiceProvider extends ServiceProvider
                 $this->app->make(TenantContext::class)->clear();
             }
         });
+
+        // 3. Fail-closed security guard for testing contour HTTP requests
+        if ($this->app->environment('testing') && ! $this->app->runningInConsole()) {
+            if (! file_exists(base_path('.env.testing'))) {
+                abort(500, 'Security refusal: .env.testing is missing. Test contour cannot run on main .env configuration.');
+            }
+            $configuredDb = config('database.connections.pgsql.database');
+            if ($configuredDb !== 'school_events_test') {
+                abort(500, 'Security refusal: Test contour database must be school_events_test.');
+            }
+            $dbPassword = config('database.connections.pgsql.password');
+            if (empty($dbPassword)) {
+                abort(500, 'Security refusal: Test database password is not configured.');
+            }
+        }
     }
 }

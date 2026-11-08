@@ -1,0 +1,117 @@
+{
+    "runId": "7584e60137",
+    "origin": "http:\/\/localhost:8001",
+    "database": "school_events_test",
+    "environment": "testing",
+    "databaseUser": "school_test_user",
+    "queue": "sync",
+    "passwordDerivation": "HMAC-SHA256(APP_KEY, LLM0011:runId); never persist password",
+    "completed": false,
+    "schools": {
+        "A": {
+            "id": "01a18da9-01dd-72ce-ada2-285b7f3b1852",
+            "name": "LLM0011 7584e60137 A · synthetic test school",
+            "region_code": "66"
+        },
+        "B": {
+            "id": "01a18da9-020e-7254-9805-fa25f7c71953",
+            "name": "LLM0011 7584e60137 B · synthetic test school",
+            "region_code": "66"
+        },
+        "C": {
+            "id": "01a18da9-020f-728b-85f9-c4e31d307d30",
+            "name": "LLM0011 7584e60137 C · synthetic test school",
+            "region_code": "77"
+        }
+    },
+    "users": {
+        "teacher": {
+            "id": "01a18da9-02ee-72c5-a781-af28184122cd",
+            "email": "llm0011-7584e60137-teacher@example.test",
+            "system_role": "none"
+        },
+        "schoolAdmin": {
+            "id": "01a18da9-02fd-7324-a368-85483d89ba05",
+            "email": "llm0011-7584e60137-schoolAdmin@example.test",
+            "system_role": "none"
+        },
+        "other": {
+            "id": "01a18da9-0300-70b5-baed-194c2f62e640",
+            "email": "llm0011-7584e60137-other@example.test",
+            "system_role": "none"
+        },
+        "foreign": {
+            "id": "01a18da9-0302-71d6-93b1-89aad50d1062",
+            "email": "llm0011-7584e60137-foreign@example.test",
+            "system_role": "none"
+        },
+        "regional": {
+            "id": "01a18da9-0305-725b-9b5d-7e0eede40ba3",
+            "email": "llm0011-7584e60137-regional@example.test",
+            "system_role": "catalog_curator"
+        },
+        "system": {
+            "id": "01a18da9-0307-71c0-a7d9-ef74947d9632",
+            "email": "llm0011-7584e60137-system@example.test",
+            "system_role": "system_admin"
+        },
+        "inactive": {
+            "id": "01a18da9-0309-7348-b57f-ebc59d48f6ef",
+            "email": "llm0011-7584e60137-inactive@example.test",
+            "system_role": "none"
+        },
+        "multi": {
+            "id": "01a18da9-030c-71f8-9d74-7a33c964c0f0",
+            "email": "llm0011-7584e60137-multi@example.test",
+            "system_role": "none"
+        }
+    },
+    "events": {
+        "regional66": "01a18da9-0322-7113-9e23-84aa488fc5ab",
+        "regional77": "01a18da9-0349-72b1-95ad-c9aa626ef1f5",
+        "federal": "01a18da9-034d-731d-9a8a-fc1bb46604a8",
+        "schoolA": "01a18da9-0350-7127-9836-a0a9fb46e292",
+        "schoolB": "01a18da9-0353-7161-9161-a9726fd56159",
+        "schoolC": "01a18da9-0357-71e8-99d3-0046c0fae210",
+        "draft": "01a18da9-035a-7141-bb93-d794099bcba6"
+    },
+    "sources": {
+        "regional66": "01a18da9-033b-726b-b3be-c9910660fc53",
+        "regional77": "01a18da9-034a-73f1-b242-faf326cc840c",
+        "federal": "01a18da9-034e-71cf-a940-e0ff57030054",
+        "schoolA": "01a18da9-0351-7221-9e47-2f4dabe839db",
+        "schoolB": "01a18da9-0354-7138-bc25-d27e8eb55e55",
+        "schoolC": "01a18da9-0358-7095-b3bb-4828e9a2c549",
+        "draft": "01a18da9-035b-717c-8377-5660fe229b36"
+    },
+    "claims": {
+        "regional66": {
+            "primary": "01a18da9-0345-73d2-9150-002d4d790ee1",
+            "sibling": "01a18da9-0348-722b-8c83-bc3ed68543c4"
+        },
+        "regional77": {
+            "primary": "01a18da9-034b-73b3-8d8b-97d1e49b0fce",
+            "sibling": "01a18da9-034c-72f3-bee6-f83a0e6dd1ce"
+        },
+        "federal": {
+            "primary": "01a18da9-034e-71cf-a940-e0ff5714bf28",
+            "sibling": "01a18da9-034f-7260-acb8-4b98c2dd4762"
+        },
+        "schoolA": {
+            "primary": "01a18da9-0352-70f7-a650-eb999909cbbc",
+            "sibling": "01a18da9-0353-7161-9161-a9726ee136f4"
+        },
+        "schoolB": {
+            "primary": "01a18da9-0355-70eb-aa62-f38a046c1e93",
+            "sibling": "01a18da9-0356-7192-835f-f5c12c77d531"
+        },
+        "schoolC": {
+            "primary": "01a18da9-0358-7095-b3bb-4828ea4bd664",
+            "sibling": "01a18da9-0359-72e2-9475-10a71d5653df"
+        },
+        "draft": {
+            "primary": "01a18da9-035b-717c-8377-5660fe85da72",
+            "sibling": "01a18da9-035c-732b-a963-4b22f8cf2ea8"
+        }
+    }
+}

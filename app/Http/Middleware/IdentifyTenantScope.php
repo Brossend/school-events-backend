@@ -82,6 +82,9 @@ class IdentifyTenantScope
             ], 403);
         }
 
+        $request->attributes->set('school', $this->tenantContext->getSchool());
+        $request->attributes->set('school_id', $this->tenantContext->getSchoolId());
+
         $response = $next($request);
 
         // Echo active school id header

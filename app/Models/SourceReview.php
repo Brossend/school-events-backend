@@ -37,15 +37,36 @@ class SourceReview extends Model
 
     protected static function booted(): void
     {
-        // Whenever a review decision changes, invalidate previously authentic claims
+        // Whenever a review decision changes, sync source verification status and invalidate previously authentic claims
         static::saved(function (SourceReview $review) {
             if ($review->decision === 'rejected') {
+                $review->source()->update([
+                    'verified_by_user_id' => null,
+                    'verification_date' => null,
+                ]);
                 CulturalClaimSource::where('event_source_id', $review->event_source_id)
-                    ->update(['verification_status' => 'rejected_fake']);
+                    ->update([
+                        'verification_status' => 'rejected_fake',
+                        'verified_by_user_id' => null,
+                        'verified_at' => null,
+                    ]);
             } elseif ($review->decision === 'requires_amendment') {
+                $review->source()->update([
+                    'verified_by_user_id' => null,
+                    'verification_date' => null,
+                ]);
                 CulturalClaimSource::where('event_source_id', $review->event_source_id)
                     ->where('verification_status', 'verified_authentic')
-                    ->update(['verification_status' => 'unverified']);
+                    ->update([
+                        'verification_status' => 'unverified',
+                        'verified_by_user_id' => null,
+                        'verified_at' => null,
+                    ]);
+            } elseif ($review->decision === 'approved') {
+                $review->source()->update([
+                    'verified_by_user_id' => $review->reviewer_user_id,
+                    'verification_date' => now()->toDateString(),
+                ]);
             }
         });
     }

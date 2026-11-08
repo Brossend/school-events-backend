@@ -1,0 +1,20 @@
+{
+  "completed": true,
+  "build": "production",
+  "apiOrigin": "http://localhost:8001",
+  "user": "llm0011-a2828ce7ff-teacher@example.test",
+  "school": "01a19211-60ed-71c8-b3b3-2ad03c28248f",
+  "scenarioId": "01a1922c-7195-706c-876d-d58eea0298e5",
+  "model": "GigaChat-2-Max",
+  "revision": 1,
+  "qualityStatus": "requires_review",
+  "profileScreenshot": "ui-profile.png",
+  "schoolScreenshot": "ui-active-school.png",
+  "resultScreenshot": "ui-result-quality.png",
+  "teacherSignoffPerformed": false,
+  "logout": {
+    "completed": true,
+    "protectedRedirect": "/login?redirect=/scenarios/01a1922c-7195-706c-876d-d58eea0298e5",
+    "screenshot": "ui-logout-protected.png"
+  }
+}

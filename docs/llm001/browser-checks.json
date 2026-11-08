@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "scale": "class_level",
+      "viewport": 1440,
+      "overflow": false
+    },
+    {
+      "scale": "class_level",
+      "viewport": 390,
+      "overflow": false
+    },
+    {
+      "scale": "all_school",
+      "viewport": 390,
+      "overflow": false
+    },
+    {
+      "scale": "family_community",
+      "viewport": 1440,
+      "overflow": false
+    },
+    {
+      "scale": "family_community",
+      "viewport": 390,
+      "overflow": false
+    },
+    {
+      "scale": "cultural",
+      "viewport": 390,
+      "overflow": false
+    },
+    {
+      "scale": "universal-comparison",
+      "viewport": 390,
+      "overflow": false
+    }
+  ],
+  "source": "authenticated actual saved live results; 1440x1000 / 390x844"
+}

@@ -1,0 +1,5 @@
+{"time":"2026-11-01T18:29:52+00:00","method":"POST","path":"\/v1\/chat\/completions","model":"GigaChat-2-Max","transaction_level":0,"max_http_timeout":240,"total_budget":360,"repair_passes":2}
+{"time":"2026-11-01T18:31:09+00:00","method":"POST","path":"\/v1\/chat\/completions","model":"GigaChat-2-Max","transaction_level":0,"max_http_timeout":240,"total_budget":360,"repair_passes":2}
+{"time":"2026-11-01T18:31:38+00:00","method":"POST","path":"\/v1\/chat\/completions","model":"GigaChat-2-Max","transaction_level":0,"max_http_timeout":240,"total_budget":360,"repair_passes":2}
+{"time":"2026-11-01T18:31:56+00:00","method":"POST","path":"\/v1\/chat\/completions","model":"GigaChat-2-Max","transaction_level":0,"max_http_timeout":240,"total_budget":360,"repair_passes":2}
+{"time":"2026-11-01T18:32:59+00:00","method":"POST","path":"\/v1\/chat\/completions","model":"GigaChat-2-Max","transaction_level":0,"max_http_timeout":240,"total_budget":360,"repair_passes":2}

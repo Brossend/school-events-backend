@@ -1,0 +1,987 @@
+[
+  {
+    "path": "README.md",
+    "before": "51fd0c5bd92498ec048c04e06bf5f02822530c83aaa4470c29f75b00dba55367",
+    "after": "fe0fd7f002f7cfaef9ef63c2c40dfd4a46ed23ae5c2a391899b43c64692e4a9b"
+  },
+  {
+    "path": "app/components/features/scenarios/ScenarioCulturalClaims.vue",
+    "before": "dec08807a7a28fef62a642953fb1c1531be674508060dee1c6c119c2f5d0e218",
+    "after": "ddebf2e8617eaad68789697e13546f382e32062f9f24e26f0ee39b9f2c09fc76"
+  },
+  {
+    "path": "app/components/features/scenarios/ScenarioQualityNotice.vue",
+    "before": null,
+    "after": "2ce5f5e0cfb7109957641b33b1690c5f16e75df5a9c09b87b2d888919fe45dcf"
+  },
+  {
+    "path": "app/components/features/scenarios/ScenarioResult.vue",
+    "before": "3fe0bcbbe74d77d490b09d1fe7c4f807d43a028d63befa6353bf648b011ba59e",
+    "after": "9ef79fbb713da92652be7f5cac6075e99e70e64828cc34c8915eb8f4cda2ca70"
+  },
+  {
+    "path": "app/pages/comparisons.vue",
+    "before": "5c5da42cbd94d9bc9ecea60f28efef1a594f30218cf164359204ed32f462c411",
+    "after": "ab665c8bd84ceff6787e61383298fc1dcfedf2193d1fac9c4b0100c7885882ab"
+  },
+  {
+    "path": "app/types/comparisons.ts",
+    "before": "5b2a8774cce46284936dd02c7166ed82f6ada3d33c4a27d04c61760e3a1bd498",
+    "after": "291c32a801877b9122563c5a39c418b368cf385131d89a94825ccdee1744f773"
+  },
+  {
+    "path": "app/types/generation.ts",
+    "before": "36062517ffa0d2ed74bc244849e5233b487e01764f49bd8f8fda53a6fd47a2f1",
+    "after": "4f42b34aa3132df98264377c5db0150c43bbde10487d7faf1dc15142ad2a30e3"
+  },
+  {
+    "path": "app/types/openapi.d.ts",
+    "before": "0901ea991d9b99c35ce8a8f9b4d16f5d54067d73c0d0b2a0420ac8e3d01d4426",
+    "after": "5330d1c70fdd61a4f6973e904d999bb062464678f159dc77718f3919569168c5"
+  },
+  {
+    "path": "app/utils/comparisons.ts",
+    "before": "8a1bdeb594f55a44b463e0946d809ce720e97eb58005e5cb82ff67c134e3fb83",
+    "after": "b304c106317e624802cec026566e1c0d89e085415f03956bf3f0a01d7ee876df"
+  },
+  {
+    "path": "app/utils/generation-poller.ts",
+    "before": "5d4a6ed8b406d4329407725d8094f3fc192ee4e3180ad7a3144bd3e14ec7b263",
+    "after": "03d5a06c2efb04886650f0a3499003627e294d0687659fd8df5348858f5fc3ab"
+  },
+  {
+    "path": "app/utils/generation.ts",
+    "before": "1856c023d8de52c2785abb2aae2d513a30cd46d84f5bcb7abb85367145ba7d3d",
+    "after": "25dca18e1fbeb42fa09c9d5cf1e0556d46c112df2d89bc0320834a8b91473e27"
+  },
+  {
+    "path": "app/utils/quality-review.ts",
+    "before": null,
+    "after": "c2f93045e6eb704a56e7d71eea263b8feef824e8e45dffe1e334ab68f7d0929b"
+  },
+  {
+    "path": "nuxt.config.ts",
+    "before": null,
+    "after": "7be081f7f70924b2d8c091cebc9260c5114a3e1a846722eb8d8adec814e91020"
+  },
+  {
+    "path": "public/icons/arrow-up-right.svg",
+    "before": null,
+    "after": "ba520e6b92759335642b7cc084d4cccb6a4dd81258efcd208b7a77d712dc9465"
+  },
+  {
+    "path": "public/icons/calendar.svg",
+    "before": null,
+    "after": "e9653548ae020efab7d914fd710daa0182726680a0afcb677176a64f9cdd90c1"
+  },
+  {
+    "path": "public/icons/chevron-left.svg",
+    "before": null,
+    "after": "20d14ea7a11a8f9c6a3b643f3ff448ad91bb441d564ec1dc0144f3c1c94ece4b"
+  },
+  {
+    "path": "public/icons/chevron-right.svg",
+    "before": null,
+    "after": "b9d1ec276f8b07ab8e78abeeef8b5d973b0c1e06134732290d20d14090467b72"
+  },
+  {
+    "path": "public/icons/fe006/alert.svg",
+    "before": null,
+    "after": "07a31701a7eb0865c0ee8533da66e7087ec810cea283961f764e92803459e075"
+  },
+  {
+    "path": "public/icons/fe006/check.svg",
+    "before": null,
+    "after": "dc8537028e7323c6bf236afac0bd8749ff658c2335d1c1f3f1374bb81623ef0c"
+  },
+  {
+    "path": "public/icons/fe006/circle.svg",
+    "before": null,
+    "after": "eaa18c7d7b847da82c13be679992c49b4906f1108e935a25fad730f738446caf"
+  },
+  {
+    "path": "public/icons/fe006/info.svg",
+    "before": null,
+    "after": "71d77848357ffc9403b5b41327eae12422816ddcd10b10e9450eafb02e923572"
+  },
+  {
+    "path": "public/icons/fe006/loader.svg",
+    "before": null,
+    "after": "45dbc2152a069287242e3f33b6d0d6b4344afd6c02864a271146b5326a182502"
+  },
+  {
+    "path": "public/icons/fe006/progress-ring.svg",
+    "before": null,
+    "after": "9b065cc2ba436e6ce46865f80ec6a5db4809b9af5e5ea1c98ed952b3bcd77aee"
+  },
+  {
+    "path": "public/icons/fe007/save.svg",
+    "before": null,
+    "after": "b759641ee42ac3b0843474c978497ba9b71eabb94970c49698af70ed47afea72"
+  },
+  {
+    "path": "public/icons/fe008/download.svg",
+    "before": null,
+    "after": "aae455246f834f6f545a1c1899d85b4c7bf444b8654a14335f4a7aff65a1cbb0"
+  },
+  {
+    "path": "public/icons/fe009/ellipsis.svg",
+    "before": null,
+    "after": "01af9addb5a441d79f6d335259567aa8eb107b0c172e4a2e31c3491c8cbf5744"
+  },
+  {
+    "path": "public/icons/fe009/files-empty.svg",
+    "before": null,
+    "after": "c8196227d705674a9366752e113bf4a3a52a72f290f160acbd95179ba7428e5c"
+  },
+  {
+    "path": "public/icons/fe009/info.svg",
+    "before": null,
+    "after": "e0877645bc4bfd99275954cf793448e14a4c62426b6c89565ad082be9678de00"
+  },
+  {
+    "path": "public/icons/fe009/plus.svg",
+    "before": null,
+    "after": "0b129cd6c41b4d58448dd03056a313ca01f4006a552066290d386a129ea1813f"
+  },
+  {
+    "path": "public/icons/fe009/search.svg",
+    "before": null,
+    "after": "5878ddb5e6abedcc4d342a432a90f0004a77f9fcde5d587ec9443f4d21deaa8d"
+  },
+  {
+    "path": "public/icons/fe010/100-1014-calendar-days.svg",
+    "before": null,
+    "after": "e9653548ae020efab7d914fd710daa0182726680a0afcb677176a64f9cdd90c1"
+  },
+  {
+    "path": "public/icons/fe010/100-1014-files.svg",
+    "before": null,
+    "after": "f24a0f1d891945d919b786317a157d4350f124cda818874c88e770ec4f42a308"
+  },
+  {
+    "path": "public/icons/fe010/100-1014-house.svg",
+    "before": null,
+    "after": "6e495340e0624a2cd82be0c2c5eae4385e2eda2097dc03b37204708271d5a04f"
+  },
+  {
+    "path": "public/icons/fe010/100-1014-school.svg",
+    "before": null,
+    "after": "1eff2c7132fe460799a15c251f123c4f074ea84b9c67b6e2c977da879f7ed723"
+  },
+  {
+    "path": "public/icons/fe010/100-1384-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/100-1384-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/100-1384-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/100-1384-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe010/100-1567-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/100-1567-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/100-1567-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/100-1567-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe010/100-1750-calendar-days.svg",
+    "before": null,
+    "after": "e9653548ae020efab7d914fd710daa0182726680a0afcb677176a64f9cdd90c1"
+  },
+  {
+    "path": "public/icons/fe010/100-1750-files.svg",
+    "before": null,
+    "after": "f24a0f1d891945d919b786317a157d4350f124cda818874c88e770ec4f42a308"
+  },
+  {
+    "path": "public/icons/fe010/100-1750-house.svg",
+    "before": null,
+    "after": "6e495340e0624a2cd82be0c2c5eae4385e2eda2097dc03b37204708271d5a04f"
+  },
+  {
+    "path": "public/icons/fe010/100-1750-school.svg",
+    "before": null,
+    "after": "1eff2c7132fe460799a15c251f123c4f074ea84b9c67b6e2c977da879f7ed723"
+  },
+  {
+    "path": "public/icons/fe010/100-2120-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/100-2120-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/100-2120-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/100-2120-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe010/100-2303-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/100-2303-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/100-2303-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/100-2303-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe010/105-1186-calendar-days.svg",
+    "before": null,
+    "after": "e9653548ae020efab7d914fd710daa0182726680a0afcb677176a64f9cdd90c1"
+  },
+  {
+    "path": "public/icons/fe010/105-1186-files.svg",
+    "before": null,
+    "after": "f24a0f1d891945d919b786317a157d4350f124cda818874c88e770ec4f42a308"
+  },
+  {
+    "path": "public/icons/fe010/105-1186-house.svg",
+    "before": null,
+    "after": "6e495340e0624a2cd82be0c2c5eae4385e2eda2097dc03b37204708271d5a04f"
+  },
+  {
+    "path": "public/icons/fe010/105-1186-school.svg",
+    "before": null,
+    "after": "1eff2c7132fe460799a15c251f123c4f074ea84b9c67b6e2c977da879f7ed723"
+  },
+  {
+    "path": "public/icons/fe010/105-1403-calendar-days.svg",
+    "before": null,
+    "after": "e9653548ae020efab7d914fd710daa0182726680a0afcb677176a64f9cdd90c1"
+  },
+  {
+    "path": "public/icons/fe010/105-1403-files.svg",
+    "before": null,
+    "after": "f24a0f1d891945d919b786317a157d4350f124cda818874c88e770ec4f42a308"
+  },
+  {
+    "path": "public/icons/fe010/105-1403-house.svg",
+    "before": null,
+    "after": "6e495340e0624a2cd82be0c2c5eae4385e2eda2097dc03b37204708271d5a04f"
+  },
+  {
+    "path": "public/icons/fe010/105-1403-school.svg",
+    "before": null,
+    "after": "1eff2c7132fe460799a15c251f123c4f074ea84b9c67b6e2c977da879f7ed723"
+  },
+  {
+    "path": "public/icons/fe010/105-1980-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/105-1980-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/105-1980-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/105-1980-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe010/105-2185-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/105-2185-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/105-2185-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/105-2185-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe010/105-2373-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/105-2373-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/105-2373-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/105-2373-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe010/105-2578-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/105-2578-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/105-2578-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/105-2578-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe010/110-1608-calendar-days.svg",
+    "before": null,
+    "after": "e9653548ae020efab7d914fd710daa0182726680a0afcb677176a64f9cdd90c1"
+  },
+  {
+    "path": "public/icons/fe010/110-1608-files.svg",
+    "before": null,
+    "after": "f24a0f1d891945d919b786317a157d4350f124cda818874c88e770ec4f42a308"
+  },
+  {
+    "path": "public/icons/fe010/110-1608-house.svg",
+    "before": null,
+    "after": "6e495340e0624a2cd82be0c2c5eae4385e2eda2097dc03b37204708271d5a04f"
+  },
+  {
+    "path": "public/icons/fe010/110-1608-school.svg",
+    "before": null,
+    "after": "1eff2c7132fe460799a15c251f123c4f074ea84b9c67b6e2c977da879f7ed723"
+  },
+  {
+    "path": "public/icons/fe010/110-1809-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/110-1809-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/110-1809-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/110-1809-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe010/110-1908-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe010/110-1908-files.svg",
+    "before": null,
+    "after": "43cbf22349944b8d68390c5a50b9d763e1769386a33a03513f21360392daed0c"
+  },
+  {
+    "path": "public/icons/fe010/110-1908-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe010/110-1908-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe011/1-497-calendar-days.svg",
+    "before": null,
+    "after": "e9653548ae020efab7d914fd710daa0182726680a0afcb677176a64f9cdd90c1"
+  },
+  {
+    "path": "public/icons/fe011/1-497-check.svg",
+    "before": null,
+    "after": "1cfb112918578d3473fced81fa8994b7ea461b3f48c28d5c4f87bba07ed617d9"
+  },
+  {
+    "path": "public/icons/fe011/1-497-files.svg",
+    "before": null,
+    "after": "e956638fc291859f2328c9732086368e6170b245af8766037cdfb9ac58c069ad"
+  },
+  {
+    "path": "public/icons/fe011/1-497-house.svg",
+    "before": null,
+    "after": "6e495340e0624a2cd82be0c2c5eae4385e2eda2097dc03b37204708271d5a04f"
+  },
+  {
+    "path": "public/icons/fe011/1-497-info.svg",
+    "before": null,
+    "after": "e0877645bc4bfd99275954cf793448e14a4c62426b6c89565ad082be9678de00"
+  },
+  {
+    "path": "public/icons/fe011/1-497-save.svg",
+    "before": null,
+    "after": "b759641ee42ac3b0843474c978497ba9b71eabb94970c49698af70ed47afea72"
+  },
+  {
+    "path": "public/icons/fe011/1-497-school.svg",
+    "before": null,
+    "after": "e7211aa75723a0d178183ee455fba7ddc79e487b7906556ea6cffefc48035669"
+  },
+  {
+    "path": "public/icons/fe011/112-1444-calendar-days.svg",
+    "before": null,
+    "after": "f2476d7eef875c0c1976ff607c560053ccd99745dc582d95d13e2dcaf4c685d8"
+  },
+  {
+    "path": "public/icons/fe011/112-1444-files.svg",
+    "before": null,
+    "after": "e956638fc291859f2328c9732086368e6170b245af8766037cdfb9ac58c069ad"
+  },
+  {
+    "path": "public/icons/fe011/112-1444-house.svg",
+    "before": null,
+    "after": "6e495340e0624a2cd82be0c2c5eae4385e2eda2097dc03b37204708271d5a04f"
+  },
+  {
+    "path": "public/icons/fe011/112-1444-school.svg",
+    "before": null,
+    "after": "1eff2c7132fe460799a15c251f123c4f074ea84b9c67b6e2c977da879f7ed723"
+  },
+  {
+    "path": "public/icons/fe011/112-1617-calendar-days.svg",
+    "before": null,
+    "after": "bf8da914b92694d2007107830d02a47dd21c7200f3ffc3cb023b61035637b5d5"
+  },
+  {
+    "path": "public/icons/fe011/112-1617-files.svg",
+    "before": null,
+    "after": "ec66f85f4bd122a102de5dcf57d909d851b03eee314df6f6febb8f8c77642f07"
+  },
+  {
+    "path": "public/icons/fe011/112-1617-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe011/112-1617-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe011/112-1702-calendar-days.svg",
+    "before": null,
+    "after": "bf8da914b92694d2007107830d02a47dd21c7200f3ffc3cb023b61035637b5d5"
+  },
+  {
+    "path": "public/icons/fe011/112-1702-files.svg",
+    "before": null,
+    "after": "ec66f85f4bd122a102de5dcf57d909d851b03eee314df6f6febb8f8c77642f07"
+  },
+  {
+    "path": "public/icons/fe011/112-1702-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe011/112-1702-school.svg",
+    "before": null,
+    "after": "081ce0dba06cb60944dabc06f261c7b52e708e005f3dcede060e951b0c1331c6"
+  },
+  {
+    "path": "public/icons/fe011/42-537-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe011/42-537-files.svg",
+    "before": null,
+    "after": "ec66f85f4bd122a102de5dcf57d909d851b03eee314df6f6febb8f8c77642f07"
+  },
+  {
+    "path": "public/icons/fe011/42-537-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe011/42-537-school.svg",
+    "before": null,
+    "after": "102aea65e872d18d4a9c5299c3f1a7e5689620ad02e6774e2e9dc6ffb40a0ece"
+  },
+  {
+    "path": "public/icons/fe011/50-2038-calendar-days.svg",
+    "before": null,
+    "after": "22970e0a0c48f38afecb475bc7d2a5e99a5431b3aab250a4c6d72164a780007f"
+  },
+  {
+    "path": "public/icons/fe011/50-2038-files.svg",
+    "before": null,
+    "after": "ec66f85f4bd122a102de5dcf57d909d851b03eee314df6f6febb8f8c77642f07"
+  },
+  {
+    "path": "public/icons/fe011/50-2038-house.svg",
+    "before": null,
+    "after": "66ca4a2fbccc9de4590fcb5440447ea666feb66ab659d53fec825067f377b578"
+  },
+  {
+    "path": "public/icons/fe011/50-2038-school.svg",
+    "before": null,
+    "after": "102aea65e872d18d4a9c5299c3f1a7e5689620ad02e6774e2e9dc6ffb40a0ece"
+  },
+  {
+    "path": "public/icons/fe011/88-1111-calendar-days.svg",
+    "before": null,
+    "after": "bf8da914b92694d2007107830d02a47dd21c7200f3ffc3cb023b61035637b5d5"
+  },
+  {
+    "path": "public/icons/fe011/88-1111-chevron-left.svg",
+    "before": null,
+    "after": "20d14ea7a11a8f9c6a3b643f3ff448ad91bb441d564ec1dc0144f3c1c94ece4b"
+  },
+  {
+    "path": "public/icons/fe011/88-1111-chevron-right.svg",
+    "before": null,
+    "after": "b9d1ec276f8b07ab8e78abeeef8b5d973b0c1e06134732290d20d14090467b72"
+  },
+  {
+    "path": "public/icons/fe011/88-1111-files.svg",
+    "before": null,
+    "after": "0d21238a3dad8fbf37f54c4bf3c423dbd5b28302a10509043c65b29fb90321d9"
+  },
+  {
+    "path": "public/icons/fe011/88-1111-house.svg",
+    "before": null,
+    "after": "6e6589f144671944b398cc3fe627bad0b805ff129dd12204d5aa8a9858d72cab"
+  },
+  {
+    "path": "public/icons/fe011/88-1111-info.svg",
+    "before": null,
+    "after": "c8ab69ca69e5c2db81b4a9380bbe7f31ffd378553fe74809e6a73ad31fa5268b"
+  },
+  {
+    "path": "public/icons/fe011/88-1111-plus.svg",
+    "before": null,
+    "after": "0b129cd6c41b4d58448dd03056a313ca01f4006a552066290d386a129ea1813f"
+  },
+  {
+    "path": "public/icons/fe011/88-1111-school.svg",
+    "before": null,
+    "after": "5563c312fdff54bc4daba16f34cf6eb062145aa949aac344e992f59ac7ba2ded"
+  },
+  {
+    "path": "public/icons/fe011/88-1243-calendar-days.svg",
+    "before": null,
+    "after": "bf8da914b92694d2007107830d02a47dd21c7200f3ffc3cb023b61035637b5d5"
+  },
+  {
+    "path": "public/icons/fe011/88-1243-chevron-left.svg",
+    "before": null,
+    "after": "20d14ea7a11a8f9c6a3b643f3ff448ad91bb441d564ec1dc0144f3c1c94ece4b"
+  },
+  {
+    "path": "public/icons/fe011/88-1243-chevron-right.svg",
+    "before": null,
+    "after": "b9d1ec276f8b07ab8e78abeeef8b5d973b0c1e06134732290d20d14090467b72"
+  },
+  {
+    "path": "public/icons/fe011/88-1243-files.svg",
+    "before": null,
+    "after": "0d21238a3dad8fbf37f54c4bf3c423dbd5b28302a10509043c65b29fb90321d9"
+  },
+  {
+    "path": "public/icons/fe011/88-1243-house.svg",
+    "before": null,
+    "after": "6e6589f144671944b398cc3fe627bad0b805ff129dd12204d5aa8a9858d72cab"
+  },
+  {
+    "path": "public/icons/fe011/88-1243-info.svg",
+    "before": null,
+    "after": "c8ab69ca69e5c2db81b4a9380bbe7f31ffd378553fe74809e6a73ad31fa5268b"
+  },
+  {
+    "path": "public/icons/fe011/88-1243-plus.svg",
+    "before": null,
+    "after": "0b129cd6c41b4d58448dd03056a313ca01f4006a552066290d386a129ea1813f"
+  },
+  {
+    "path": "public/icons/fe011/88-1243-school.svg",
+    "before": null,
+    "after": "5563c312fdff54bc4daba16f34cf6eb062145aa949aac344e992f59ac7ba2ded"
+  },
+  {
+    "path": "public/icons/fe011/88-650-calendar-days.svg",
+    "before": null,
+    "after": "f2476d7eef875c0c1976ff607c560053ccd99745dc582d95d13e2dcaf4c685d8"
+  },
+  {
+    "path": "public/icons/fe011/88-650-chevron-left.svg",
+    "before": null,
+    "after": "20d14ea7a11a8f9c6a3b643f3ff448ad91bb441d564ec1dc0144f3c1c94ece4b"
+  },
+  {
+    "path": "public/icons/fe011/88-650-chevron-right.svg",
+    "before": null,
+    "after": "b9d1ec276f8b07ab8e78abeeef8b5d973b0c1e06134732290d20d14090467b72"
+  },
+  {
+    "path": "public/icons/fe011/88-650-files.svg",
+    "before": null,
+    "after": "e956638fc291859f2328c9732086368e6170b245af8766037cdfb9ac58c069ad"
+  },
+  {
+    "path": "public/icons/fe011/88-650-house.svg",
+    "before": null,
+    "after": "6e495340e0624a2cd82be0c2c5eae4385e2eda2097dc03b37204708271d5a04f"
+  },
+  {
+    "path": "public/icons/fe011/88-650-info.svg",
+    "before": null,
+    "after": "8142ac8b7fe676a8ca8cf40f55d3f7d42f7bea2990f070ae212d10689501532e"
+  },
+  {
+    "path": "public/icons/fe011/88-650-plus.svg",
+    "before": null,
+    "after": "0b129cd6c41b4d58448dd03056a313ca01f4006a552066290d386a129ea1813f"
+  },
+  {
+    "path": "public/icons/fe011/88-650-school.svg",
+    "before": null,
+    "after": "1eff2c7132fe460799a15c251f123c4f074ea84b9c67b6e2c977da879f7ed723"
+  },
+  {
+    "path": "public/icons/fe011/88-890-chevron-left.svg",
+    "before": null,
+    "after": "20d14ea7a11a8f9c6a3b643f3ff448ad91bb441d564ec1dc0144f3c1c94ece4b"
+  },
+  {
+    "path": "public/icons/fe011/88-890-chevron-right.svg",
+    "before": null,
+    "after": "b9d1ec276f8b07ab8e78abeeef8b5d973b0c1e06134732290d20d14090467b72"
+  },
+  {
+    "path": "public/icons/fe011/88-890-info.svg",
+    "before": null,
+    "after": "b476113018e9f92ff497d09e2ab07194b3630b71f4292158ab6ea21dae1e6a76"
+  },
+  {
+    "path": "public/icons/fe011/88-890-plus.svg",
+    "before": null,
+    "after": "0b129cd6c41b4d58448dd03056a313ca01f4006a552066290d386a129ea1813f"
+  },
+  {
+    "path": "public/icons/fe011/99-1013-calendar-days.svg",
+    "before": null,
+    "after": "f2476d7eef875c0c1976ff607c560053ccd99745dc582d95d13e2dcaf4c685d8"
+  },
+  {
+    "path": "public/icons/fe011/99-1013-chevron-left.svg",
+    "before": null,
+    "after": "20d14ea7a11a8f9c6a3b643f3ff448ad91bb441d564ec1dc0144f3c1c94ece4b"
+  },
+  {
+    "path": "public/icons/fe011/99-1013-chevron-right.svg",
+    "before": null,
+    "after": "b9d1ec276f8b07ab8e78abeeef8b5d973b0c1e06134732290d20d14090467b72"
+  },
+  {
+    "path": "public/icons/fe011/99-1013-files.svg",
+    "before": null,
+    "after": "e956638fc291859f2328c9732086368e6170b245af8766037cdfb9ac58c069ad"
+  },
+  {
+    "path": "public/icons/fe011/99-1013-house.svg",
+    "before": null,
+    "after": "6e495340e0624a2cd82be0c2c5eae4385e2eda2097dc03b37204708271d5a04f"
+  },
+  {
+    "path": "public/icons/fe011/99-1013-info.svg",
+    "before": null,
+    "after": "7e850f9467092696a5fc63a00df78d8aef9a47ec7a36d67a82b1070718695e8d"
+  },
+  {
+    "path": "public/icons/fe011/99-1013-school.svg",
+    "before": null,
+    "after": "1eff2c7132fe460799a15c251f123c4f074ea84b9c67b6e2c977da879f7ed723"
+  },
+  {
+    "path": "public/icons/fe011/99-1261-chevron-left.svg",
+    "before": null,
+    "after": "20d14ea7a11a8f9c6a3b643f3ff448ad91bb441d564ec1dc0144f3c1c94ece4b"
+  },
+  {
+    "path": "public/icons/fe011/99-1261-chevron-right.svg",
+    "before": null,
+    "after": "b9d1ec276f8b07ab8e78abeeef8b5d973b0c1e06134732290d20d14090467b72"
+  },
+  {
+    "path": "public/icons/fe011/99-1261-info.svg",
+    "before": null,
+    "after": "39c31334f7559186e84e819ab220fe5870bb427a9e7a905913891c137c404f90"
+  },
+  {
+    "path": "public/icons/fe011/99-1490-calendar-days.svg",
+    "before": null,
+    "after": "bf8da914b92694d2007107830d02a47dd21c7200f3ffc3cb023b61035637b5d5"
+  },
+  {
+    "path": "public/icons/fe011/99-1490-chevron-left.svg",
+    "before": null,
+    "after": "20d14ea7a11a8f9c6a3b643f3ff448ad91bb441d564ec1dc0144f3c1c94ece4b"
+  },
+  {
+    "path": "public/icons/fe011/99-1490-chevron-right.svg",
+    "before": null,
+    "after": "b9d1ec276f8b07ab8e78abeeef8b5d973b0c1e06134732290d20d14090467b72"
+  },
+  {
+    "path": "public/icons/fe011/99-1490-files.svg",
+    "before": null,
+    "after": "0d21238a3dad8fbf37f54c4bf3c423dbd5b28302a10509043c65b29fb90321d9"
+  },
+  {
+    "path": "public/icons/fe011/99-1490-house.svg",
+    "before": null,
+    "after": "6e6589f144671944b398cc3fe627bad0b805ff129dd12204d5aa8a9858d72cab"
+  },
+  {
+    "path": "public/icons/fe011/99-1490-info.svg",
+    "before": null,
+    "after": "d1e9134ece16b3dc8712d4dfa4d27a6e19d16452d864aaf82569cd588788fa9a"
+  },
+  {
+    "path": "public/icons/fe011/99-1490-school.svg",
+    "before": null,
+    "after": "5563c312fdff54bc4daba16f34cf6eb062145aa949aac344e992f59ac7ba2ded"
+  },
+  {
+    "path": "public/icons/fe011/99-1630-calendar-days.svg",
+    "before": null,
+    "after": "bf8da914b92694d2007107830d02a47dd21c7200f3ffc3cb023b61035637b5d5"
+  },
+  {
+    "path": "public/icons/fe011/99-1630-chevron-left.svg",
+    "before": null,
+    "after": "20d14ea7a11a8f9c6a3b643f3ff448ad91bb441d564ec1dc0144f3c1c94ece4b"
+  },
+  {
+    "path": "public/icons/fe011/99-1630-chevron-right.svg",
+    "before": null,
+    "after": "b9d1ec276f8b07ab8e78abeeef8b5d973b0c1e06134732290d20d14090467b72"
+  },
+  {
+    "path": "public/icons/fe011/99-1630-files.svg",
+    "before": null,
+    "after": "0d21238a3dad8fbf37f54c4bf3c423dbd5b28302a10509043c65b29fb90321d9"
+  },
+  {
+    "path": "public/icons/fe011/99-1630-house.svg",
+    "before": null,
+    "after": "6e6589f144671944b398cc3fe627bad0b805ff129dd12204d5aa8a9858d72cab"
+  },
+  {
+    "path": "public/icons/fe011/99-1630-info.svg",
+    "before": null,
+    "after": "d1e9134ece16b3dc8712d4dfa4d27a6e19d16452d864aaf82569cd588788fa9a"
+  },
+  {
+    "path": "public/icons/fe011/99-1630-school.svg",
+    "before": null,
+    "after": "5563c312fdff54bc4daba16f34cf6eb062145aa949aac344e992f59ac7ba2ded"
+  },
+  {
+    "path": "public/icons/files.svg",
+    "before": null,
+    "after": "e956638fc291859f2328c9732086368e6170b245af8766037cdfb9ac58c069ad"
+  },
+  {
+    "path": "public/icons/house.svg",
+    "before": null,
+    "after": "1c61bce870b6cb1421b8c9861401551e05495e0881528e7ce8b53437e9480e02"
+  },
+  {
+    "path": "public/icons/info.svg",
+    "before": null,
+    "after": "8142ac8b7fe676a8ca8cf40f55d3f7d42f7bea2990f070ae212d10689501532e"
+  },
+  {
+    "path": "public/icons/plus-light.svg",
+    "before": null,
+    "after": "0b129cd6c41b4d58448dd03056a313ca01f4006a552066290d386a129ea1813f"
+  },
+  {
+    "path": "public/icons/plus.svg",
+    "before": null,
+    "after": "87bf099b0bc52076f575faebb498b022e0c42552c774f79977bd463d2e1fe7c1"
+  },
+  {
+    "path": "public/icons/school.svg",
+    "before": null,
+    "after": "1eff2c7132fe460799a15c251f123c4f074ea84b9c67b6e2c977da879f7ed723"
+  },
+  {
+    "path": "scripts/llm0011-capture.py",
+    "before": null,
+    "after": "4b16f218e8d1452f027883437331f5a17938fec0cc2bf21f48beaf4268c556a4"
+  },
+  {
+    "path": "scripts/llm0011-content-notes.py",
+    "before": null,
+    "after": "d9b67bd82c7d4ecbc8dd098e7efe44cd522220be852f90d2129daa80d9772d75"
+  },
+  {
+    "path": "scripts/llm0011-redelivery-check.py",
+    "before": null,
+    "after": "d44c60ad76c001e63732b17e365f291aa51ab6d170a901740bca9c0d3ee2aae7"
+  },
+  {
+    "path": "scripts/llm0011-release-report.py",
+    "before": null,
+    "after": "19665920373c6a86ba32e7d19de7d0b87bdeec26c5c95bf640bac6e6cf8dde15"
+  },
+  {
+    "path": "scripts/llm0011-restore-runtime.py",
+    "before": null,
+    "after": "01e595503ccda42b1a1157427f9824de4b373778ab71df0f96ac02dd8c2d3c4d"
+  },
+  {
+    "path": "scripts/llm0011-review-evidence.py",
+    "before": null,
+    "after": "053e52b60c3f6af8dbd2fb6c5556b2d5388b997ddd3b45643e40ee8cf7f89b24"
+  },
+  {
+    "path": "scripts/llm0011-start-isolated.py",
+    "before": null,
+    "after": "a68c6ef1cc6477fe4c37e3488d268508e172e5538d9e713daa8a8ac48d5b51cc"
+  },
+  {
+    "path": "scripts/llm0011-sync-openapi.mjs",
+    "before": null,
+    "after": "470ec5d828c865cf92e102979fea6b77915de39520c03e4e26a7c5753cb23f20"
+  },
+  {
+    "path": "scripts/package-llm0011.py",
+    "before": null,
+    "after": "ed353a45fd2b03fe6ea8c28ca63d60eb0de95b8dd54313949b0ee1408f051dcd"
+  },
+  {
+    "path": "scripts/verify-llm0011.py",
+    "before": null,
+    "after": "2a6393d1336ef868de2d78c44f44017e39d251e804fe7871c02f047f8d8274a0"
+  },
+  {
+    "path": "tests/backend/llm0011-compose.override.yml",
+    "before": null,
+    "after": "9f4dd07ad17fa8e9a483717169eb673c4a91c734a61910a21efb5901aea07d1e"
+  },
+  {
+    "path": "tests/backend/llm0011-fixtures.php",
+    "before": null,
+    "after": "8509f5abcfb2608e76ae89410bd15542994f65c7ce32442b1e578b096c59e662"
+  },
+  {
+    "path": "tests/backend/llm0011-redelivery.php",
+    "before": null,
+    "after": "833faa291d8349cec4370fa3bbd6eeb513e4aaf9eabcfeddaadd58dca596f24c"
+  },
+  {
+    "path": "tests/backend/llm0011-state.php",
+    "before": null,
+    "after": "c54cae3e8d340b1a284d52dc59c430e6bfff36e7b5e73477e993f3b13a335abe"
+  },
+  {
+    "path": "tests/fe006.test.ts",
+    "before": "2604e656ca01e0065d72d84e1e9c5ad3f4a0a87dcbde714266147b96a56a25cc",
+    "after": "290d0a28989b8f99b640d80a98bac7b2d269a9a3026434c457f15afbea0f06fa"
+  },
+  {
+    "path": "tests/llm0011.acceptance-readback.mjs",
+    "before": null,
+    "after": "168cf4f3a8fcbd7ef989cdb32cefee31052b7ee16177a4fdf6f26b6cb1bebfe4"
+  },
+  {
+    "path": "tests/llm0011.corrective.mjs",
+    "before": null,
+    "after": "030a64d7c3647ba296e6b44d5d78d0f3589037f21ace6ac197cf84e0f3b78fd5"
+  },
+  {
+    "path": "tests/llm0011.final-contract.mjs",
+    "before": null,
+    "after": "81c7ba15ff806a8a9cefddaf712ebd7eee755a75e6d3f5641125d656e08c666f"
+  },
+  {
+    "path": "tests/llm0011.live.mjs",
+    "before": null,
+    "after": "381c5d574829961d1b79e153f8eb59bb394f1691f60eb073ff503650a32bc27e"
+  },
+  {
+    "path": "tests/llm0011.provenance.mjs",
+    "before": null,
+    "after": "c8a5474054a3e5a20610ae402c0623c5710c3cc6963bf604655f0c66faeb2564"
+  },
+  {
+    "path": "tests/llm0011.reconcile.mjs",
+    "before": null,
+    "after": "0179d316fd2c6db4b5f9e254251d20e310d4bd99cd20ac4345df8236cdee5c20"
+  },
+  {
+    "path": "tests/llm0011.test.ts",
+    "before": null,
+    "after": "f1f193ae1b37992169ee7db495bcc48ae6e278059a07344e85e0e7ec1fd0349d"
+  }
+]

@@ -48,6 +48,12 @@ erDiagram
     USERS ||--o{ EXPORT_JOBS : requests
     EXPORT_JOBS ||--o{ EXPORTED_ARTIFACTS : produces
 
+    SCHOOLS ||--o{ SCENARIO_COMPARISONS : conducts
+    USERS ||--o{ SCENARIO_COMPARISONS : creates
+    SCENARIO_REQUESTS ||--o{ SCENARIO_COMPARISONS : compares
+    SCENARIOS ||--o{ SCENARIO_COMPARISONS : variant_a
+    SCENARIOS ||--o{ SCENARIO_COMPARISONS : variant_b
+
     SCHOOLS ||--o{ PILOT_PARTICIPANTS : hosts
     PILOT_PARTICIPANTS ||--|| PILOT_RESPONSES : submits
     SCENARIOS ||--o{ PILOT_RESPONSES : evaluates
@@ -358,21 +364,45 @@ erDiagram
         timestamptz created_at
     }
 
+    SCENARIO_COMPARISONS {
+        uuid id PK
+        uuid school_id FK
+        uuid user_id FK
+        uuid scenario_request_id FK
+        varchar comparison_type
+        uuid variant_a_scenario_id FK
+        uuid variant_b_scenario_id FK
+        jsonb differences_summary
+        varchar selected_variant
+        uuid selected_by_user_id FK
+        text selection_rationale
+        timestamptz selected_at
+        boolean is_synthetic
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
     PILOT_PARTICIPANTS {
         uuid id PK
         uuid school_id FK
         varchar anonymous_code UK
-        varchar invite_token_hash
+        varchar invite_token_hash UK
         varchar subject_area
         smallint teaching_experience_years
         boolean is_submitted
+        boolean is_synthetic
+        timestamptz expires_at
+        timestamptz revoked_at
+        timestamptz used_at
         timestamptz created_at
+        timestamptz updated_at
     }
 
     PILOT_RESPONSES {
         uuid id PK
         uuid participant_id FK
         uuid scenario_id FK
+        uuid comparison_id FK
         integer prep_time_baseline_minutes
         integer prep_time_ai_minutes
         numeric relative_time_saving
@@ -381,15 +411,19 @@ erDiagram
         boolean cultural_context_used
         smallint cultural_usefulness_score
         text feedback_text
+        boolean is_synthetic
         timestamptz created_at
     }
 
     PILOT_REVIEW_FINDINGS {
         uuid id PK
         uuid pilot_response_id FK
+        uuid expert_user_id FK
         varchar expert_name
         varchar expert_audit_status
         integer critical_cultural_errors
         text methodological_remarks
+        integer finding_version
+        boolean is_effective
         timestamptz reviewed_at
     }

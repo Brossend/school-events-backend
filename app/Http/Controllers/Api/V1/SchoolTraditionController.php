@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Traditions\CreateTraditionRequest;
 use App\Http\Requests\Traditions\CreateTraditionVersionRequest;
+use App\Http\Requests\Traditions\UpdateTraditionRequest;
 use App\Models\SchoolTradition;
 use App\Models\TraditionVersion;
 use App\Services\TenantContext;
@@ -36,16 +37,41 @@ class SchoolTraditionController extends Controller
             );
         }
 
-        $traditions = SchoolTradition::where('school_id', $schoolId)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = SchoolTradition::with(['versions' => fn ($q) => $q->orderBy('created_at', 'desc')])
+            ->where('school_id', $schoolId);
+
+        if ($request->has('is_archived')) {
+            $archivedParam = $request->query('is_archived');
+            if ($archivedParam !== 'all') {
+                $query->where('is_archived', filter_var($archivedParam, FILTER_VALIDATE_BOOLEAN));
+            }
+        } else {
+            $query->where('is_archived', false);
+        }
+
+        $traditions = $query->orderBy('created_at', 'desc')->get();
 
         $data = $traditions->map(function (SchoolTradition $t) {
+            $latestVersion = $t->versions->first();
+
             return [
                 'id' => $t->id,
                 'title' => $t->title,
                 'description' => $t->description,
                 'established_year' => $t->established_year,
+                'is_archived' => $t->is_archived,
+                'active_version' => $latestVersion ? [
+                    'id' => $latestVersion->id,
+                    'academic_year' => $latestVersion->academic_year,
+                    'notes' => $latestVersion->notes,
+                    'created_at' => $latestVersion->created_at?->toIso8601String(),
+                ] : null,
+                'versions' => $t->versions->map(fn ($v) => [
+                    'id' => $v->id,
+                    'academic_year' => $v->academic_year,
+                    'notes' => $v->notes,
+                    'created_at' => $v->created_at?->toIso8601String(),
+                ])->values()->all(),
             ];
         });
 
@@ -173,6 +199,178 @@ class SchoolTraditionController extends Controller
                 'created_at' => $version->created_at?->toIso8601String(),
             ],
         ], 201);
+    }
+
+    /**
+     * Show school tradition details with all yearly versions.
+     */
+    public function show(
+        string $id,
+        TenantContext $tenantContext,
+        Request $request
+    ): JsonResponse {
+        $tenantSchoolId = $tenantContext->getSchoolId();
+        $user = $request->user();
+
+        $tradition = SchoolTradition::with(['versions' => fn ($q) => $q->orderBy('created_at', 'desc')])
+            ->find($id);
+
+        if (! $tradition) {
+            return ApiResponse::error(
+                code: 'TRADITION_NOT_FOUND',
+                message: 'Школьная традиция не найдена.',
+                details: [],
+                status: 404
+            );
+        }
+
+        if ($tradition->school_id !== $tenantSchoolId && ! ($user && $user->isSystemAdmin())) {
+            return ApiResponse::error(
+                code: 'FORBIDDEN_TENANT_ACCESS',
+                message: 'Доступ к традиции другой школы запрещен.',
+                details: [],
+                status: 403
+            );
+        }
+
+        $latestVersion = $tradition->versions->first();
+
+        return ApiResponse::success([
+            'id' => $tradition->id,
+            'school_id' => $tradition->school_id,
+            'title' => $tradition->title,
+            'description' => $tradition->description,
+            'established_year' => $tradition->established_year,
+            'is_archived' => $tradition->is_archived,
+            'created_by_user_id' => $tradition->created_by_user_id,
+            'created_at' => $tradition->created_at?->toIso8601String(),
+            'updated_at' => $tradition->updated_at?->toIso8601String(),
+            'active_version' => $latestVersion ? [
+                'id' => $latestVersion->id,
+                'academic_year' => $latestVersion->academic_year,
+                'parameters_snapshot' => $latestVersion->parameters_snapshot,
+                'notes' => $latestVersion->notes,
+                'created_at' => $latestVersion->created_at?->toIso8601String(),
+            ] : null,
+            'versions' => $tradition->versions->map(fn ($v) => [
+                'id' => $v->id,
+                'academic_year' => $v->academic_year,
+                'parameters_snapshot' => $v->parameters_snapshot,
+                'notes' => $v->notes,
+                'created_at' => $v->created_at?->toIso8601String(),
+            ])->values()->all(),
+        ]);
+    }
+
+    /**
+     * Update school tradition metadata (immutable versions are never touched).
+     */
+    public function update(
+        string $id,
+        UpdateTraditionRequest $request,
+        TenantContext $tenantContext
+    ): JsonResponse {
+        $tenantSchoolId = $tenantContext->getSchoolId();
+        $user = $request->user();
+
+        $tradition = SchoolTradition::find($id);
+        if (! $tradition) {
+            return ApiResponse::error(
+                code: 'TRADITION_NOT_FOUND',
+                message: 'Школьная традиция не найдена.',
+                details: [],
+                status: 404
+            );
+        }
+
+        if ($tradition->school_id !== $tenantSchoolId && ! ($user && $user->isSystemAdmin())) {
+            return ApiResponse::error(
+                code: 'FORBIDDEN_TENANT_ACCESS',
+                message: 'Доступ к традиции другой школы запрещен.',
+                details: [],
+                status: 403
+            );
+        }
+
+        $canEdit = ($user && $user->isSystemAdmin())
+            || ($user && $user->hasSchoolRole($tenantSchoolId, 'school_admin'))
+            || ($tradition->created_by_user_id === $user?->id);
+
+        if (! $canEdit) {
+            return ApiResponse::error(
+                code: 'FORBIDDEN_TRADITION_EDIT',
+                message: 'Редактировать традицию может только автор, администратор школы или системный администратор.',
+                details: [],
+                status: 403
+            );
+        }
+
+        $validated = $request->validated();
+        $tradition->update($validated);
+
+        return ApiResponse::success([
+            'id' => $tradition->id,
+            'title' => $tradition->title,
+            'description' => $tradition->description,
+            'established_year' => $tradition->established_year,
+            'is_archived' => $tradition->is_archived,
+            'updated_at' => $tradition->updated_at?->toIso8601String(),
+        ]);
+    }
+
+    /**
+     * Archive a school tradition.
+     */
+    public function archive(
+        string $id,
+        TenantContext $tenantContext,
+        Request $request
+    ): JsonResponse {
+        $tenantSchoolId = $tenantContext->getSchoolId();
+        $user = $request->user();
+
+        $tradition = SchoolTradition::find($id);
+        if (! $tradition) {
+            return ApiResponse::error(
+                code: 'TRADITION_NOT_FOUND',
+                message: 'Школьная традиция не найдена.',
+                details: [],
+                status: 404
+            );
+        }
+
+        if ($tradition->school_id !== $tenantSchoolId && ! ($user && $user->isSystemAdmin())) {
+            return ApiResponse::error(
+                code: 'FORBIDDEN_TENANT_ACCESS',
+                message: 'Доступ к традиции другой школы запрещен.',
+                details: [],
+                status: 403
+            );
+        }
+
+        $canArchive = ($user && $user->isSystemAdmin())
+            || ($user && $user->hasSchoolRole($tenantSchoolId, 'school_admin'))
+            || ($tradition->created_by_user_id === $user?->id);
+
+        if (! $canArchive) {
+            return ApiResponse::error(
+                code: 'FORBIDDEN_TRADITION_EDIT',
+                message: 'Архивировать традицию может только автор, администратор школы или системный администратор.',
+                details: [],
+                status: 403
+            );
+        }
+
+        if (! $tradition->is_archived) {
+            $tradition->update(['is_archived' => true]);
+        }
+
+        return ApiResponse::success([
+            'id' => $tradition->id,
+            'title' => $tradition->title,
+            'is_archived' => true,
+            'updated_at' => $tradition->updated_at?->toIso8601String(),
+        ]);
     }
 
     /**

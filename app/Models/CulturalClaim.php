@@ -45,4 +45,9 @@ class CulturalClaim extends Model
     {
         return $this->hasMany(CulturalClaimSource::class, 'cultural_claim_id');
     }
+
+    public function evidenceAuditEvents(): HasMany
+    {
+        return $this->hasMany(CulturalClaimEvidenceAuditEvent::class, 'cultural_claim_id')->orderBy('created_at', 'asc');
+    }
 }

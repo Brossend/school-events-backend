@@ -1,0 +1,82 @@
+[
+  {
+    "path": "/v1/chat/completions",
+    "status": 200,
+    "latency_ms": 2813,
+    "retry_after": null,
+    "response": {
+      "id": "chatcmpl-8cb24aa9159345cf",
+      "created": 1793348654,
+      "model": "Qwen3.8-27B",
+      "object": "chat.completion",
+      "system_fingerprint": "vllm-0.31.0-dp6-80945cab",
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "{\n  \"title\": \"Промежуточный синтетический тест\",\n  \"minutes\": 45\n}",
+            "role": "assistant",
+            "provider_specific_fields": {
+              "reasoning": null,
+              "refusal": null
+            }
+          },
+          "provider_specific_fields": {}
+        }
+      ],
+      "usage": {
+        "completion_tokens": 29,
+        "prompt_tokens": 46,
+        "total_tokens": 75,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "options": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    }
+  },
+  {
+    "path": "/v1/chat/completions",
+    "status": 200,
+    "latency_ms": 15172,
+    "retry_after": null,
+    "response": {
+      "id": "chatcmpl-a42023f7fd1285d2",
+      "created": 1793348654,
+      "model": "Qwen3.8-27B",
+      "object": "chat.completion",
+      "system_fingerprint": "vllm-0.31.0-dp6-80945cab",
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "{\n  \"title\": \"Синтетический тест\",\n  \"minutes\": 45\n}",
+            "role": "assistant",
+            "provider_specific_fields": {
+              "refusal": null,
+              "reasoning": null
+            }
+          },
+          "provider_specific_fields": {}
+        }
+      ],
+      "usage": {
+        "completion_tokens": 25,
+        "prompt_tokens": 46,
+        "total_tokens": 71,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      }
+    },
+    "options": {
+      "reasoning_effort": "none"
+    }
+  }
+]

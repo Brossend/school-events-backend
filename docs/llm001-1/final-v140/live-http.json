@@ -1,0 +1,2444 @@
+{
+  "origin": "http://localhost:8001",
+  "runId": "230356c8d9",
+  "completed": false,
+  "trace": [
+    {
+      "role": "guest",
+      "method": "GET",
+      "path": "/auth/me",
+      "status": 401
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/sanctum/csrf-cookie",
+      "status": 204,
+      "response": null
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200
+    },
+    {
+      "role": "regional",
+      "method": "GET",
+      "path": "/sanctum/csrf-cookie",
+      "status": 204,
+      "response": null
+    },
+    {
+      "role": "regional",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200
+    },
+    {
+      "role": "other",
+      "method": "GET",
+      "path": "/sanctum/csrf-cookie",
+      "status": 204,
+      "response": null
+    },
+    {
+      "role": "other",
+      "method": "POST",
+      "path": "/auth/login",
+      "status": 200
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/auth/me",
+      "status": 200
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/tenant/current",
+      "status": 200,
+      "response": {
+        "data": {
+          "school_id": "01a191e5-19bf-7102-8f35-ef0d1de8ba84",
+          "school_name": "LLM0011 230356c8d9 A · synthetic test school",
+          "role": "teacher"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests",
+      "status": 201,
+      "response": {
+        "data": {
+          "school_id": "01a191e5-19bf-7102-8f35-ef0d1de8ba84",
+          "user_id": "01a191e5-1afd-7316-a8df-7f5c5f731245",
+          "calendar_event_id": null,
+          "tradition_version_id": null,
+          "custom_event_title": "LLM0011 230356c8d9: мастерская взаимопомощи (class_level)",
+          "scale": "class_level",
+          "format_type": "class_hour",
+          "target_grades": [
+            5,
+            6
+          ],
+          "participants_count": 30,
+          "duration_minutes": 45,
+          "value_direction": "mutual_aid",
+          "family_involvement": false,
+          "available_resources": [
+            "бумага",
+            "карандаши",
+            "доска"
+          ],
+          "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана.",
+          "context_snapshot": {
+            "schema_version": "1.0.0",
+            "snapshot_timestamp": "2026-10-31T12:18:59+00:00",
+            "author": {
+              "user_id": "01a191e5-1afd-7316-a8df-7f5c5f731245",
+              "name": "LLM0011 teacher · synthetic",
+              "email": "llm0011-230356c8d9-teacher@example.test"
+            },
+            "school": {
+              "id": "01a191e5-19bf-7102-8f35-ef0d1de8ba84",
+              "name": "LLM0011 230356c8d9 A · synthetic test school",
+              "region_code": "66"
+            },
+            "occasion": {
+              "type": "custom_title",
+              "title": "LLM0011 230356c8d9: мастерская взаимопомощи (class_level)",
+              "calendar_event": null,
+              "tradition_version": null,
+              "custom_event_title": "LLM0011 230356c8d9: мастерская взаимопомощи (class_level)",
+              "custom_region_code": "66"
+            },
+            "pedagogical_parameters": {
+              "scale": "class_level",
+              "format_type": "class_hour",
+              "target_grades": [
+                5,
+                6
+              ],
+              "participants_count": 30,
+              "duration_minutes": 45,
+              "value_direction": "mutual_aid",
+              "family_involvement": false,
+              "available_resources": [
+                "бумага",
+                "карандаши",
+                "доска"
+              ],
+              "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана."
+            },
+            "cultural_provenance": {
+              "sources": [],
+              "claims": []
+            }
+          },
+          "id": "01a191e6-1c93-7175-8c03-1289a4e0cf96"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a191e6-1c93-7175-8c03-1289a4e0cf96/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "generation_run_id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "run_id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "status": "queued",
+          "estimated_wait_seconds": 15,
+          "poll_url": "/api/v1/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+          "created_at": "2026-10-31T12:19:00+00:00"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a191e6-1c93-7175-8c03-1289a4e0cf96/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "run_id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "queued",
+          "poll_url": "/api/v1/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "generation_run_id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "estimated_wait_seconds": 15
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "completed",
+          "scenario_id": "01a191e7-57eb-720f-85bf-89ad470923be",
+          "revision_id": "01a191e7-5808-73af-899a-c331ba826860",
+          "moderation_status": "verification_passed",
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": 74263,
+          "prompt_tokens": 8554,
+          "completion_tokens": 3437,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": "2026-10-31T12:20:20+00:00"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/scenarios/01a191e7-57eb-720f-85bf-89ad470923be",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-57eb-720f-85bf-89ad470923be",
+          "quality_review": {
+            "gate_version": "quality-2.1.0",
+            "status": "requires_review",
+            "technical_checks": "passed",
+            "expert_assessment": "not_performed",
+            "teacher_signoff_required": true,
+            "payload_sha256": "efe99d95c74a29ce3ab32a19b47fc21c8fa58e06026efcf733c9ad8bb096f4b5",
+            "cultural_coverage": {
+              "version": "cultural-text-1.0.0",
+              "status": "requires_review",
+              "complete": false,
+              "scanned_string_count": 139,
+              "supported_assertions": [],
+              "findings": [],
+              "whole_document_verified": false,
+              "method": "recursive_all_string_leaves_exact_live_claim_matching_and_cue_rules",
+              "limitation": "Словарные правила могут пропускать перефразы и факты без дат/имён. Пустой cultural_claims и отсутствие находок не означают культурный PASS."
+            },
+            "findings": [],
+            "limitations": [
+              "Детерминированные правила не доказывают полноту извлечения фактов или педагогическую пригодность. Требуется ручная оценка всего текста."
+            ]
+          },
+          "generation": {
+            "id": "01a191e6-1fae-7199-936d-4062232e3644",
+            "provider_name": "litellm",
+            "model_identifier": "GigaChat-2-Max",
+            "prompt_version": "school-methodist-1.4.0",
+            "schema_version": "1.0.0",
+            "latency_ms": 74263,
+            "prompt_tokens": 8554,
+            "completion_tokens": 3437
+          },
+          "school_id": "01a191e5-19bf-7102-8f35-ef0d1de8ba84",
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "title": "Сценарий: LLM0011 230356c8d9: мастерская взаимопомощи (class_level)",
+          "status": "draft",
+          "is_archived": false,
+          "current_revision_id": "01a191e7-5808-73af-899a-c331ba826860",
+          "optimistic_lock_version": 1,
+          "moderation_status": "verification_passed",
+          "created_at": "2026-10-31T12:20:20+00:00",
+          "updated_at": "2026-10-31T12:20:20+00:00",
+          "current_revision": {
+            "id": "01a191e7-5808-73af-899a-c331ba826860",
+            "version_number": 1,
+            "change_description": null,
+            "moderation_status": "verification_passed",
+            "concept": "Мастерская взаимопомощи: проектирование справедливых комплектов для школьных зон",
+            "pedagogical_goal": "Развитие навыков командной работы и взаимопомощи через решение практической задачи распределения ресурсов",
+            "content_payload": {
+              "props": [
+                {
+                  "quantity": "18 листов",
+                  "item_name": "Бумага",
+                  "is_mandatory": true,
+                  "alternative_if_missing": "Использовать старые тетради или распечатки."
+                },
+                {
+                  "quantity": "12 штук",
+                  "item_name": "Карандаши",
+                  "is_mandatory": true,
+                  "alternative_if_missing": "Использовать ручки или маркеры."
+                },
+                {
+                  "quantity": "1 комплект",
+                  "item_name": "Доска и маркеры/мел",
+                  "is_mandatory": true,
+                  "alternative_if_missing": "Использовать большие листы бумаги для записей."
+                }
+              ],
+              "roles": [
+                {
+                  "role_name": "Хранитель запасов",
+                  "group_size": 1,
+                  "description": "Отвечает за знание общего запаса ресурсов и его распределение.",
+                  "specific_tasks": [
+                    "Знает общий запас ресурсов (18 листов бумаги и 12 карандашей). Распределяет ресурсы согласно коллективному решению."
+                  ],
+                  "target_participants": "students"
+                },
+                {
+                  "role_name": "Представитель получателя",
+                  "group_size": 1,
+                  "description": "Отвечает за знание потребностей одной зоны и их представление команде.",
+                  "specific_tasks": [
+                    "Знает потребность одной зоны (5 листов бумаги и 3 карандаша). Представляет эту информацию команде."
+                  ],
+                  "target_participants": "students"
+                },
+                {
+                  "role_name": "Хранитель резерва",
+                  "group_size": 1,
+                  "description": "Отвечает за знание минимальных ограничений резерва и их соблюдение.",
+                  "specific_tasks": [
+                    "Знает минимальные ограничения резерва (3 листа бумаги и 2 карандаша). Следит за соблюдением этих ограничений."
+                  ],
+                  "target_participants": "students"
+                },
+                {
+                  "role_name": "Проверяющий",
+                  "group_size": 1,
+                  "description": "Отвечает за проверку и сравнение двух планов распределения ресурсов.",
+                  "specific_tasks": [
+                    "Проверяет оба плана распределения ресурсов, сравнивает их и выявляет преимущества и недостатки каждого."
+                  ],
+                  "target_participants": "students"
+                },
+                {
+                  "role_name": "Докладчик",
+                  "group_size": 1,
+                  "description": "Отвечает за представление решения и объяснение его справедливости.",
+                  "specific_tasks": [
+                    "Представляет решение команды, объясняет, почему оно является справедливым и учитывает потребности всех зон."
+                  ],
+                  "target_participants": "students"
+                }
+              ],
+              "format": {
+                "scale": "class_level",
+                "format_type": "class_hour",
+                "total_duration_minutes": 45
+              },
+              "stages": [
+                {
+                  "id": "stage_1",
+                  "title": "Организационный момент",
+                  "stage_type": "organizational_moment",
+                  "order_index": 1,
+                  "student_actions": "Участники слушают инструктаж, знакомятся с правилами и распределяются по командам и ролям.",
+                  "teacher_actions": "Педагог приветствует участников, объясняет правила безопасности и организационные моменты. Распределяет участников на команды и роли.",
+                  "transition_text": "Теперь, когда вы знаете свои роли, давайте перейдем к вводной части.",
+                  "dialogue_prompts": [
+                    "Как вы понимаете свою роль в команде?"
+                  ],
+                  "duration_minutes": 4
+                },
+                {
+                  "id": "stage_2",
+                  "title": "Вводная часть и постановка задачи",
+                  "stage_type": "motivation_introduction",
+                  "order_index": 2,
+                  "student_actions": "Участники слушают вводную информацию, задают вопросы для уточнения условий задачи.",
+                  "teacher_actions": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи. Рассказывает о важности справедливого распределения ресурсов.",
+                  "transition_text": "Теперь, когда вы понимаете задачу, давайте приступим к практическому этапу.",
+                  "dialogue_prompts": [
+                    "Как вы думаете, почему важно учитывать потребности всех зон?"
+                  ],
+                  "duration_minutes": 9
+                },
+                {
+                  "id": "stage_3",
+                  "title": "Совместный деятельностный практикум",
+                  "stage_type": "main_interactive_part",
+                  "order_index": 3,
+                  "student_actions": "Участники обмениваются информацией, обсуждают и принимают коллективное решение. Заполняют карточки и делают записи на доске.",
+                  "teacher_actions": "Педагог наблюдает за работой команд, помогает при необходимости, следит за соблюдением правил.",
+                  "transition_text": "Теперь, когда у вас есть решение, давайте сравним два плана.",
+                  "dialogue_prompts": [
+                    "Как вы планируете распределить ресурсы?"
+                  ],
+                  "duration_minutes": 11
+                },
+                {
+                  "id": "stage_4",
+                  "title": "Сравнение двух решений и проверка резерва",
+                  "stage_type": "main_interactive_part",
+                  "order_index": 4,
+                  "student_actions": "Участники сравнивают два плана, обсуждают их преимущества и недостатки, проверяют соблюдение ограничений резерва. Заполняют карточки и делают записи на доске.",
+                  "teacher_actions": "Педагог помогает командам сравнить два плана и проверить соблюдение ограничений резерва. Проводит обсуждение результатов.",
+                  "transition_text": "Теперь, когда вы сравнили планы, давайте подведем итоги.",
+                  "dialogue_prompts": [
+                    "Какой план кажется вам более справедливым и почему?"
+                  ],
+                  "duration_minutes": 12
+                },
+                {
+                  "id": "stage_5",
+                  "title": "Рефлексия и подведение итогов",
+                  "stage_type": "reflection_summary",
+                  "order_index": 5,
+                  "student_actions": "Участники делятся впечатлениями, обсуждают, что им удалось, а что можно улучшить. Заполняют карточки рефлексии.",
+                  "teacher_actions": "Педагог подводит итоги, обсуждает с участниками их впечатления и выводы. Проводит рефлексию.",
+                  "transition_text": "На этом наше мероприятие завершается. Спасибо за участие!",
+                  "dialogue_prompts": [
+                    "Что нового вы узнали сегодня?"
+                  ],
+                  "duration_minutes": 9
+                }
+              ],
+              "concept": "Мастерская взаимопомощи: проектирование справедливых комплектов для школьных зон",
+              "materials": {
+                "handouts": [
+                  {
+                    "title": "Карточка рефлексии",
+                    "instructions": "Заполните карточку рефлексии, ответив на вопросы о вашем участии и впечатлениях от мероприятия.",
+                    "template_content": "1. Что нового вы узнали сегодня? 2. Как вы оцениваете свою роль в команде? 3. Что вам удалось, а что можно улучшить? 4. Как вы думаете, почему важно учитывать потребности всех зон? Пример заполнения: 1. Я узнал, как важно учитывать ограничения резерва при распределении ресурсов. 2. Я считаю, что моя роль была важной, так как я следил за соблюдением ограничений резерва. 3. Мне удалось убедить команду в важности соблюдения ограничений, но можно было лучше объяснить свою позицию. 4. Учитывать потребности всех зон важно, чтобы никто не остался без необходимых ресурсов."
+                  }
+                ],
+                "printable_cards": [
+                  {
+                    "title": "Карточка: Хранитель запасов",
+                    "back_text": "Убедитесь, что ваше распределение соответствует коллективному решению и не превышает общий запас. Запишите ваше распределение на доске.",
+                    "card_type": "Роль",
+                    "front_text": "Вы знаете, что в наличии 18 листов бумаги и 12 карандашей. Ваша задача — распределить эти ресурсы согласно коллективному решению. Вы не знаете потребности каждой зоны и ограничения резерва. Как вы будете действовать?",
+                    "quantity_per_group": 1
+                  },
+                  {
+                    "title": "Карточка: Представитель получателя",
+                    "back_text": "Убедитесь, что потребности вашей зоны учтены в коллективном решении. Запишите потребности вашей зоны на доске.",
+                    "card_type": "Роль",
+                    "front_text": "Вы знаете, что одной зоне требуется 5 листов бумаги и 3 карандаша. Ваша задача — представить эту информацию команде и убедиться, что потребности зоны учтены. Как вы будете действовать?",
+                    "quantity_per_group": 1
+                  },
+                  {
+                    "title": "Карточка: Хранитель резерва",
+                    "back_text": "Убедитесь, что коллективное решение не нарушает ограничения резерва. Запишите ограничения резерва на доске.",
+                    "card_type": "Роль",
+                    "front_text": "Вы знаете, что в резерве должно остаться минимум 3 листа бумаги и 2 карандаша. Ваша задача — следить за соблюдением этих ограничений. Как вы будете действовать?",
+                    "quantity_per_group": 1
+                  },
+                  {
+                    "title": "Карточка: Проверяющий",
+                    "back_text": "Сравните два плана, выявите их преимущества и недостатки. Запишите результаты сравнения на доске.",
+                    "card_type": "Роль",
+                    "front_text": "Вы отвечаете за проверку и сравнение двух планов распределения ресурсов. Ваша задача — выявить преимущества и недостатки каждого плана. Как вы будете действовать?",
+                    "quantity_per_group": 1
+                  },
+                  {
+                    "title": "Карточка: Докладчик",
+                    "back_text": "Представьте решение команды, объясните, почему оно является справедливым и учитывает потребности всех зон. Запишите объяснение на доске.",
+                    "card_type": "Роль",
+                    "front_text": "Вы отвечаете за представление решения и объяснение его справедливости. Ваша задача — объяснить, почему решение учитывает потребности всех зон. Как вы будете действовать?",
+                    "quantity_per_group": 1
+                  }
+                ],
+                "presentation_slides": [
+                  {
+                    "title": "Вводная часть",
+                    "slide_number": 1,
+                    "bullet_points": [
+                      "Цель мероприятия: научиться справедливому распределению ресурсов."
+                    ],
+                    "speaker_notes": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи.",
+                    "visual_recommendations": "Использовать крупные шрифты и минимум текста."
+                  },
+                  {
+                    "title": "Условия задачи",
+                    "slide_number": 2,
+                    "bullet_points": [
+                      "3 зоны, 18 листов бумаги, 12 карандашей, 5 листов и 3 карандаша на комплект, минимум 3 листа бумаги и 2 карандаша в резерве."
+                    ],
+                    "speaker_notes": "Педагог объясняет условия задачи и отвечает на вопросы участников.",
+                    "visual_recommendations": "Использовать таблицы для наглядности."
+                  },
+                  {
+                    "title": "Роли и задачи",
+                    "slide_number": 3,
+                    "bullet_points": [
+                      "Хранитель запасов, Представитель получателя, Хранитель резерва, Проверяющий, Докладчик."
+                    ],
+                    "speaker_notes": "Педагог объясняет роли и задачи участников.",
+                    "visual_recommendations": "Использовать схемы для наглядности."
+                  }
+                ]
+              },
+              "activities": [
+                {
+                  "title": "Совместный деятельностный практикум",
+                  "activity_type": "Практическая работа в команде",
+                  "target_stage_id": "stage_3",
+                  "scoring_or_evaluation": "Оценивается участие каждого участника, качество коллективного решения и соблюдение ограничений резерва.",
+                  "rules_and_instructions": "Участники обмениваются информацией, обсуждают и принимают коллективное решение о распределении ресурсов. Заполняют карточки и делают записи на доске."
+                },
+                {
+                  "title": "Сравнение двух решений и проверка резерва",
+                  "activity_type": "Анализ и сравнение решений",
+                  "target_stage_id": "stage_4",
+                  "scoring_or_evaluation": "Оценивается способность участников анализировать и сравнивать решения, а также аргументировать свой выбор.",
+                  "rules_and_instructions": "Участники сравнивают два плана распределения ресурсов, обсуждают их преимущества и недостатки, проверяют соблюдение ограничений резерва. Заполняют карточки и делают записи на доске."
+                }
+              ],
+              "cultural_claims": [],
+              "target_audience": {
+                "age_group": "basic_5_9",
+                "target_grades": [
+                  5,
+                  6
+                ],
+                "family_involvement": false,
+                "participants_count_max": 30,
+                "participants_count_min": 30
+              },
+              "value_direction": "mutual_aid",
+              "pedagogical_goal": "Развитие навыков командной работы и взаимопомощи через решение практической задачи распределения ресурсов",
+              "expected_outcomes": {
+                "skills": [
+                  "Навыки командной работы и принятия коллективных решений"
+                ],
+                "values": [
+                  "Ценность взаимопомощи и уважения к ограничениям других участников"
+                ],
+                "knowledge": [
+                  "Понимание принципов справедливого распределения ресурсов"
+                ]
+              },
+              "pedagogical_tasks": {
+                "personal": [
+                  "Развитие ответственности за свою роль в команде"
+                ],
+                "meta_subject": [
+                  "Формирование навыков коммуникации и аргументации"
+                ],
+                "subject_specific": [
+                  "Применение математических навыков для решения практических задач"
+                ]
+              },
+              "teacher_instructions": {
+                "general_safety_rules": [
+                  "Следить за порядком в классе."
+                ],
+                "methodological_recommendations": [
+                  "Поддерживать активное участие всех членов команды."
+                ],
+                "adaptation_for_disabilities_or_small_groups": "При необходимости, объединить две команды в одну для работы в малых группах."
+              },
+              "pedagogical_mechanism": {
+                "description": "Участники работают в командах, распределяя роли и обмениваясь информацией для принятия коллективного решения",
+                "mechanism_type": "team_mutual_support_task",
+                "target_activity_title": "Совместный деятельностный практикум"
+              },
+              "preparation_checklist": [
+                {
+                  "timeline_phase": "two_weeks_before",
+                  "task_description": "Определить дату и время проведения мероприятия.",
+                  "responsible_person": "Педагог"
+                },
+                {
+                  "timeline_phase": "three_days_before",
+                  "task_description": "Подготовить материалы и раздаточные материалы.",
+                  "responsible_person": "Педагог"
+                },
+                {
+                  "timeline_phase": "day_before",
+                  "task_description": "Проверить наличие всех необходимых материалов и оборудования.",
+                  "responsible_person": "Педагог"
+                },
+                {
+                  "timeline_phase": "hour_before",
+                  "task_description": "Настроить помещение и подготовить доски для записей.",
+                  "responsible_person": "Педагог"
+                }
+              ]
+            },
+            "created_at": "2026-10-31T12:20:20+00:00",
+            "moderation_state": {
+              "status": "verification_passed",
+              "p0_violations_count": 0,
+              "p1_violations_count": 0,
+              "moderator_notes": null,
+              "checked_at": null
+            },
+            "signoff": null,
+            "stages": [
+              {
+                "id": "01a191e7-5816-71d3-8cf8-3688df975928",
+                "stage_identifier": "stage_1",
+                "stage_key": "stage_1",
+                "order_index": 1,
+                "stage_type": "organizational_moment",
+                "title": "Организационный момент",
+                "duration_minutes": 4,
+                "teacher_actions": "Педагог приветствует участников, объясняет правила безопасности и организационные моменты. Распределяет участников на команды и роли.",
+                "student_actions": "Участники слушают инструктаж, знакомятся с правилами и распределяются по командам и ролям.",
+                "transition_text": "Теперь, когда вы знаете свои роли, давайте перейдем к вводной части."
+              },
+              {
+                "id": "01a191e7-5818-7110-b07d-8aeaef9a031f",
+                "stage_identifier": "stage_2",
+                "stage_key": "stage_2",
+                "order_index": 2,
+                "stage_type": "motivation_introduction",
+                "title": "Вводная часть и постановка задачи",
+                "duration_minutes": 9,
+                "teacher_actions": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи. Рассказывает о важности справедливого распределения ресурсов.",
+                "student_actions": "Участники слушают вводную информацию, задают вопросы для уточнения условий задачи.",
+                "transition_text": "Теперь, когда вы понимаете задачу, давайте приступим к практическому этапу."
+              },
+              {
+                "id": "01a191e7-581a-704b-9fab-37b0019c50f4",
+                "stage_identifier": "stage_3",
+                "stage_key": "stage_3",
+                "order_index": 3,
+                "stage_type": "main_interactive_part",
+                "title": "Совместный деятельностный практикум",
+                "duration_minutes": 11,
+                "teacher_actions": "Педагог наблюдает за работой команд, помогает при необходимости, следит за соблюдением правил.",
+                "student_actions": "Участники обмениваются информацией, обсуждают и принимают коллективное решение. Заполняют карточки и делают записи на доске.",
+                "transition_text": "Теперь, когда у вас есть решение, давайте сравним два плана."
+              },
+              {
+                "id": "01a191e7-581b-7135-b09e-a8555ac11568",
+                "stage_identifier": "stage_4",
+                "stage_key": "stage_4",
+                "order_index": 4,
+                "stage_type": "main_interactive_part",
+                "title": "Сравнение двух решений и проверка резерва",
+                "duration_minutes": 12,
+                "teacher_actions": "Педагог помогает командам сравнить два плана и проверить соблюдение ограничений резерва. Проводит обсуждение результатов.",
+                "student_actions": "Участники сравнивают два плана, обсуждают их преимущества и недостатки, проверяют соблюдение ограничений резерва. Заполняют карточки и делают записи на доске.",
+                "transition_text": "Теперь, когда вы сравнили планы, давайте подведем итоги."
+              },
+              {
+                "id": "01a191e7-581c-7315-915a-eeb95410c73e",
+                "stage_identifier": "stage_5",
+                "stage_key": "stage_5",
+                "order_index": 5,
+                "stage_type": "reflection_summary",
+                "title": "Рефлексия и подведение итогов",
+                "duration_minutes": 9,
+                "teacher_actions": "Педагог подводит итоги, обсуждает с участниками их впечатления и выводы. Проводит рефлексию.",
+                "student_actions": "Участники делятся впечатлениями, обсуждают, что им удалось, а что можно улучшить. Заполняют карточки рефлексии.",
+                "transition_text": "На этом наше мероприятие завершается. Спасибо за участие!"
+              }
+            ],
+            "materials": [
+              {
+                "id": "01a191e7-5824-70a0-8eb9-77959ac1da10",
+                "material_type": "presentation_slide",
+                "title": "Вводная часть",
+                "order_index": 1,
+                "content": {
+                  "title": "Вводная часть",
+                  "slide_number": 1,
+                  "bullet_points": [
+                    "Цель мероприятия: научиться справедливому распределению ресурсов."
+                  ],
+                  "speaker_notes": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи.",
+                  "visual_recommendations": "Использовать крупные шрифты и минимум текста."
+                },
+                "content_payload": {
+                  "title": "Вводная часть",
+                  "slide_number": 1,
+                  "bullet_points": [
+                    "Цель мероприятия: научиться справедливому распределению ресурсов."
+                  ],
+                  "speaker_notes": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи.",
+                  "visual_recommendations": "Использовать крупные шрифты и минимум текста."
+                }
+              },
+              {
+                "id": "01a191e7-5829-70d7-ad36-5146771b3cb6",
+                "material_type": "printable_card",
+                "title": "Карточка: Хранитель запасов",
+                "order_index": 1,
+                "content": {
+                  "title": "Карточка: Хранитель запасов",
+                  "back_text": "Убедитесь, что ваше распределение соответствует коллективному решению и не превышает общий запас. Запишите ваше распределение на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы знаете, что в наличии 18 листов бумаги и 12 карандашей. Ваша задача — распределить эти ресурсы согласно коллективному решению. Вы не знаете потребности каждой зоны и ограничения резерва. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                },
+                "content_payload": {
+                  "title": "Карточка: Хранитель запасов",
+                  "back_text": "Убедитесь, что ваше распределение соответствует коллективному решению и не превышает общий запас. Запишите ваше распределение на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы знаете, что в наличии 18 листов бумаги и 12 карандашей. Ваша задача — распределить эти ресурсы согласно коллективному решению. Вы не знаете потребности каждой зоны и ограничения резерва. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                }
+              },
+              {
+                "id": "01a191e7-582f-7194-a791-982ecca99b17",
+                "material_type": "handout_sheet",
+                "title": "Карточка рефлексии",
+                "order_index": 1,
+                "content": {
+                  "title": "Карточка рефлексии",
+                  "instructions": "Заполните карточку рефлексии, ответив на вопросы о вашем участии и впечатлениях от мероприятия.",
+                  "template_content": "1. Что нового вы узнали сегодня? 2. Как вы оцениваете свою роль в команде? 3. Что вам удалось, а что можно улучшить? 4. Как вы думаете, почему важно учитывать потребности всех зон? Пример заполнения: 1. Я узнал, как важно учитывать ограничения резерва при распределении ресурсов. 2. Я считаю, что моя роль была важной, так как я следил за соблюдением ограничений резерва. 3. Мне удалось убедить команду в важности соблюдения ограничений, но можно было лучше объяснить свою позицию. 4. Учитывать потребности всех зон важно, чтобы никто не остался без необходимых ресурсов."
+                },
+                "content_payload": {
+                  "title": "Карточка рефлексии",
+                  "instructions": "Заполните карточку рефлексии, ответив на вопросы о вашем участии и впечатлениях от мероприятия.",
+                  "template_content": "1. Что нового вы узнали сегодня? 2. Как вы оцениваете свою роль в команде? 3. Что вам удалось, а что можно улучшить? 4. Как вы думаете, почему важно учитывать потребности всех зон? Пример заполнения: 1. Я узнал, как важно учитывать ограничения резерва при распределении ресурсов. 2. Я считаю, что моя роль была важной, так как я следил за соблюдением ограничений резерва. 3. Мне удалось убедить команду в важности соблюдения ограничений, но можно было лучше объяснить свою позицию. 4. Учитывать потребности всех зон важно, чтобы никто не остался без необходимых ресурсов."
+                }
+              },
+              {
+                "id": "01a191e7-5830-7139-9cd5-3b2a8c1b5b50",
+                "material_type": "props_checklist",
+                "title": "Чек-лист реквизита и оборудования",
+                "order_index": 1,
+                "content": [
+                  {
+                    "quantity": "18 листов",
+                    "item_name": "Бумага",
+                    "is_mandatory": true,
+                    "alternative_if_missing": "Использовать старые тетради или распечатки."
+                  },
+                  {
+                    "quantity": "12 штук",
+                    "item_name": "Карандаши",
+                    "is_mandatory": true,
+                    "alternative_if_missing": "Использовать ручки или маркеры."
+                  },
+                  {
+                    "quantity": "1 комплект",
+                    "item_name": "Доска и маркеры/мел",
+                    "is_mandatory": true,
+                    "alternative_if_missing": "Использовать большие листы бумаги для записей."
+                  }
+                ],
+                "content_payload": [
+                  {
+                    "quantity": "18 листов",
+                    "item_name": "Бумага",
+                    "is_mandatory": true,
+                    "alternative_if_missing": "Использовать старые тетради или распечатки."
+                  },
+                  {
+                    "quantity": "12 штук",
+                    "item_name": "Карандаши",
+                    "is_mandatory": true,
+                    "alternative_if_missing": "Использовать ручки или маркеры."
+                  },
+                  {
+                    "quantity": "1 комплект",
+                    "item_name": "Доска и маркеры/мел",
+                    "is_mandatory": true,
+                    "alternative_if_missing": "Использовать большие листы бумаги для записей."
+                  }
+                ]
+              },
+              {
+                "id": "01a191e7-5826-7207-ba52-fd75d791ee92",
+                "material_type": "presentation_slide",
+                "title": "Условия задачи",
+                "order_index": 2,
+                "content": {
+                  "title": "Условия задачи",
+                  "slide_number": 2,
+                  "bullet_points": [
+                    "3 зоны, 18 листов бумаги, 12 карандашей, 5 листов и 3 карандаша на комплект, минимум 3 листа бумаги и 2 карандаша в резерве."
+                  ],
+                  "speaker_notes": "Педагог объясняет условия задачи и отвечает на вопросы участников.",
+                  "visual_recommendations": "Использовать таблицы для наглядности."
+                },
+                "content_payload": {
+                  "title": "Условия задачи",
+                  "slide_number": 2,
+                  "bullet_points": [
+                    "3 зоны, 18 листов бумаги, 12 карандашей, 5 листов и 3 карандаша на комплект, минимум 3 листа бумаги и 2 карандаша в резерве."
+                  ],
+                  "speaker_notes": "Педагог объясняет условия задачи и отвечает на вопросы участников.",
+                  "visual_recommendations": "Использовать таблицы для наглядности."
+                }
+              },
+              {
+                "id": "01a191e7-582a-707d-af6d-c1f67fd67756",
+                "material_type": "printable_card",
+                "title": "Карточка: Представитель получателя",
+                "order_index": 2,
+                "content": {
+                  "title": "Карточка: Представитель получателя",
+                  "back_text": "Убедитесь, что потребности вашей зоны учтены в коллективном решении. Запишите потребности вашей зоны на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы знаете, что одной зоне требуется 5 листов бумаги и 3 карандаша. Ваша задача — представить эту информацию команде и убедиться, что потребности зоны учтены. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                },
+                "content_payload": {
+                  "title": "Карточка: Представитель получателя",
+                  "back_text": "Убедитесь, что потребности вашей зоны учтены в коллективном решении. Запишите потребности вашей зоны на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы знаете, что одной зоне требуется 5 листов бумаги и 3 карандаша. Ваша задача — представить эту информацию команде и убедиться, что потребности зоны учтены. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                }
+              },
+              {
+                "id": "01a191e7-5827-70fa-8e8b-7dafe21b1a91",
+                "material_type": "presentation_slide",
+                "title": "Роли и задачи",
+                "order_index": 3,
+                "content": {
+                  "title": "Роли и задачи",
+                  "slide_number": 3,
+                  "bullet_points": [
+                    "Хранитель запасов, Представитель получателя, Хранитель резерва, Проверяющий, Докладчик."
+                  ],
+                  "speaker_notes": "Педагог объясняет роли и задачи участников.",
+                  "visual_recommendations": "Использовать схемы для наглядности."
+                },
+                "content_payload": {
+                  "title": "Роли и задачи",
+                  "slide_number": 3,
+                  "bullet_points": [
+                    "Хранитель запасов, Представитель получателя, Хранитель резерва, Проверяющий, Докладчик."
+                  ],
+                  "speaker_notes": "Педагог объясняет роли и задачи участников.",
+                  "visual_recommendations": "Использовать схемы для наглядности."
+                }
+              },
+              {
+                "id": "01a191e7-582b-70e4-967e-1060e1f6935d",
+                "material_type": "printable_card",
+                "title": "Карточка: Хранитель резерва",
+                "order_index": 3,
+                "content": {
+                  "title": "Карточка: Хранитель резерва",
+                  "back_text": "Убедитесь, что коллективное решение не нарушает ограничения резерва. Запишите ограничения резерва на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы знаете, что в резерве должно остаться минимум 3 листа бумаги и 2 карандаша. Ваша задача — следить за соблюдением этих ограничений. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                },
+                "content_payload": {
+                  "title": "Карточка: Хранитель резерва",
+                  "back_text": "Убедитесь, что коллективное решение не нарушает ограничения резерва. Запишите ограничения резерва на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы знаете, что в резерве должно остаться минимум 3 листа бумаги и 2 карандаша. Ваша задача — следить за соблюдением этих ограничений. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                }
+              },
+              {
+                "id": "01a191e7-582d-715f-8d49-47199845bb82",
+                "material_type": "printable_card",
+                "title": "Карточка: Проверяющий",
+                "order_index": 4,
+                "content": {
+                  "title": "Карточка: Проверяющий",
+                  "back_text": "Сравните два плана, выявите их преимущества и недостатки. Запишите результаты сравнения на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы отвечаете за проверку и сравнение двух планов распределения ресурсов. Ваша задача — выявить преимущества и недостатки каждого плана. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                },
+                "content_payload": {
+                  "title": "Карточка: Проверяющий",
+                  "back_text": "Сравните два плана, выявите их преимущества и недостатки. Запишите результаты сравнения на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы отвечаете за проверку и сравнение двух планов распределения ресурсов. Ваша задача — выявить преимущества и недостатки каждого плана. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                }
+              },
+              {
+                "id": "01a191e7-582e-70bb-9dd1-c3fb243d2109",
+                "material_type": "printable_card",
+                "title": "Карточка: Докладчик",
+                "order_index": 5,
+                "content": {
+                  "title": "Карточка: Докладчик",
+                  "back_text": "Представьте решение команды, объясните, почему оно является справедливым и учитывает потребности всех зон. Запишите объяснение на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы отвечаете за представление решения и объяснение его справедливости. Ваша задача — объяснить, почему решение учитывает потребности всех зон. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                },
+                "content_payload": {
+                  "title": "Карточка: Докладчик",
+                  "back_text": "Представьте решение команды, объясните, почему оно является справедливым и учитывает потребности всех зон. Запишите объяснение на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы отвечаете за представление решения и объяснение его справедливости. Ваша задача — объяснить, почему решение учитывает потребности всех зон. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "status": "completed",
+          "scenario_id": "01a191e7-57eb-720f-85bf-89ad470923be",
+          "revision_id": "01a191e7-5808-73af-899a-c331ba826860",
+          "moderation_status": "verification_passed",
+          "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": 74263,
+          "prompt_tokens": 8554,
+          "completion_tokens": 3437,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:19:00+00:00",
+          "completed_at": "2026-10-31T12:20:20+00:00"
+        }
+      }
+    },
+    {
+      "role": "other",
+      "method": "GET",
+      "path": "/scenarios/01a191e7-57eb-720f-85bf-89ad470923be",
+      "status": 403,
+      "response": {
+        "error": {
+          "code": "FORBIDDEN_TENANT_ACCESS",
+          "message": "Доступ к сценарию другой школы запрещен.",
+          "details": [],
+          "trace_id": "req-01a191e7-6678-7300-893f-815873db3132"
+        }
+      }
+    },
+    {
+      "role": "other",
+      "method": "GET",
+      "path": "/generation-runs/01a191e6-1fae-7199-936d-4062232e3644",
+      "status": 403,
+      "response": {
+        "error": {
+          "code": "FORBIDDEN_TENANT_ACCESS",
+          "message": "Доступ к запуску генерации другой школы запрещен.",
+          "details": [],
+          "trace_id": "req-01a191e7-69ed-72fd-84d1-f5b5f1003807"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests",
+      "status": 201,
+      "response": {
+        "data": {
+          "school_id": "01a191e5-19bf-7102-8f35-ef0d1de8ba84",
+          "user_id": "01a191e5-1afd-7316-a8df-7f5c5f731245",
+          "calendar_event_id": null,
+          "tradition_version_id": null,
+          "custom_event_title": "LLM0011 230356c8d9: мастерская взаимопомощи (all_school)",
+          "scale": "all_school",
+          "format_type": "quest",
+          "target_grades": [
+            5,
+            6
+          ],
+          "participants_count": 150,
+          "duration_minutes": 60,
+          "value_direction": "mutual_aid",
+          "family_involvement": false,
+          "available_resources": [
+            "бумага",
+            "карандаши",
+            "доска"
+          ],
+          "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана.",
+          "context_snapshot": {
+            "schema_version": "1.0.0",
+            "snapshot_timestamp": "2026-10-31T12:20:27+00:00",
+            "author": {
+              "user_id": "01a191e5-1afd-7316-a8df-7f5c5f731245",
+              "name": "LLM0011 teacher · synthetic",
+              "email": "llm0011-230356c8d9-teacher@example.test"
+            },
+            "school": {
+              "id": "01a191e5-19bf-7102-8f35-ef0d1de8ba84",
+              "name": "LLM0011 230356c8d9 A · synthetic test school",
+              "region_code": "66"
+            },
+            "occasion": {
+              "type": "custom_title",
+              "title": "LLM0011 230356c8d9: мастерская взаимопомощи (all_school)",
+              "calendar_event": null,
+              "tradition_version": null,
+              "custom_event_title": "LLM0011 230356c8d9: мастерская взаимопомощи (all_school)",
+              "custom_region_code": "66"
+            },
+            "pedagogical_parameters": {
+              "scale": "all_school",
+              "format_type": "quest",
+              "target_grades": [
+                5,
+                6
+              ],
+              "participants_count": 150,
+              "duration_minutes": 60,
+              "value_direction": "mutual_aid",
+              "family_involvement": false,
+              "available_resources": [
+                "бумага",
+                "карандаши",
+                "доска"
+              ],
+              "pedagogical_constraints": "Все участники и ситуации вымышленные. Без персональных данных. Включите альтернативу без родителя и без экрана."
+            },
+            "cultural_provenance": {
+              "sources": [],
+              "claims": []
+            }
+          },
+          "id": "01a191e7-7439-726d-9e67-5186721dddc9"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a191e7-7439-726d-9e67-5186721dddc9/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "generation_run_id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "run_id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "status": "queued",
+          "estimated_wait_seconds": 15,
+          "poll_url": "/api/v1/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "created_at": "2026-10-31T12:20:27+00:00"
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "POST",
+      "path": "/scenario-requests/01a191e7-7439-726d-9e67-5186721dddc9/generate",
+      "status": 202,
+      "response": {
+        "data": {
+          "run_id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "queued",
+          "poll_url": "/api/v1/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "generation_run_id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "estimated_wait_seconds": 15
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    },
+    {
+      "role": "teacher",
+      "method": "GET",
+      "path": "/generation-runs/01a191e7-76bd-7193-9bea-2c279a23fba8",
+      "status": 200,
+      "response": {
+        "data": {
+          "id": "01a191e7-76bd-7193-9bea-2c279a23fba8",
+          "status": "running",
+          "scenario_id": null,
+          "revision_id": null,
+          "moderation_status": null,
+          "scenario_request_id": "01a191e7-7439-726d-9e67-5186721dddc9",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "attempts": 2,
+          "latency_ms": null,
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "error_code": null,
+          "error_message": null,
+          "created_at": "2026-10-31T12:20:27+00:00",
+          "completed_at": null
+        }
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "scale": "class_level",
+      "requestId": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+      "runId": "01a191e6-1fae-7199-936d-4062232e3644",
+      "result": {
+        "id": "01a191e6-1fae-7199-936d-4062232e3644",
+        "status": "completed",
+        "scenario_id": "01a191e7-57eb-720f-85bf-89ad470923be",
+        "revision_id": "01a191e7-5808-73af-899a-c331ba826860",
+        "moderation_status": "verification_passed",
+        "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+        "provider_name": "litellm",
+        "model_identifier": "GigaChat-2-Max",
+        "attempts": 2,
+        "latency_ms": 74263,
+        "prompt_tokens": 8554,
+        "completion_tokens": 3437,
+        "error_code": null,
+        "error_message": null,
+        "created_at": "2026-10-31T12:19:00+00:00",
+        "completed_at": "2026-10-31T12:20:20+00:00"
+      },
+      "scenario": {
+        "id": "01a191e7-57eb-720f-85bf-89ad470923be",
+        "quality_review": {
+          "gate_version": "quality-2.1.0",
+          "status": "requires_review",
+          "technical_checks": "passed",
+          "expert_assessment": "not_performed",
+          "teacher_signoff_required": true,
+          "payload_sha256": "efe99d95c74a29ce3ab32a19b47fc21c8fa58e06026efcf733c9ad8bb096f4b5",
+          "cultural_coverage": {
+            "version": "cultural-text-1.0.0",
+            "status": "requires_review",
+            "complete": false,
+            "scanned_string_count": 139,
+            "supported_assertions": [],
+            "findings": [],
+            "whole_document_verified": false,
+            "method": "recursive_all_string_leaves_exact_live_claim_matching_and_cue_rules",
+            "limitation": "Словарные правила могут пропускать перефразы и факты без дат/имён. Пустой cultural_claims и отсутствие находок не означают культурный PASS."
+          },
+          "findings": [],
+          "limitations": [
+            "Детерминированные правила не доказывают полноту извлечения фактов или педагогическую пригодность. Требуется ручная оценка всего текста."
+          ]
+        },
+        "generation": {
+          "id": "01a191e6-1fae-7199-936d-4062232e3644",
+          "provider_name": "litellm",
+          "model_identifier": "GigaChat-2-Max",
+          "prompt_version": "school-methodist-1.4.0",
+          "schema_version": "1.0.0",
+          "latency_ms": 74263,
+          "prompt_tokens": 8554,
+          "completion_tokens": 3437
+        },
+        "school_id": "01a191e5-19bf-7102-8f35-ef0d1de8ba84",
+        "scenario_request_id": "01a191e6-1c93-7175-8c03-1289a4e0cf96",
+        "title": "Сценарий: LLM0011 230356c8d9: мастерская взаимопомощи (class_level)",
+        "status": "draft",
+        "is_archived": false,
+        "current_revision_id": "01a191e7-5808-73af-899a-c331ba826860",
+        "optimistic_lock_version": 1,
+        "moderation_status": "verification_passed",
+        "created_at": "2026-10-31T12:20:20+00:00",
+        "updated_at": "2026-10-31T12:20:20+00:00",
+        "current_revision": {
+          "id": "01a191e7-5808-73af-899a-c331ba826860",
+          "version_number": 1,
+          "change_description": null,
+          "moderation_status": "verification_passed",
+          "concept": "Мастерская взаимопомощи: проектирование справедливых комплектов для школьных зон",
+          "pedagogical_goal": "Развитие навыков командной работы и взаимопомощи через решение практической задачи распределения ресурсов",
+          "content_payload": {
+            "props": [
+              {
+                "quantity": "18 листов",
+                "item_name": "Бумага",
+                "is_mandatory": true,
+                "alternative_if_missing": "Использовать старые тетради или распечатки."
+              },
+              {
+                "quantity": "12 штук",
+                "item_name": "Карандаши",
+                "is_mandatory": true,
+                "alternative_if_missing": "Использовать ручки или маркеры."
+              },
+              {
+                "quantity": "1 комплект",
+                "item_name": "Доска и маркеры/мел",
+                "is_mandatory": true,
+                "alternative_if_missing": "Использовать большие листы бумаги для записей."
+              }
+            ],
+            "roles": [
+              {
+                "role_name": "Хранитель запасов",
+                "group_size": 1,
+                "description": "Отвечает за знание общего запаса ресурсов и его распределение.",
+                "specific_tasks": [
+                  "Знает общий запас ресурсов (18 листов бумаги и 12 карандашей). Распределяет ресурсы согласно коллективному решению."
+                ],
+                "target_participants": "students"
+              },
+              {
+                "role_name": "Представитель получателя",
+                "group_size": 1,
+                "description": "Отвечает за знание потребностей одной зоны и их представление команде.",
+                "specific_tasks": [
+                  "Знает потребность одной зоны (5 листов бумаги и 3 карандаша). Представляет эту информацию команде."
+                ],
+                "target_participants": "students"
+              },
+              {
+                "role_name": "Хранитель резерва",
+                "group_size": 1,
+                "description": "Отвечает за знание минимальных ограничений резерва и их соблюдение.",
+                "specific_tasks": [
+                  "Знает минимальные ограничения резерва (3 листа бумаги и 2 карандаша). Следит за соблюдением этих ограничений."
+                ],
+                "target_participants": "students"
+              },
+              {
+                "role_name": "Проверяющий",
+                "group_size": 1,
+                "description": "Отвечает за проверку и сравнение двух планов распределения ресурсов.",
+                "specific_tasks": [
+                  "Проверяет оба плана распределения ресурсов, сравнивает их и выявляет преимущества и недостатки каждого."
+                ],
+                "target_participants": "students"
+              },
+              {
+                "role_name": "Докладчик",
+                "group_size": 1,
+                "description": "Отвечает за представление решения и объяснение его справедливости.",
+                "specific_tasks": [
+                  "Представляет решение команды, объясняет, почему оно является справедливым и учитывает потребности всех зон."
+                ],
+                "target_participants": "students"
+              }
+            ],
+            "format": {
+              "scale": "class_level",
+              "format_type": "class_hour",
+              "total_duration_minutes": 45
+            },
+            "stages": [
+              {
+                "id": "stage_1",
+                "title": "Организационный момент",
+                "stage_type": "organizational_moment",
+                "order_index": 1,
+                "student_actions": "Участники слушают инструктаж, знакомятся с правилами и распределяются по командам и ролям.",
+                "teacher_actions": "Педагог приветствует участников, объясняет правила безопасности и организационные моменты. Распределяет участников на команды и роли.",
+                "transition_text": "Теперь, когда вы знаете свои роли, давайте перейдем к вводной части.",
+                "dialogue_prompts": [
+                  "Как вы понимаете свою роль в команде?"
+                ],
+                "duration_minutes": 4
+              },
+              {
+                "id": "stage_2",
+                "title": "Вводная часть и постановка задачи",
+                "stage_type": "motivation_introduction",
+                "order_index": 2,
+                "student_actions": "Участники слушают вводную информацию, задают вопросы для уточнения условий задачи.",
+                "teacher_actions": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи. Рассказывает о важности справедливого распределения ресурсов.",
+                "transition_text": "Теперь, когда вы понимаете задачу, давайте приступим к практическому этапу.",
+                "dialogue_prompts": [
+                  "Как вы думаете, почему важно учитывать потребности всех зон?"
+                ],
+                "duration_minutes": 9
+              },
+              {
+                "id": "stage_3",
+                "title": "Совместный деятельностный практикум",
+                "stage_type": "main_interactive_part",
+                "order_index": 3,
+                "student_actions": "Участники обмениваются информацией, обсуждают и принимают коллективное решение. Заполняют карточки и делают записи на доске.",
+                "teacher_actions": "Педагог наблюдает за работой команд, помогает при необходимости, следит за соблюдением правил.",
+                "transition_text": "Теперь, когда у вас есть решение, давайте сравним два плана.",
+                "dialogue_prompts": [
+                  "Как вы планируете распределить ресурсы?"
+                ],
+                "duration_minutes": 11
+              },
+              {
+                "id": "stage_4",
+                "title": "Сравнение двух решений и проверка резерва",
+                "stage_type": "main_interactive_part",
+                "order_index": 4,
+                "student_actions": "Участники сравнивают два плана, обсуждают их преимущества и недостатки, проверяют соблюдение ограничений резерва. Заполняют карточки и делают записи на доске.",
+                "teacher_actions": "Педагог помогает командам сравнить два плана и проверить соблюдение ограничений резерва. Проводит обсуждение результатов.",
+                "transition_text": "Теперь, когда вы сравнили планы, давайте подведем итоги.",
+                "dialogue_prompts": [
+                  "Какой план кажется вам более справедливым и почему?"
+                ],
+                "duration_minutes": 12
+              },
+              {
+                "id": "stage_5",
+                "title": "Рефлексия и подведение итогов",
+                "stage_type": "reflection_summary",
+                "order_index": 5,
+                "student_actions": "Участники делятся впечатлениями, обсуждают, что им удалось, а что можно улучшить. Заполняют карточки рефлексии.",
+                "teacher_actions": "Педагог подводит итоги, обсуждает с участниками их впечатления и выводы. Проводит рефлексию.",
+                "transition_text": "На этом наше мероприятие завершается. Спасибо за участие!",
+                "dialogue_prompts": [
+                  "Что нового вы узнали сегодня?"
+                ],
+                "duration_minutes": 9
+              }
+            ],
+            "concept": "Мастерская взаимопомощи: проектирование справедливых комплектов для школьных зон",
+            "materials": {
+              "handouts": [
+                {
+                  "title": "Карточка рефлексии",
+                  "instructions": "Заполните карточку рефлексии, ответив на вопросы о вашем участии и впечатлениях от мероприятия.",
+                  "template_content": "1. Что нового вы узнали сегодня? 2. Как вы оцениваете свою роль в команде? 3. Что вам удалось, а что можно улучшить? 4. Как вы думаете, почему важно учитывать потребности всех зон? Пример заполнения: 1. Я узнал, как важно учитывать ограничения резерва при распределении ресурсов. 2. Я считаю, что моя роль была важной, так как я следил за соблюдением ограничений резерва. 3. Мне удалось убедить команду в важности соблюдения ограничений, но можно было лучше объяснить свою позицию. 4. Учитывать потребности всех зон важно, чтобы никто не остался без необходимых ресурсов."
+                }
+              ],
+              "printable_cards": [
+                {
+                  "title": "Карточка: Хранитель запасов",
+                  "back_text": "Убедитесь, что ваше распределение соответствует коллективному решению и не превышает общий запас. Запишите ваше распределение на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы знаете, что в наличии 18 листов бумаги и 12 карандашей. Ваша задача — распределить эти ресурсы согласно коллективному решению. Вы не знаете потребности каждой зоны и ограничения резерва. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                },
+                {
+                  "title": "Карточка: Представитель получателя",
+                  "back_text": "Убедитесь, что потребности вашей зоны учтены в коллективном решении. Запишите потребности вашей зоны на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы знаете, что одной зоне требуется 5 листов бумаги и 3 карандаша. Ваша задача — представить эту информацию команде и убедиться, что потребности зоны учтены. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                },
+                {
+                  "title": "Карточка: Хранитель резерва",
+                  "back_text": "Убедитесь, что коллективное решение не нарушает ограничения резерва. Запишите ограничения резерва на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы знаете, что в резерве должно остаться минимум 3 листа бумаги и 2 карандаша. Ваша задача — следить за соблюдением этих ограничений. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                },
+                {
+                  "title": "Карточка: Проверяющий",
+                  "back_text": "Сравните два плана, выявите их преимущества и недостатки. Запишите результаты сравнения на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы отвечаете за проверку и сравнение двух планов распределения ресурсов. Ваша задача — выявить преимущества и недостатки каждого плана. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                },
+                {
+                  "title": "Карточка: Докладчик",
+                  "back_text": "Представьте решение команды, объясните, почему оно является справедливым и учитывает потребности всех зон. Запишите объяснение на доске.",
+                  "card_type": "Роль",
+                  "front_text": "Вы отвечаете за представление решения и объяснение его справедливости. Ваша задача — объяснить, почему решение учитывает потребности всех зон. Как вы будете действовать?",
+                  "quantity_per_group": 1
+                }
+              ],
+              "presentation_slides": [
+                {
+                  "title": "Вводная часть",
+                  "slide_number": 1,
+                  "bullet_points": [
+                    "Цель мероприятия: научиться справедливому распределению ресурсов."
+                  ],
+                  "speaker_notes": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи.",
+                  "visual_recommendations": "Использовать крупные шрифты и минимум текста."
+                },
+                {
+                  "title": "Условия задачи",
+                  "slide_number": 2,
+                  "bullet_points": [
+                    "3 зоны, 18 листов бумаги, 12 карандашей, 5 листов и 3 карандаша на комплект, минимум 3 листа бумаги и 2 карандаша в резерве."
+                  ],
+                  "speaker_notes": "Педагог объясняет условия задачи и отвечает на вопросы участников.",
+                  "visual_recommendations": "Использовать таблицы для наглядности."
+                },
+                {
+                  "title": "Роли и задачи",
+                  "slide_number": 3,
+                  "bullet_points": [
+                    "Хранитель запасов, Представитель получателя, Хранитель резерва, Проверяющий, Докладчик."
+                  ],
+                  "speaker_notes": "Педагог объясняет роли и задачи участников.",
+                  "visual_recommendations": "Использовать схемы для наглядности."
+                }
+              ]
+            },
+            "activities": [
+              {
+                "title": "Совместный деятельностный практикум",
+                "activity_type": "Практическая работа в команде",
+                "target_stage_id": "stage_3",
+                "scoring_or_evaluation": "Оценивается участие каждого участника, качество коллективного решения и соблюдение ограничений резерва.",
+                "rules_and_instructions": "Участники обмениваются информацией, обсуждают и принимают коллективное решение о распределении ресурсов. Заполняют карточки и делают записи на доске."
+              },
+              {
+                "title": "Сравнение двух решений и проверка резерва",
+                "activity_type": "Анализ и сравнение решений",
+                "target_stage_id": "stage_4",
+                "scoring_or_evaluation": "Оценивается способность участников анализировать и сравнивать решения, а также аргументировать свой выбор.",
+                "rules_and_instructions": "Участники сравнивают два плана распределения ресурсов, обсуждают их преимущества и недостатки, проверяют соблюдение ограничений резерва. Заполняют карточки и делают записи на доске."
+              }
+            ],
+            "cultural_claims": [],
+            "target_audience": {
+              "age_group": "basic_5_9",
+              "target_grades": [
+                5,
+                6
+              ],
+              "family_involvement": false,
+              "participants_count_max": 30,
+              "participants_count_min": 30
+            },
+            "value_direction": "mutual_aid",
+            "pedagogical_goal": "Развитие навыков командной работы и взаимопомощи через решение практической задачи распределения ресурсов",
+            "expected_outcomes": {
+              "skills": [
+                "Навыки командной работы и принятия коллективных решений"
+              ],
+              "values": [
+                "Ценность взаимопомощи и уважения к ограничениям других участников"
+              ],
+              "knowledge": [
+                "Понимание принципов справедливого распределения ресурсов"
+              ]
+            },
+            "pedagogical_tasks": {
+              "personal": [
+                "Развитие ответственности за свою роль в команде"
+              ],
+              "meta_subject": [
+                "Формирование навыков коммуникации и аргументации"
+              ],
+              "subject_specific": [
+                "Применение математических навыков для решения практических задач"
+              ]
+            },
+            "teacher_instructions": {
+              "general_safety_rules": [
+                "Следить за порядком в классе."
+              ],
+              "methodological_recommendations": [
+                "Поддерживать активное участие всех членов команды."
+              ],
+              "adaptation_for_disabilities_or_small_groups": "При необходимости, объединить две команды в одну для работы в малых группах."
+            },
+            "pedagogical_mechanism": {
+              "description": "Участники работают в командах, распределяя роли и обмениваясь информацией для принятия коллективного решения",
+              "mechanism_type": "team_mutual_support_task",
+              "target_activity_title": "Совместный деятельностный практикум"
+            },
+            "preparation_checklist": [
+              {
+                "timeline_phase": "two_weeks_before",
+                "task_description": "Определить дату и время проведения мероприятия.",
+                "responsible_person": "Педагог"
+              },
+              {
+                "timeline_phase": "three_days_before",
+                "task_description": "Подготовить материалы и раздаточные материалы.",
+                "responsible_person": "Педагог"
+              },
+              {
+                "timeline_phase": "day_before",
+                "task_description": "Проверить наличие всех необходимых материалов и оборудования.",
+                "responsible_person": "Педагог"
+              },
+              {
+                "timeline_phase": "hour_before",
+                "task_description": "Настроить помещение и подготовить доски для записей.",
+                "responsible_person": "Педагог"
+              }
+            ]
+          },
+          "created_at": "2026-10-31T12:20:20+00:00",
+          "moderation_state": {
+            "status": "verification_passed",
+            "p0_violations_count": 0,
+            "p1_violations_count": 0,
+            "moderator_notes": null,
+            "checked_at": null
+          },
+          "signoff": null,
+          "stages": [
+            {
+              "id": "01a191e7-5816-71d3-8cf8-3688df975928",
+              "stage_identifier": "stage_1",
+              "stage_key": "stage_1",
+              "order_index": 1,
+              "stage_type": "organizational_moment",
+              "title": "Организационный момент",
+              "duration_minutes": 4,
+              "teacher_actions": "Педагог приветствует участников, объясняет правила безопасности и организационные моменты. Распределяет участников на команды и роли.",
+              "student_actions": "Участники слушают инструктаж, знакомятся с правилами и распределяются по командам и ролям.",
+              "transition_text": "Теперь, когда вы знаете свои роли, давайте перейдем к вводной части."
+            },
+            {
+              "id": "01a191e7-5818-7110-b07d-8aeaef9a031f",
+              "stage_identifier": "stage_2",
+              "stage_key": "stage_2",
+              "order_index": 2,
+              "stage_type": "motivation_introduction",
+              "title": "Вводная часть и постановка задачи",
+              "duration_minutes": 9,
+              "teacher_actions": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи. Рассказывает о важности справедливого распределения ресурсов.",
+              "student_actions": "Участники слушают вводную информацию, задают вопросы для уточнения условий задачи.",
+              "transition_text": "Теперь, когда вы понимаете задачу, давайте приступим к практическому этапу."
+            },
+            {
+              "id": "01a191e7-581a-704b-9fab-37b0019c50f4",
+              "stage_identifier": "stage_3",
+              "stage_key": "stage_3",
+              "order_index": 3,
+              "stage_type": "main_interactive_part",
+              "title": "Совместный деятельностный практикум",
+              "duration_minutes": 11,
+              "teacher_actions": "Педагог наблюдает за работой команд, помогает при необходимости, следит за соблюдением правил.",
+              "student_actions": "Участники обмениваются информацией, обсуждают и принимают коллективное решение. Заполняют карточки и делают записи на доске.",
+              "transition_text": "Теперь, когда у вас есть решение, давайте сравним два плана."
+            },
+            {
+              "id": "01a191e7-581b-7135-b09e-a8555ac11568",
+              "stage_identifier": "stage_4",
+              "stage_key": "stage_4",
+              "order_index": 4,
+              "stage_type": "main_interactive_part",
+              "title": "Сравнение двух решений и проверка резерва",
+              "duration_minutes": 12,
+              "teacher_actions": "Педагог помогает командам сравнить два плана и проверить соблюдение ограничений резерва. Проводит обсуждение результатов.",
+              "student_actions": "Участники сравнивают два плана, обсуждают их преимущества и недостатки, проверяют соблюдение ограничений резерва. Заполняют карточки и делают записи на доске.",
+              "transition_text": "Теперь, когда вы сравнили планы, давайте подведем итоги."
+            },
+            {
+              "id": "01a191e7-581c-7315-915a-eeb95410c73e",
+              "stage_identifier": "stage_5",
+              "stage_key": "stage_5",
+              "order_index": 5,
+              "stage_type": "reflection_summary",
+              "title": "Рефлексия и подведение итогов",
+              "duration_minutes": 9,
+              "teacher_actions": "Педагог подводит итоги, обсуждает с участниками их впечатления и выводы. Проводит рефлексию.",
+              "student_actions": "Участники делятся впечатлениями, обсуждают, что им удалось, а что можно улучшить. Заполняют карточки рефлексии.",
+              "transition_text": "На этом наше мероприятие завершается. Спасибо за участие!"
+            }
+          ],
+          "materials": [
+            {
+              "id": "01a191e7-5824-70a0-8eb9-77959ac1da10",
+              "material_type": "presentation_slide",
+              "title": "Вводная часть",
+              "order_index": 1,
+              "content": {
+                "title": "Вводная часть",
+                "slide_number": 1,
+                "bullet_points": [
+                  "Цель мероприятия: научиться справедливому распределению ресурсов."
+                ],
+                "speaker_notes": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи.",
+                "visual_recommendations": "Использовать крупные шрифты и минимум текста."
+              },
+              "content_payload": {
+                "title": "Вводная часть",
+                "slide_number": 1,
+                "bullet_points": [
+                  "Цель мероприятия: научиться справедливому распределению ресурсов."
+                ],
+                "speaker_notes": "Педагог объясняет цель мероприятия и вводит участников в ситуацию задачи.",
+                "visual_recommendations": "Использовать крупные шрифты и минимум текста."
+              }
+            },
+            {
+              "id": "01a191e7-5829-70d7-ad36-5146771b3cb6",
+              "material_type": "printable_card",
+              "title": "Карточка: Хранитель запасов",
+              "order_index": 1,
+              "content": {
+                "title": "Карточка: Хранитель запасов",
+                "back_text": "Убедитесь, что ваше распределение соответствует коллективному решению и не превышает общий запас. Запишите ваше распределение на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы знаете, что в наличии 18 листов бумаги и 12 карандашей. Ваша задача — распределить эти ресурсы согласно коллективному решению. Вы не знаете потребности каждой зоны и ограничения резерва. Как вы будете действовать?",
+                "quantity_per_group": 1
+              },
+              "content_payload": {
+                "title": "Карточка: Хранитель запасов",
+                "back_text": "Убедитесь, что ваше распределение соответствует коллективному решению и не превышает общий запас. Запишите ваше распределение на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы знаете, что в наличии 18 листов бумаги и 12 карандашей. Ваша задача — распределить эти ресурсы согласно коллективному решению. Вы не знаете потребности каждой зоны и ограничения резерва. Как вы будете действовать?",
+                "quantity_per_group": 1
+              }
+            },
+            {
+              "id": "01a191e7-582f-7194-a791-982ecca99b17",
+              "material_type": "handout_sheet",
+              "title": "Карточка рефлексии",
+              "order_index": 1,
+              "content": {
+                "title": "Карточка рефлексии",
+                "instructions": "Заполните карточку рефлексии, ответив на вопросы о вашем участии и впечатлениях от мероприятия.",
+                "template_content": "1. Что нового вы узнали сегодня? 2. Как вы оцениваете свою роль в команде? 3. Что вам удалось, а что можно улучшить? 4. Как вы думаете, почему важно учитывать потребности всех зон? Пример заполнения: 1. Я узнал, как важно учитывать ограничения резерва при распределении ресурсов. 2. Я считаю, что моя роль была важной, так как я следил за соблюдением ограничений резерва. 3. Мне удалось убедить команду в важности соблюдения ограничений, но можно было лучше объяснить свою позицию. 4. Учитывать потребности всех зон важно, чтобы никто не остался без необходимых ресурсов."
+              },
+              "content_payload": {
+                "title": "Карточка рефлексии",
+                "instructions": "Заполните карточку рефлексии, ответив на вопросы о вашем участии и впечатлениях от мероприятия.",
+                "template_content": "1. Что нового вы узнали сегодня? 2. Как вы оцениваете свою роль в команде? 3. Что вам удалось, а что можно улучшить? 4. Как вы думаете, почему важно учитывать потребности всех зон? Пример заполнения: 1. Я узнал, как важно учитывать ограничения резерва при распределении ресурсов. 2. Я считаю, что моя роль была важной, так как я следил за соблюдением ограничений резерва. 3. Мне удалось убедить команду в важности соблюдения ограничений, но можно было лучше объяснить свою позицию. 4. Учитывать потребности всех зон важно, чтобы никто не остался без необходимых ресурсов."
+              }
+            },
+            {
+              "id": "01a191e7-5830-7139-9cd5-3b2a8c1b5b50",
+              "material_type": "props_checklist",
+              "title": "Чек-лист реквизита и оборудования",
+              "order_index": 1,
+              "content": [
+                {
+                  "quantity": "18 листов",
+                  "item_name": "Бумага",
+                  "is_mandatory": true,
+                  "alternative_if_missing": "Использовать старые тетради или распечатки."
+                },
+                {
+                  "quantity": "12 штук",
+                  "item_name": "Карандаши",
+                  "is_mandatory": true,
+                  "alternative_if_missing": "Использовать ручки или маркеры."
+                },
+                {
+                  "quantity": "1 комплект",
+                  "item_name": "Доска и маркеры/мел",
+                  "is_mandatory": true,
+                  "alternative_if_missing": "Использовать большие листы бумаги для записей."
+                }
+              ],
+              "content_payload": [
+                {
+                  "quantity": "18 листов",
+                  "item_name": "Бумага",
+                  "is_mandatory": true,
+                  "alternative_if_missing": "Использовать старые тетради или распечатки."
+                },
+                {
+                  "quantity": "12 штук",
+                  "item_name": "Карандаши",
+                  "is_mandatory": true,
+                  "alternative_if_missing": "Использовать ручки или маркеры."
+                },
+                {
+                  "quantity": "1 комплект",
+                  "item_name": "Доска и маркеры/мел",
+                  "is_mandatory": true,
+                  "alternative_if_missing": "Использовать большие листы бумаги для записей."
+                }
+              ]
+            },
+            {
+              "id": "01a191e7-5826-7207-ba52-fd75d791ee92",
+              "material_type": "presentation_slide",
+              "title": "Условия задачи",
+              "order_index": 2,
+              "content": {
+                "title": "Условия задачи",
+                "slide_number": 2,
+                "bullet_points": [
+                  "3 зоны, 18 листов бумаги, 12 карандашей, 5 листов и 3 карандаша на комплект, минимум 3 листа бумаги и 2 карандаша в резерве."
+                ],
+                "speaker_notes": "Педагог объясняет условия задачи и отвечает на вопросы участников.",
+                "visual_recommendations": "Использовать таблицы для наглядности."
+              },
+              "content_payload": {
+                "title": "Условия задачи",
+                "slide_number": 2,
+                "bullet_points": [
+                  "3 зоны, 18 листов бумаги, 12 карандашей, 5 листов и 3 карандаша на комплект, минимум 3 листа бумаги и 2 карандаша в резерве."
+                ],
+                "speaker_notes": "Педагог объясняет условия задачи и отвечает на вопросы участников.",
+                "visual_recommendations": "Использовать таблицы для наглядности."
+              }
+            },
+            {
+              "id": "01a191e7-582a-707d-af6d-c1f67fd67756",
+              "material_type": "printable_card",
+              "title": "Карточка: Представитель получателя",
+              "order_index": 2,
+              "content": {
+                "title": "Карточка: Представитель получателя",
+                "back_text": "Убедитесь, что потребности вашей зоны учтены в коллективном решении. Запишите потребности вашей зоны на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы знаете, что одной зоне требуется 5 листов бумаги и 3 карандаша. Ваша задача — представить эту информацию команде и убедиться, что потребности зоны учтены. Как вы будете действовать?",
+                "quantity_per_group": 1
+              },
+              "content_payload": {
+                "title": "Карточка: Представитель получателя",
+                "back_text": "Убедитесь, что потребности вашей зоны учтены в коллективном решении. Запишите потребности вашей зоны на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы знаете, что одной зоне требуется 5 листов бумаги и 3 карандаша. Ваша задача — представить эту информацию команде и убедиться, что потребности зоны учтены. Как вы будете действовать?",
+                "quantity_per_group": 1
+              }
+            },
+            {
+              "id": "01a191e7-5827-70fa-8e8b-7dafe21b1a91",
+              "material_type": "presentation_slide",
+              "title": "Роли и задачи",
+              "order_index": 3,
+              "content": {
+                "title": "Роли и задачи",
+                "slide_number": 3,
+                "bullet_points": [
+                  "Хранитель запасов, Представитель получателя, Хранитель резерва, Проверяющий, Докладчик."
+                ],
+                "speaker_notes": "Педагог объясняет роли и задачи участников.",
+                "visual_recommendations": "Использовать схемы для наглядности."
+              },
+              "content_payload": {
+                "title": "Роли и задачи",
+                "slide_number": 3,
+                "bullet_points": [
+                  "Хранитель запасов, Представитель получателя, Хранитель резерва, Проверяющий, Докладчик."
+                ],
+                "speaker_notes": "Педагог объясняет роли и задачи участников.",
+                "visual_recommendations": "Использовать схемы для наглядности."
+              }
+            },
+            {
+              "id": "01a191e7-582b-70e4-967e-1060e1f6935d",
+              "material_type": "printable_card",
+              "title": "Карточка: Хранитель резерва",
+              "order_index": 3,
+              "content": {
+                "title": "Карточка: Хранитель резерва",
+                "back_text": "Убедитесь, что коллективное решение не нарушает ограничения резерва. Запишите ограничения резерва на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы знаете, что в резерве должно остаться минимум 3 листа бумаги и 2 карандаша. Ваша задача — следить за соблюдением этих ограничений. Как вы будете действовать?",
+                "quantity_per_group": 1
+              },
+              "content_payload": {
+                "title": "Карточка: Хранитель резерва",
+                "back_text": "Убедитесь, что коллективное решение не нарушает ограничения резерва. Запишите ограничения резерва на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы знаете, что в резерве должно остаться минимум 3 листа бумаги и 2 карандаша. Ваша задача — следить за соблюдением этих ограничений. Как вы будете действовать?",
+                "quantity_per_group": 1
+              }
+            },
+            {
+              "id": "01a191e7-582d-715f-8d49-47199845bb82",
+              "material_type": "printable_card",
+              "title": "Карточка: Проверяющий",
+              "order_index": 4,
+              "content": {
+                "title": "Карточка: Проверяющий",
+                "back_text": "Сравните два плана, выявите их преимущества и недостатки. Запишите результаты сравнения на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы отвечаете за проверку и сравнение двух планов распределения ресурсов. Ваша задача — выявить преимущества и недостатки каждого плана. Как вы будете действовать?",
+                "quantity_per_group": 1
+              },
+              "content_payload": {
+                "title": "Карточка: Проверяющий",
+                "back_text": "Сравните два плана, выявите их преимущества и недостатки. Запишите результаты сравнения на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы отвечаете за проверку и сравнение двух планов распределения ресурсов. Ваша задача — выявить преимущества и недостатки каждого плана. Как вы будете действовать?",
+                "quantity_per_group": 1
+              }
+            },
+            {
+              "id": "01a191e7-582e-70bb-9dd1-c3fb243d2109",
+              "material_type": "printable_card",
+              "title": "Карточка: Докладчик",
+              "order_index": 5,
+              "content": {
+                "title": "Карточка: Докладчик",
+                "back_text": "Представьте решение команды, объясните, почему оно является справедливым и учитывает потребности всех зон. Запишите объяснение на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы отвечаете за представление решения и объяснение его справедливости. Ваша задача — объяснить, почему решение учитывает потребности всех зон. Как вы будете действовать?",
+                "quantity_per_group": 1
+              },
+              "content_payload": {
+                "title": "Карточка: Докладчик",
+                "back_text": "Представьте решение команды, объясните, почему оно является справедливым и учитывает потребности всех зон. Запишите объяснение на доске.",
+                "card_type": "Роль",
+                "front_text": "Вы отвечаете за представление решения и объяснение его справедливости. Ваша задача — объяснить, почему решение учитывает потребности всех зон. Как вы будете действовать?",
+                "quantity_per_group": 1
+              }
+            }
+          ]
+        }
+      },
+      "qualityReview": {
+        "gate_version": "quality-2.1.0",
+        "status": "requires_review",
+        "technical_checks": "passed",
+        "expert_assessment": "not_performed",
+        "teacher_signoff_required": true,
+        "payload_sha256": "efe99d95c74a29ce3ab32a19b47fc21c8fa58e06026efcf733c9ad8bb096f4b5",
+        "cultural_coverage": {
+          "version": "cultural-text-1.0.0",
+          "status": "requires_review",
+          "complete": false,
+          "scanned_string_count": 139,
+          "supported_assertions": [],
+          "findings": [],
+          "whole_document_verified": false,
+          "method": "recursive_all_string_leaves_exact_live_claim_matching_and_cue_rules",
+          "limitation": "Словарные правила могут пропускать перефразы и факты без дат/имён. Пустой cultural_claims и отсутствие находок не означают культурный PASS."
+        },
+        "findings": [],
+        "limitations": [
+          "Детерминированные правила не доказывают полноту извлечения фактов или педагогическую пригодность. Требуется ручная оценка всего текста."
+        ]
+      },
+      "moderation": "verification_passed"
+    }
+  ],
+  "comparisons": [],
+  "syntheticOnly": true,
+  "probe": {
+    "app_name": "Школьные события (Тестовый контур)",
+    "environment": "testing",
+    "database": "school_events_test",
+    "configured_database": "school_events_test",
+    "hostname": "94e9405c4f2e",
+    "server_port": "80"
+  }
+}
