@@ -15,8 +15,10 @@ class ProductionDemoSeederTest extends TestCase
     public function test_repeated_bootstrap_preserves_credentials_and_unverified_evidence(): void
     {
         $originalEnvironment = $_ENV;
+        $originalServer = $_SERVER;
         foreach (['ADMIN', 'TEACHER', 'DIRECTOR'] as $role) {
             $_ENV['DEMO_'.$role.'_PASSWORD'] = str_repeat('test-only-password-', 2);
+            $_SERVER['DEMO_'.$role.'_PASSWORD'] = str_repeat('test-only-password-', 2);
         }
 
         try {
@@ -26,6 +28,7 @@ class ProductionDemoSeederTest extends TestCase
             $this->seed(ProductionDemoSeeder::class);
         } finally {
             $_ENV = $originalEnvironment;
+            $_SERVER = $originalServer;
         }
 
         $this->assertSame(1, User::where('email', $teacher->email)->count());
