@@ -1,0 +1,8 @@
+[Unit]
+Description=School Events database and export backup
+After=docker.service
+Requires=docker.service
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/school-backup
+UMask=0077

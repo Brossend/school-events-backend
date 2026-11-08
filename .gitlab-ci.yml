@@ -1,4 +1,6 @@
-stages: [validate, test, build, mirror]
+stages: [validate, test, build, mirror, deploy]
+include:
+  - local: docker/production/ci.yml
 
 workflow:
   rules:

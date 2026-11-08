@@ -25,6 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
         apiPrefix: 'api/v1',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: ['172.30.40.0/24']);
         // 1. Assign trace_id and setup monolog context globally
         $middleware->prepend(AssignTraceId::class);
 

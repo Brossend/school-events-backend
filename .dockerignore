@@ -1,0 +1,13 @@
+**/.env*
+.git
+vendor
+node_modules
+frontend
+storage
+bootstrap/cache/*
+tests
+docs/*
+!docs/*.schema.json
+*.zip
+**/screenshots
+**/downloads

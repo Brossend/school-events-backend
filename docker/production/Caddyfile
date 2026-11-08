@@ -1,0 +1,25 @@
+(routing) {
+    encode zstd gzip
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy strict-origin-when-cross-origin
+        X-Frame-Options SAMEORIGIN
+    }
+    @backend path /api/* /sanctum/* /health /up
+    handle @backend {
+        reverse_proxy nginx:80
+    }
+    handle {
+        reverse_proxy frontend:3000
+    }
+}
+school-events.ru {
+    import routing
+}
+www.school-events.ru {
+    redir https://school-events.ru{uri} permanent
+}
+# Bound only to host loopback; access through an authenticated SSH tunnel.
+http://:8080 {
+    import routing
+}

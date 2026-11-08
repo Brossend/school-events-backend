@@ -1,0 +1,36 @@
+container_image:
+  stage: build
+  image: docker:29-cli
+  services: [docker:29-dind]
+  variables:
+    DOCKER_TLS_CERTDIR: /certs
+  dependencies: []
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - docker build --pull -f docker/php/production.Dockerfile -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA"
+
+deploy_production:
+  stage: deploy
+  image: alpine:3.22
+  dependencies: []
+  interruptible: false
+  resource_group: school-events-production
+  environment:
+    name: production
+    url: https://school-events.ru
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_REF_PROTECTED == "true"'
+      when: manual
+      allow_failure: true
+  before_script:
+    - apk add --no-cache openssh-client
+    - install -d -m 700 ~/.ssh
+    - printf "%s" "$DEPLOY_SSH_KEY_B64" | base64 -d > ~/.ssh/id_ed25519
+    - chmod 600 ~/.ssh/id_ed25519
+    - printf "%s\n" "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+  script:
+    - FRONTEND_SHA=$(cat docker/production/frontend-sha.txt)
+    - ssh -o BatchMode=yes -o StrictHostKeyChecking=yes deploy@87.242.87.93 "deploy $CI_COMMIT_SHA $FRONTEND_SHA"
