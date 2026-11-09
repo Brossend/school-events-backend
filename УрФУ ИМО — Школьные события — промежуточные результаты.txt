@@ -1,0 +1,38 @@
+УрФУ ИМО
+Кейс: «Школьные события» — платформа подготовки школьных мероприятий.
+Программа: УрФУ ИМО. Срок сдачи: 11 ноября 2026 года.
+
+Участники команды (ОБЯЗАТЕЛЬНО заполнить перед сдачей):
+1. [ФИО участника 1, роль]
+2. [ФИО участника 2, роль]
+3. [Добавить остальных участников / удалить лишние поля]
+Состав команды не подтверждён; эти поля не являются вымышленными именами.
+
+Выполненные задачи:
+- Реализованы frontend Nuxt 4 и backend Laravel 13, PostgreSQL, Redis и очереди.
+- Календарь, школьный контекст, конструктор запросов, генерация mock-сценариев, редактор и ревизии.
+- Модерация, проверка культурных источников, тестовый Sign-Off, экспорт PDF/DOCX/PPTX.
+- A/B-сравнения и интерфейс пилотных показателей/анкет.
+- Настроены GitLab CI/CD, Docker deployment, публичный HTTPS, ежедневный backup; отдельно проверено восстановление.
+- Подготовлены инструкция демонстрации, архитектура, ограничения, скриншоты и внешний зашифрованный backup.
+
+Работающая платформа: https://school-events.ru/
+Публичный health: https://school-events.ru/api/v1/health
+GitLab backend: https://gitlab.com/Brossend2335/school-events-backend
+GitLab frontend: https://gitlab.com/Brossend2335/school-events-frontend
+GitHub зеркала: https://github.com/Brossend/school-events-backend и https://github.com/Brossend/school-events-frontend
+Репозитории private. Доступ к исходникам/отчётам владелец выдаёт проверяющим отдельно.
+Итоговый отчёт: https://gitlab.com/Brossend2335/school-events-backend/-/blob/main/docs/HANDOFF-001-final-report.md
+Демонстрация и скриншоты: https://gitlab.com/Brossend2335/school-events-backend/-/blob/main/docs/HANDOFF-001-demo-guide.md
+Публичная приёмка: https://gitlab.com/Brossend2335/school-events-backend/-/blob/main/docs/DEPLOY-001.1-final-acceptance.md
+CI backend: https://gitlab.com/Brossend2335/school-events-backend/-/pipelines/3041864605
+CI frontend: https://gitlab.com/Brossend2335/school-events-frontend/-/pipelines/3041847464
+
+Достигнутое состояние: DEPLOY-001 CLOSED — PUBLIC HTTPS VERIFIED.
+Проверен маршрут через публичный адрес от входа до скачивания PDF/DOCX/PPTX, session/CSRF, мобильное отображение и worker. Исходные production SHA:
+Backend ea1a51b634a0e5b3c4acea7360e3d19ff2256b73
+Frontend 9aee989fb0cb040bb4855d7cfc11a612fecae396
+
+Ограничения: production MockLlmProvider; реальный LiteLLM технически проверен отдельно и не включён на сайте. Педагогической экспертизы и полноценного пилота с реальными участниками нет. Тестовый Sign-Off не является методическим одобрением; mock-сценарий имеет содержательные замечания. Только синтетические данные. Ubuntu production 22.04.5 отличается от первоначального плана. Демонстрационный доступ передаётся владельцем приватно, паролей в этом файле нет.
+
+Порядок сдачи: каждый участник самостоятельно заполняет состав команды и загружает этот текстовый файл в свой личный кабинет. Проверить, что файл доступен проверяющим. Пароли, SSH-ключи, env и backup не прикладывать. Репозитории автоматически публичными не делать. Факт загрузки/прав доступа в кабинете пока не подтверждён.
