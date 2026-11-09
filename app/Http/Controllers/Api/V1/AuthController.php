@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -47,7 +48,11 @@ class AuthController extends Controller
         }
 
         // Authenticate into web guard and regenerate session ID
-        Auth::guard('web')->login($user);
+        Auth::guard('web')->setRememberDuration(60 * 24 * 30);
+        Auth::guard('web')->login($user, (bool) ($validated['remember'] ?? false));
+        if (! ($validated['remember'] ?? false)) {
+            Cookie::queue(Cookie::forget(Auth::guard('web')->getRecallerName()));
+        }
         $request->session()->regenerate();
 
         return $this->formatUserResponse($user);

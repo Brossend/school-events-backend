@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use App\Models\CalendarEvent;
+use App\Models\EventOccurrence;
 use App\Models\Scenario;
 use App\Models\ScenarioRequest;
 use App\Models\School;
@@ -12,6 +13,7 @@ use App\Models\SchoolMembership;
 use App\Models\SchoolTradition;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
 class DashboardSummaryTest extends TestCase
@@ -19,8 +21,11 @@ class DashboardSummaryTest extends TestCase
     use DatabaseTransactions;
 
     protected User $teacher;
+
     protected User $outsider;
+
     protected School $school;
+
     protected School $otherSchool;
 
     protected function setUp(): void
@@ -131,5 +136,19 @@ class DashboardSummaryTest extends TestCase
 
         $this->assertNotEmpty($response->json('data.upcoming_events'));
         $this->assertNotEmpty($response->json('data.recent_scenarios'));
+    }
+
+    public function test_dashboard_includes_dated_occurrences_without_repeating_past_one_off_events(): void
+    {
+        $this->travelTo(Carbon::parse('2026-11-09'));
+        $attributes = ['event_type' => 'federal', 'school_id' => null, 'date_type' => 'single_occurrence', 'fixed_month' => null, 'fixed_day' => null, 'status' => 'approved', 'description' => 'Test-only date', 'target_age_groups' => [], 'recommended_value_directions' => []];
+        $future = CalendarEvent::create(['title' => 'Реальная календарная дата'] + $attributes);
+        $past = CalendarEvent::create(['title' => 'Прошедшая дата'] + $attributes);
+        EventOccurrence::create(['calendar_event_id' => $future->id, 'academic_year' => '2026-2027', 'start_date' => '2026-11-29', 'end_date' => '2026-11-29']);
+        EventOccurrence::create(['calendar_event_id' => $past->id, 'academic_year' => '2026-2027', 'start_date' => '2026-11-04', 'end_date' => '2026-11-04']);
+        $response = $this->actingAs($this->teacher)->withHeader('X-School-Id', $this->school->id)->getJson('/api/v1/dashboard/summary')->assertOk();
+        $events = collect($response->json('data.upcoming_events'));
+        $this->assertSame('2026-11-29', $events->firstWhere('id', $future->id)['next_date']);
+        $this->assertFalse($events->contains('id', $past->id));
     }
 }

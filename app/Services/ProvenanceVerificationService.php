@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\CulturalClaim;
+use App\Models\CulturalClaimEvidenceAuditEvent;
 use App\Models\CulturalClaimSource;
 use App\Models\EventSource;
+use App\Models\ScenarioRevision;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class ProvenanceVerificationService
@@ -66,7 +69,7 @@ class ProvenanceVerificationService
 
         // 4. Source Typology vs Claim Content Check
         // Normative legal acts can only confirm legal/calendar dates and official names, not historical/ethnographic claims
-        if ($source->source_type === 'normative_act' && $this->isHistoricalOrEthnographicClaim($claim->claim_text)) {
+        if (in_array($source->source_type, ['normative_act', 'official_publication'], true) && $this->isHistoricalOrEthnographicClaim($claim->claim_text)) {
             throw ValidationException::withMessages([
                 'event_source_id' => 'Нормативный правовой акт не может подтверждать исторические события или этнографические традиции. Для исторических сведений требуется научный первоисточник или академическая публикация.',
             ]);
@@ -212,7 +215,7 @@ class ProvenanceVerificationService
 
         // Source typology boundary: normative act cannot verify historical claims
         $claim = $claimSource->claim;
-        if ($source->source_type === 'normative_act' && $claim && $this->isHistoricalOrEthnographicClaim($claim->claim_text)) {
+        if (in_array($source->source_type, ['normative_act', 'official_publication'], true) && $claim && $this->isHistoricalOrEthnographicClaim($claim->claim_text)) {
             return 'unverified';
         }
 
@@ -345,18 +348,18 @@ class ProvenanceVerificationService
     public function resolveClaimUuid(string $claimId): ?string
     {
         $clean = trim($claimId);
-        if (\Illuminate\Support\Str::isUuid($clean)) {
+        if (Str::isUuid($clean)) {
             return $clean;
         }
 
         if (str_starts_with($clean, 'claim_')) {
             $rest = substr($clean, 6);
-            if (\Illuminate\Support\Str::isUuid($rest)) {
+            if (Str::isUuid($rest)) {
                 return $rest;
             }
             if (strlen($rest) === 32 && ctype_xdigit($rest)) {
-                $formatted = substr($rest, 0, 8) . '-' . substr($rest, 8, 4) . '-' . substr($rest, 12, 4) . '-' . substr($rest, 16, 4) . '-' . substr($rest, 20);
-                if (\Illuminate\Support\Str::isUuid($formatted)) {
+                $formatted = substr($rest, 0, 8).'-'.substr($rest, 8, 4).'-'.substr($rest, 12, 4).'-'.substr($rest, 16, 4).'-'.substr($rest, 20);
+                if (Str::isUuid($formatted)) {
                     return $formatted;
                 }
             }
@@ -371,10 +374,9 @@ class ProvenanceVerificationService
      * Validates every single cited evidence record in content_payload.cultural_claims[].evidence_records.
      * If any source review has been rejected, amended, revoked, unlinked, or locator mismatched, export is blocked.
      *
-     * @param \App\Models\ScenarioRevision $revision
      * @return array{valid: bool, revoked_claims: array, reason: ?string}
      */
-    public function verifyRevisionProvenanceAuthenticity(\App\Models\ScenarioRevision $revision): array
+    public function verifyRevisionProvenanceAuthenticity(ScenarioRevision $revision): array
     {
         $payload = $revision->content_payload ?? [];
         $claims = [];
@@ -412,6 +414,7 @@ class ProvenanceVerificationService
                     'reason' => 'CLAIM_ID_MISSING',
                     'message' => 'Культурное утверждение помечено как verified_authentic, но отсутствует идентификатор в реестре первоисточников (claim_id).',
                 ];
+
                 continue;
             }
 
@@ -422,6 +425,7 @@ class ProvenanceVerificationService
                     'reason' => 'CLAIM_NOT_FOUND',
                     'message' => "Культурное утверждение {$rawClaimId} не найдено в реестре первоисточников.",
                 ];
+
                 continue;
             }
 
@@ -432,6 +436,7 @@ class ProvenanceVerificationService
                     'reason' => 'CLAIM_NOT_FOUND',
                     'message' => "Культурное утверждение {$rawClaimId} не найдено в реестре первоисточников.",
                 ];
+
                 continue;
             }
 
@@ -443,6 +448,7 @@ class ProvenanceVerificationService
                     'reason' => 'CANONICAL_TEXT_ALTERED',
                     'message' => "Текст утверждения {$rawClaimId} был изменён после серверной аттестации подлинности.",
                 ];
+
                 continue;
             }
 
@@ -453,6 +459,7 @@ class ProvenanceVerificationService
                     'reason' => 'EVENT_MISMATCH',
                     'message' => "Культурное утверждение {$rawClaimId} принадлежит другому календарному событию.",
                 ];
+
                 continue;
             }
 
@@ -464,6 +471,7 @@ class ProvenanceVerificationService
                     'reason' => 'NO_EVIDENCE_RECORDS',
                     'message' => "Утверждение {$rawClaimId} помечено как verified_authentic, но массив evidence_records пуст или отсутствует.",
                 ];
+
                 continue;
             }
 
@@ -475,17 +483,19 @@ class ProvenanceVerificationService
                         'reason' => 'INVALID_EVIDENCE_RECORD',
                         'message' => "Запись evidence_records[{$evIndex}] утверждения {$rawClaimId} имеет некорректный формат.",
                     ];
+
                     continue;
                 }
 
                 $sourceId = (string) ($ev['event_source_id'] ?? '');
-                if (! \Illuminate\Support\Str::isUuid($sourceId)) {
+                if (! Str::isUuid($sourceId)) {
                     $revokedClaims[] = [
                         'claim_id' => $rawClaimId,
                         'source_id' => $sourceId,
                         'reason' => 'INVALID_SOURCE_UUID',
                         'message' => "В evidence_records утверждения {$rawClaimId} указан некорректный идентификатор первоисточника: '{$sourceId}'.",
                     ];
+
                     continue;
                 }
 
@@ -501,6 +511,7 @@ class ProvenanceVerificationService
                         'reason' => 'SOURCE_NOT_BOUND',
                         'message' => "Первоисточник {$sourceId} не привязан к культурному утверждению {$rawClaimId} в реестре или был отвязан.",
                     ];
+
                     continue;
                 }
 
@@ -511,6 +522,7 @@ class ProvenanceVerificationService
                         'reason' => 'SOURCE_EVENT_MISMATCH',
                         'message' => "Первоисточник {$sourceId} привязан к другому календарному событию.",
                     ];
+
                     continue;
                 }
 
@@ -524,6 +536,7 @@ class ProvenanceVerificationService
                         'reason' => 'CITATION_LOCATOR_MISMATCH',
                         'message' => "Локатор цитаты '{$citedLocator}' не соответствует серверной аттестации первоисточника ('{$attestedLocator}').",
                     ];
+
                     continue;
                 }
 
@@ -536,6 +549,7 @@ class ProvenanceVerificationService
                         'reason' => 'PROVENANCE_REVOKED',
                         'message' => "Рецензия или аттестация первоисточника {$sourceId} для утверждения {$rawClaimId} не действительна (статус: '{$effectiveStatus}').",
                     ];
+
                     continue;
                 }
             }
@@ -563,7 +577,7 @@ class ProvenanceVerificationService
      * - Each EventSource's latest review ID, decision, reviewed_at, and bibliographic attributes
      * - The latest evidence audit event for each claim-source pair
      */
-    public function computeRevisionProvenanceFingerprint(\App\Models\ScenarioRevision $revision): string
+    public function computeRevisionProvenanceFingerprint(ScenarioRevision $revision): string
     {
         $payload = $revision->content_payload ?? [];
         $claims = [];
@@ -578,7 +592,7 @@ class ProvenanceVerificationService
         }
 
         if (empty($claims)) {
-            return hash('sha256', 'no_claims_revision_' . $revision->id);
+            return hash('sha256', 'no_claims_revision_'.$revision->id);
         }
 
         $snapshot = [];
@@ -607,7 +621,7 @@ class ProvenanceVerificationService
                         continue;
                     }
                     $sourceId = (string) ($ev['event_source_id'] ?? '');
-                    $sourceUuid = \Illuminate\Support\Str::isUuid($sourceId) ? $sourceId : null;
+                    $sourceUuid = Str::isUuid($sourceId) ? $sourceId : null;
                     $claimSource = $dbClaim?->evidenceRecords->first(function ($cs) use ($sourceId) {
                         return (string) $cs->event_source_id === $sourceId;
                     });
@@ -619,7 +633,7 @@ class ProvenanceVerificationService
                         ->first();
 
                     $latestAuditEvent = ($claimUuid && $sourceUuid)
-                        ? \App\Models\CulturalClaimEvidenceAuditEvent::where('cultural_claim_id', $claimUuid)
+                        ? CulturalClaimEvidenceAuditEvent::where('cultural_claim_id', $claimUuid)
                             ->where('event_source_id', $sourceUuid)
                             ->orderBy('created_at', 'desc')
                             ->orderBy('id', 'desc')

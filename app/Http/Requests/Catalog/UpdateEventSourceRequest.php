@@ -19,7 +19,7 @@ class UpdateEventSourceRequest extends FormRequest
         return [
             'title' => ['sometimes', 'required', 'string', 'min:3', 'max:500'],
             'author' => ['nullable', 'string', 'max:255'],
-            'source_type' => ['sometimes', 'required', 'string', Rule::in(['normative_act', 'scientific_publication', 'ethnographic_archive', 'encyclopedia'])],
+            'source_type' => ['sometimes', 'required', 'string', Rule::in(['normative_act', 'scientific_publication', 'ethnographic_archive', 'encyclopedia', 'official_publication'])],
             'url' => ['nullable', 'string', 'url', 'max:1000'],
             'doi_or_isbn' => ['nullable', 'string', 'max:64'],
         ];

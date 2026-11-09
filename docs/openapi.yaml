@@ -35,6 +35,10 @@ paths:
                   type: string
                   format: password
                   example: SecurePassword2026!
+                remember:
+                  type: boolean
+                  default: false
+                  description: Remember login for 30 days using encrypted HttpOnly Laravel recaller. Logout rotates the user remember token across devices; other active sessions retain their normal lifetime.
       responses:
         "200":
           description: Успешный вход (сессионная кука laravel_session выставляется в
@@ -1004,6 +1008,7 @@ paths:
                 source_type:
                   type: string
                   enum:
+                    - official_publication
                     - normative_act
                     - scientific_publication
                     - ethnographic_archive
@@ -2001,6 +2006,185 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         "403":
           $ref: '#/components/responses/Forbidden'
+  /auth/register:
+    post:
+      summary: Register a new teacher with a single-use school invitation
+      description: CSRF required for stateful requests. Invitation sets school/teacher role; existing users cannot gain memberships
+        here. Codes expire in 7 days. No automatic email. Rate limited per IP.
+      operationId: registerTeacher
+      tags:
+      - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterInput'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          description: Conflict or rate limit
+          content:
+            application/json:
+              schema:
+                type: object
+        '429':
+          description: Conflict or rate limit
+          content:
+            application/json:
+              schema:
+                type: object
+  /schools/{schoolId}/invitations:
+    get:
+      summary: List school invitations without original codes or code hashes
+      operationId: listSchoolInvitations
+      security:
+      - cookieAuth: []
+      tags:
+      - Invitations
+      parameters:
+      - &id001
+        name: schoolId
+        in: path
+        required: true
+        schema: &id002
+          type: string
+          format: uuid
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          description: Conflict or rate limit
+          content:
+            application/json:
+              schema:
+                type: object
+        '429':
+          description: Conflict or rate limit
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      summary: Create teacher-only invitation; school admin of this school or system admin
+      operationId: createSchoolInvitation
+      security:
+      - cookieAuth: []
+      tags:
+      - Invitations
+      parameters:
+      - *id001
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type:
+                  - string
+                  - 'null'
+                  format: email
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationCreatedResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          description: Conflict or rate limit
+          content:
+            application/json:
+              schema:
+                type: object
+        '429':
+          description: Conflict or rate limit
+          content:
+            application/json:
+              schema:
+                type: object
+  /schools/{schoolId}/invitations/{invitationId}/revoke:
+    post:
+      summary: Revoke unused invitation without altering memberships
+      operationId: revokeSchoolInvitation
+      security:
+      - cookieAuth: []
+      tags:
+      - Invitations
+      parameters:
+      - *id001
+      - name: invitationId
+        in: path
+        required: true
+        schema: *id002
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          description: Conflict or rate limit
+          content:
+            application/json:
+              schema:
+                type: object
+        '429':
+          description: Conflict or rate limit
+          content:
+            application/json:
+              schema:
+                type: object
+
 components:
   securitySchemes:
     cookieAuth:
@@ -2047,6 +2231,129 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    SchoolInvitation:
+      type: object
+      required:
+      - id
+      - school_id
+      - role
+      - email
+      - expires_at
+      - used_at
+      - revoked_at
+      - created_at
+      properties:
+        id: &id001
+          type: string
+          format: uuid
+        school_id: *id001
+        role:
+          type: string
+          enum:
+          - teacher
+        email:
+          type:
+          - string
+          - 'null'
+          format: email
+        expires_at:
+          type: string
+          format: date-time
+        used_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        revoked_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    RegisterInput:
+      type: object
+      additionalProperties: false
+      required:
+      - invitation_code
+      - name
+      - email
+      - password
+      - password_confirmation
+      properties:
+        invitation_code:
+          type: string
+          pattern: ^[a-fA-F0-9]{64}$
+        name:
+          type: string
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          maxLength: 255
+        password:
+          type: string
+          format: password
+          minLength: 12
+        password_confirmation:
+          type: string
+          format: password
+    InvitationListResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - items
+          - current_page
+          - last_page
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/SchoolInvitation'
+            current_page:
+              type: integer
+            last_page:
+              type: integer
+    InvitationCreatedResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - invitation
+          - code
+          properties:
+            invitation:
+              $ref: '#/components/schemas/SchoolInvitation'
+            code:
+              type: string
+              description: Shown only once; never logged or retained in browser storage.
+    InvitationResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/SchoolInvitation'
+    RegistrationResponse:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: object
+          required:
+          - registered
+          properties:
+            registered:
+              type: boolean
     ErrorResponse:
       type: object
       required:
@@ -4146,6 +4453,11 @@ components:
           type: array
           items:
             type: object
+            properties:
+              next_date:
+                type: string
+                format: date
+                description: Next recorded occurrence or valid annual date; never repeats a past one-off event.
         recent_scenarios:
           type: array
           items:
@@ -4826,6 +5138,7 @@ components:
             source_type:
               type: string
               enum:
+                - official_publication
                 - normative_act
                 - scientific_publication
                 - ethnographic_archive
