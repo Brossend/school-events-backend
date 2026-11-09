@@ -19,6 +19,21 @@ Production backend: `ea1a51b634a0e5b3c4acea7360e3d19ff2256b73`; frontend: `9aee9
 
 ## Локальный запуск backend
 
+Для чистой практики UX-001 используйте отдельное окружение без demo-seeder:
+
+```powershell
+python scripts/ux001-local.py
+python scripts/ux001-local.py --start
+docker exec school-ux001-app-1 php artisan practice:calendar
+docker exec school-ux001-app-1 php artisan practice:calendar --apply --no-interaction
+docker exec -it school-ux001-app-1 php artisan practice:bootstrap --email=admin@example.test --school="Моя школа"
+docker exec school-ux001-app-1 php artisan practice:inspect --dry-run
+```
+
+API доступен на `http://localhost:8020`; frontend запускается отдельно на localhost:3030 с этим API. Первый пароль вводится скрыто при bootstrap, последующие педагоги регистрируются по одноразовым приглашениям. Приватный env хранится вне репозитория в `~/.codex/ux001/practice.env`. Команды ограничены отдельной local/testing PostgreSQL БД; существующие базы и volumes не очищаются. Календарь содержит 36 проверенных дат, а не обязательный план конкретной школы. См. [отчёт UX-001](docs/UX-001-final-report.md).
+
+Следующий исторический запуск предназначен для синтетического demo, а не для чистой практики UX-001.
+
 Нужны Docker Engine/Desktop и Compose v2. Команды выполняются в этом репозитории:
 
 ```bash

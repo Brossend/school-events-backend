@@ -1,0 +1,55 @@
+{
+  "recorded_at": "2026-11-09T11:24:23.998853+00:00",
+  "branch": "feature/ux-001-teacher-experience",
+  "container": "school-app-test-1",
+  "database": "school_events_test",
+  "full_suite_schema": "ux001_backend_review_62a29e01362a",
+  "full_suite_source": "container-local snapshot; five changed PHP file SHA256 values matched workspace",
+  "browser_fixture": "public preserved; private credentials verified after full suite; no secrets logged",
+  "results": {
+    "focused": {
+      "name": "CLI Arguments",
+      "tests": "28",
+      "assertions": "133",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "80.323491",
+      "actual_skipped_elements": 0
+    },
+    "calendar": {
+      "name": "Tests\\Feature\\PracticeCalendarTest",
+      "file": "/tmp/ux001-review/tests/Feature/PracticeCalendarTest.php",
+      "tests": "17",
+      "assertions": "198",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "21.331874",
+      "actual_skipped_elements": 0
+    },
+    "full-suite": {
+      "name": "/tmp/ux001-review/phpunit.xml",
+      "tests": "455",
+      "assertions": "2242",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "106.614691",
+      "actual_skipped_elements": 0
+    }
+  },
+  "pint": "PASS: five changed PHP files",
+  "fixes": [
+    "Unchecked login expires prior recaller cookie",
+    "Login email normalization matches registration",
+    "Bootstrap tests use empty temporary schemas instead of assuming shared tables empty"
+  ],
+  "mandatory_cases": [
+    "fresh migrations",
+    "upgrade migrations preserve existing user",
+    "same invitation concurrent registration: 201 + 409",
+    "same email different invitations concurrent registration: 201 + 409"
+  ],
+  "earlier_attempts": "Preserved logs named initial-* and before-bootstrap-isolation; final logs are backend-focused, backend-calendar, backend-full-suite."
+}
