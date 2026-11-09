@@ -26,7 +26,7 @@ Manifest database/data/ux001-calendar-2026-2027.json содержит 36 дат:
 | Concurrent registration | Два реальных процесса; оба варианта гонки дают 201+409 | SchoolInvitationTest в focused/full suite |
 | Pint workspace --dirty --format agent | PASS | [log](ux001/evidence/backend-pint-workspace-final.log) |
 
-PHP 8.4.27, PHPUnit 12.5.40. Полная suite использовала school_events_test, отдельную схему ux001_backend_review_62a29e01362a и snapshot /tmp/ux001-review; API browser fixture в public сохранён. Семь прежних bootstrap failures устранены собственной временной схемой, а не ослаблением проверок. Старые неуспешные логи сохранены отдельно. [Сводка](ux001/evidence/backend-test-summary.json), [точное воспроизведение](ux001/evidence/backend-reproduce.md).
+PHP 8.4.27, PHPUnit 12.5.40. Полная suite использовала school_events_test, отдельную схему ux001_backend_review_62a29e01362a и snapshot /tmp/ux001-review; API browser fixture в public сохранён. Семь прежних bootstrap failures устранены собственной временной схемой, а не ослаблением проверок. Старые неуспешные логи сохранены локально вне Git в ~/.codex/ux001; финальные логи включены в комплект. [Сводка](ux001/evidence/backend-test-summary.json), [точное воспроизведение](ux001/evidence/backend-reproduce.md).
 
 ## Локальный запуск
 
