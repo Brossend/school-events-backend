@@ -2056,11 +2056,10 @@ paths:
       tags:
       - Invitations
       parameters:
-      - &id001
-        name: schoolId
+      - name: schoolId
         in: path
         required: true
-        schema: &id002
+        schema:
           type: string
           format: uuid
       - name: page
@@ -2103,7 +2102,12 @@ paths:
       tags:
       - Invitations
       parameters:
-      - *id001
+      - name: schoolId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
       requestBody:
         required: true
         content:
@@ -2152,11 +2156,18 @@ paths:
       tags:
       - Invitations
       parameters:
-      - *id001
+      - name: schoolId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
       - name: invitationId
         in: path
         required: true
-        schema: *id002
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success
@@ -2243,10 +2254,12 @@ components:
       - revoked_at
       - created_at
       properties:
-        id: &id001
+        id:
           type: string
           format: uuid
-        school_id: *id001
+        school_id:
+          type: string
+          format: uuid
         role:
           type: string
           enum:
