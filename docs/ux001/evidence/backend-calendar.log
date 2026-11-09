@@ -1,0 +1,29 @@
+PHPUnit 12.5.40 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.27
+Configuration: /tmp/ux001-review/phpunit.xml
+
+.................                                                 17 / 17 (100%)
+
+Time: 00:21.341, Memory: 56.50 MB
+
+Practice Calendar (Tests\Feature\PracticeCalendar)
+ ✔ Dry run and inspection do not change data
+ ✔ Import is idempotent and never verifies cultural claims
+ ✔ Import preserves manually edited existing event
+ ✔ Production import and inspection are refused without changes
+ ✔ Commands refuse wrong active database without changes with data set "primary"
+ ✔ Commands refuse wrong active database without changes with data set "unrelated"
+ ✔ Commands refuse wrong active database without changes with data set "similar prefix"
+ ✔ Commands refuse wrong active database without changes with data set "trailing newline"
+ ✔ Bootstrap refuses the shared test database
+ ✔ Bootstrap creates one admin with a hashed password and refuses a repeat
+ ✔ Bootstrap rechecks for accounts after acquiring the lock
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "email"
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "blank school"
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "short password"
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "missing uppercase"
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "missing number"
+ ✔ Manifest has reviewed sources and no unconfirmed audience claim
+
+OK (17 tests, 198 assertions)

@@ -156,6 +156,14 @@ class LlmGenerationTest extends TestCase
         // Verify moderation state
         $this->assertNotNull($revision->moderationState);
         $this->assertContains($revision->moderationState->status, ['pending_verification', 'running', 'verification_passed']);
+
+        $this->actingAs($this->teacherA)->withHeader('X-School-Id', $this->schoolA->id)
+            ->withHeader('If-Match', (string) $scenario->optimistic_lock_version)
+            ->patchJson("/api/v1/scenarios/{$scenario->id}/revisions/1", ['concept' => 'Педагог уточнил замысел и условия совместной работы учащихся перед проведением мероприятия.'])
+            ->assertCreated();
+        $this->getJson("/api/v1/scenarios/{$scenario->id}")->assertOk()
+            ->assertJsonPath('data.generation.provider_name', 'mock')
+            ->assertJsonPath('data.current_revision.version_number', 2);
     }
 
     public function test_contour_1_draft_2020_12_schema_validation_catches_invalid_output(): void

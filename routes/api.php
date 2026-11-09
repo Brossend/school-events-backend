@@ -12,12 +12,14 @@ use App\Http\Controllers\Api\V1\GenerationRunController;
 use App\Http\Controllers\Api\V1\PilotMetricsController;
 use App\Http\Controllers\Api\V1\PilotParticipantController;
 use App\Http\Controllers\Api\V1\PilotResponseController;
+use App\Http\Controllers\Api\V1\RegistrationController;
 use App\Http\Controllers\Api\V1\RevisionModerationController;
 use App\Http\Controllers\Api\V1\ScenarioComparisonController;
 use App\Http\Controllers\Api\V1\ScenarioController;
 use App\Http\Controllers\Api\V1\ScenarioExportController;
 use App\Http\Controllers\Api\V1\ScenarioRequestController;
 use App\Http\Controllers\Api\V1\ScenarioRevisionController;
+use App\Http\Controllers\Api\V1\SchoolInvitationController;
 use App\Http\Controllers\Api\V1\SchoolProfileController;
 use App\Http\Controllers\Api\V1\SchoolTraditionController;
 use App\Http\Controllers\Api\V1\TeacherSignoffController;
@@ -33,6 +35,7 @@ Route::get('/health', [HealthController::class, 'check']);
 
 // 2. Authentication routes under /api/v1/auth
 Route::prefix('auth')->group(function () {
+    Route::post('/register', [RegistrationController::class, 'store'])->middleware('throttle:registration');
     // Login with rate limiting: 5 attempts per minute per lowercase email + IP
     Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:login')->name('login');
 
@@ -81,6 +84,10 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
     Route::get('/cultural-claims/{id}', [CulturalClaimController::class, 'show']);
     Route::post('/cultural-claims/{id}/evidence', [CulturalClaimController::class, 'attachEvidence']);
     Route::delete('/cultural-claims/{id}/evidence/{sourceId}', [CulturalClaimController::class, 'detachEvidence']);
+
+    Route::get('/schools/{schoolId}/invitations', [SchoolInvitationController::class, 'index'])->whereUuid('schoolId');
+    Route::post('/schools/{schoolId}/invitations', [SchoolInvitationController::class, 'store'])->whereUuid('schoolId')->middleware('throttle:invitation-create');
+    Route::post('/schools/{schoolId}/invitations/{invitationId}/revoke', [SchoolInvitationController::class, 'revoke'])->whereUuid(['schoolId', 'invitationId']);
 
     // School Profile
     Route::get('/schools/{id}', [SchoolProfileController::class, 'show']);

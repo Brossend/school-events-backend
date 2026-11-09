@@ -204,6 +204,10 @@ class ScenarioController extends Controller
 
         $rev = $scenario->currentRevision;
         $generation = $rev?->sourceGenerationRun;
+        if (! $generation) {
+            $generation = $scenario->revisions()->whereNotNull('source_generation_run_id')
+                ->orderBy('version_number')->first()?->sourceGenerationRun;
+        }
         $latestSignoff = $rev?->teacherSignoffs()->where('is_confirmed', true)->latest('confirmed_at')->first();
         $hasSignoff = (bool) $latestSignoff;
         $effectiveStatus = $scenario->is_archived ? 'archived' : ($hasSignoff ? 'completed' : 'draft');

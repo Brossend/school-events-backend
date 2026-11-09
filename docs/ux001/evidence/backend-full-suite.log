@@ -1,0 +1,548 @@
+PHPUnit 12.5.40 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.27
+Configuration: /tmp/ux001-review/phpunit.xml
+
+...............................................................  63 / 455 ( 13%)
+............................................................... 126 / 455 ( 27%)
+............................................................... 189 / 455 ( 41%)
+............................................................... 252 / 455 ( 55%)
+............................................................... 315 / 455 ( 69%)
+............................................................... 378 / 455 ( 83%)
+............................................................... 441 / 455 ( 96%)
+..............                                                  455 / 455 (100%)
+
+Time: 01:46.807, Memory: 105.00 MB
+
+Auth (Tests\Feature\Auth)
+ ✔ Successful login
+ ✔ Wrong password
+ ✔ Missing csrf
+ ✔ Login regenerates session
+ ✔ Auth me with active session
+ ✔ Auth me without session
+ ✔ Unauthenticated request without accept header returns 401 without redirect
+ ✔ Logout
+ ✔ Access after logout is denied
+ ✔ Inactive user is denied
+ ✔ Login rate limiting
+ ✔ Login rate limiting by ip across different emails
+ ✔ Seeder refuses to run in production
+ ✔ Mid session deactivation blocks auth me
+ ✔ Mid session deactivation blocks system status
+ ✔ Mid session deactivation blocks tenant routes
+ ✔ Healthcheck returns ok
+ ✔ Diagnostic environment probe inaccessible in local or production environments
+
+Calendar (Tests\Feature\Calendar)
+ ✔ Federal events visible across all schools
+ ✔ School a teacher sees only own school custom events
+ ✔ School b teacher sees only own school custom events
+ ✔ Teacher of region 66 cannot view region 77 event directly
+ ✔ Invalid x school id header on calendar is rejected
+ ✔ Multiple schools without default requires selection on calendar
+ ✔ Regional curator forbidden from creating federal or other region
+ ✔ School admin forbidden from creating regional event
+ ✔ Date range intersection with multiday event
+ ✔ Unapproved catalog event invisible to teachers
+ ✔ Unapproved catalog event visible to curators
+ ✔ Unapproved catalog event visible to system admins
+ ✔ Calendar search query
+ ✔ Calendar pagination meta structure
+ ✔ School admin can create school custom event
+ ✔ Unbounded from date finds future annual event
+ ✔ Unbounded to date finds past annual event
+ ✔ Cross year boundary date range
+ ✔ Floating rule without occurrences is not matched by date filter
+
+Catalog Review And Evidence (Tests\Feature\CatalogReviewAndEvidence)
+ ✔ Review queue requires curator or admin
+ ✔ Curator can view review queue with regional scoping
+ ✔ Get event source details
+ ✔ Patch event source bibliographic details
+ ✔ Regional curator cannot patch event source outside region
+ ✔ Post review approved updates source and claim status
+ ✔ Post review rejected invalidates claims to rejected fake
+ ✔ Post review requires amendment resets verified claims to unverified
+ ✔ Regional curator cannot review federal event source
+ ✔ List event source reviews
+ ✔ Get cultural claim details
+ ✔ Attach evidence to cultural claim
+ ✔ Attach evidence cross event injection blocked
+ ✔ Detach evidence record
+
+Dashboard Summary (Tests\Feature\DashboardSummary)
+ ✔ Dashboard summary requires school tenant
+ ✔ Dashboard summary returns aggregated data
+ ✔ Dashboard includes dated occurrences without repeating past one off events
+
+Database Integrity (Tests\Feature\DatabaseIntegrity)
+ ✔ Uuid v7 generation
+ ✔ Foreign key cascade deletion
+ ✔ Invalid foreign key fails
+ ✔ Unique school user membership
+ ✔ Users system role check constraint
+ ✔ Memberships role check constraint
+ ✔ Partial unique index allows multiple non default memberships
+ ✔ Database connection is strictly school events test
+
+Example (Tests\Feature\Example)
+ ✔ The application returns a successful response
+
+Example (Tests\Unit\Example)
+ ✔ That true is true
+
+Final Integration Regression (Tests\Feature\FinalIntegrationRegression)
+ ✔ Two verified claims have one amendment audit each
+ ✔ Cultural comparison uses live claim bound evidence and effective snapshot
+ ✔ All three mock scales pass strict schema and semantic validation
+ ✔ Calendar returns real annual and multi day occurrence dates
+ ✔ Tied queue pages match the exact deterministic database order
+ ✔ Pilot comparison validation preserves token and expert versions reload with rbac
+
+Idempotency (Tests\Feature\Idempotency)
+ ✔ Post generate without idempotency key fails 422
+ ✔ Post generate with non uuid idempotency key fails 422
+ ✔ Post generate returns 202 and creates run
+ ✔ Idempotent duplicate request while processing returns same run
+ ✔ Idempotent duplicate request after completion replays response
+ ✔ Idempotent request with payload mismatch returns 409
+ ✔ Cannot generate with new key if scenario already created
+ ✔ New key rejected with 409 if generation already in progress
+ ✔ Retry of same execute generation run job does not create second revision
+ ✔ Repeat with same key after failed run replays failed response
+ ✔ Repeat with new key after failed allows explicit retry up to limit
+ ✔ Two concurrent generation requests with different keys single active run
+ ✔ Two concurrent generation requests with same key single run and replay
+
+Immutable Evidence Audit And Stale Export (Tests\Feature\ImmutableEvidenceAuditAndStaleExport)
+ ✔ Mandatory a immutable evidence history detach then reattach
+ ✔ Mandatory b stale pdf blocked after source modification and reapproval
+ ✔ Mandatory c new valid export after reconfirmation
+ ✔ Section 4 scenario status draft when current v2 not signed off
+
+Legacy Fingerprint And Reverification (Tests\Feature\LegacyFingerprintAndReverification)
+ ✔ A legacy pdf with null fingerprint download blocked
+ ✔ B legacy signoff with null fingerprint forbidden for new export
+ ✔ C bypass reverification signoff rejected without re moderation
+ ✔ D positive path re moderation new signoff new export and old pdf blocked
+ ✔ E audit atomicity failure in audit event rolls back evidence changes
+
+Lite Llm Pipeline (Tests\Feature\LiteLlmPipeline)
+ ✔ Three scales pass full pipeline and reexecuting job does not call again
+ ✔ Missing fields and semantic errors are not persisted as scenarios
+ ✔ Same http idempotency key reuses paid result and metadata
+ ✔ Ab is durable idempotent and generates two distinct prompts outside transactions
+ ✔ Ab partial failure preserves usage and never claims completed
+ ✔ Worker interrupt is terminal and safe
+ ✔ Provider change after enqueue cannot substitute mock
+
+Lite Llm Provider (Tests\Feature\LiteLlmProvider)
+ ✔ Configuration selects provider without hidden fallback
+ ✔ Cultural slide repair uses indexed patch and revalidates complete output
+ ✔ Numeric handout and deferred slide are repaired without losing other materials
+ ✔ Invalid configuration is explicit with data set #0
+ ✔ Invalid configuration is explicit with data set #1
+ ✔ Invalid configuration is explicit with data set #2
+ ✔ Invalid configuration is explicit with data set #3
+ ✔ Invalid configuration is explicit with data set #4
+ ✔ Invalid configuration is explicit with data set #5
+ ✔ Invalid configuration is explicit with data set #6
+ ✔ Invalid configuration is explicit with data set #7
+ ✔ Invalid configuration is explicit with data set #8
+ ✔ Invalid configuration is explicit with data set #9
+ ✔ Invalid configuration is explicit with data set #10
+ ✔ Models are exact gateway ids
+ ✔ Long completion budget remains inside total job and lease limits
+ ✔ Chat headers full schema actual usage and model
+ ✔ Absent usage is null and json mode is explicit
+ ✔ Upstream errors are safe and bounded with data set #0
+ ✔ Upstream errors are safe and bounded with data set #1
+ ✔ Upstream errors are safe and bounded with data set #2
+ ✔ Upstream errors are safe and bounded with data set #3
+ ✔ Upstream errors are safe and bounded with data set #4
+ ✔ Upstream errors are safe and bounded with data set #5
+ ✔ Upstream errors are safe and bounded with data set #6
+ ✔ Retry after is respected without early retry
+ ✔ Transient error retries once and retains real final usage
+ ✔ Ambiguous transport is not automatically replayed with data set #0
+ ✔ Ambiguous transport is not automatically replayed with data set #1
+ ✔ Invalid or incomplete outputs are rejected with data set #0
+ ✔ Invalid or incomplete outputs are rejected with data set #1
+ ✔ Invalid or incomplete outputs are rejected with data set #2
+ ✔ Invalid or incomplete outputs are rejected with data set #3
+ ✔ Invalid or incomplete outputs are rejected with data set #4
+ ✔ Invalid or incomplete outputs are rejected with data set #5
+ ✔ Prompt injection stays in data and all modes have distinct instructions
+ ✔ External generation cannot run inside a transaction
+ ✔ One repair preserves strict validation and sums usage
+ ✔ Explicit second repair handles new slide leak without losing other materials
+ ✔ Explicit two repairs stop after third invalid output
+ ✔ Second repair does not start after shared budget is spent
+ ✔ Placeholder materials trigger one repair and cannot pass the gate
+ ✔ Bibliography injection is data and raw quotes are not forwarded
+ ✔ Schema derived template preserves scale timing and links but cannot be saved unfilled
+ ✔ All four modes use real provider contract and trusted claim binding with data set #0
+ ✔ All four modes use real provider contract and trusted claim binding with data set #1
+ ✔ All four modes use real provider contract and trusted claim binding with data set #2
+ ✔ All four modes use real provider contract and trusted claim binding with data set #3
+ ✔ Filled handout table without keyword passes but blank rows fail
+
+Llm Generation (Tests\Feature\LlmGeneration)
+ ✔ Execute generation run job produces valid scenario and revision
+ ✔ Contour 1 draft 2020 12 schema validation catches invalid output
+ ✔ Contour 2 semantic validator catches duration sum mismatch
+ ✔ Contour 2 semantic validator catches invalid mechanism for direction
+ ✔ Contour 3 server normalizer preserves verified cultural claims
+ ✔ Contour 3 server normalizer forces unverified on hallucinated claims
+ ✔ Claim id matched but text altered becomes unverified never verified authentic
+ ✔ Claim text matched but foreign id becomes unverified
+ ✔ Tampered source references do not transfer evidence
+ ✔ Scenario revision is append only immutable
+ ✔ Teacher can list and view generated scenarios
+ ✔ Same school teacher author isolation on scenarios and runs
+ ✔ Participants count 500 clamps to max 500 and passes schema
+ ✔ Claim without sources does not fabricate fake sources
+ ✔ Duration 240 partitions stages under 120 max
+ ✔ Generation run status endpoint
+
+Moderation Engine (Tests\Feature\ModerationEngine)
+ ✔ Clean revision passes moderation
+ ✔ P0 stereotype blocks verification
+ ✔ P0 fabricated culture blocks verification
+ ✔ P1 timing mismatch yields passed with warnings
+ ✔ Repeated verification preserves history
+ ✔ Get verifications endpoint returns latest run and findings
+ ✔ Cross tenant access to verifications forbidden
+
+Moderation Integrity And Hardening (Tests\Feature\ModerationIntegrityAndHardening)
+ ✔ Altered canonical text claiming verified authentic triggers p0
+ ✔ Revoked source review after generation triggers p0
+ ✔ Honest unverified claim is not false flagged as p0
+ ✔ Fully verified claim passes moderation cleanly
+ ✔ Stereotype inside material card triggers p0 with accurate target path
+ ✔ Http post verify and job lifecycle creates single run
+ ✔ Concurrent verification post is rejected with 409
+ ✔ Repeated signoff by same teacher returns 200 without mutating record
+ ✔ Signoff on warnings requires explicit acknowledgment
+ ✔ Downloading historical pdf export is rejected with 409
+ ✔ Download blocked after p0 finding
+ ✔ Concurrent patch returns one 201 and one 409
+ ✔ Stereotype in expected outcomes knowledge blocks verification signoff and export
+ ✔ Stereotype in activities rules and instructions blocks verification signoff and export
+ ✔ Stereotype in presentation slides bullet points blocks verification signoff and export
+ ✔ Stereotype in roles specific tasks blocks verification signoff and export
+ ✔ Unknown claim id with matching text fails with p0
+ ✔ Reexecuting completed verification run does not duplicate findings
+ ✔ Source review rejected revocation blocks download of ready pdf
+ ✔ Source review requires amendment revocation blocks download of ready pdf
+ ✔ A two sources in db cited source revoked uncited source approved blocks download
+ ✔ B swapped foreign source id detected as p0 and blocks export
+ ✔ C mismatched citation locator detected as p0 and blocks export
+ ✔ D positive exact binding passes moderation signoff and downloads pdf
+ ✔ E revocation of one of multiple cited sources strictly blocks download
+
+Multi Format Export And History (Tests\Feature\MultiFormatExportAndHistory)
+ ✔ Export docx success and valid openxml structure
+ ✔ Export pptx success and valid openxml structure
+ ✔ Export print pack pdf success and valid structure
+ ✔ Export history endpoint and download availability
+ ✔ Docx export blocked on provenance revocation
+ ✔ Pptx export blocked on provenance revocation
+ ✔ Print pack export blocked on provenance revocation
+ ✔ Export blocked when revision has p0 violation
+ ✔ Export blocked when signoff missing
+ ✔ Export blocked for other school tenant
+ ✔ Export blocked on legacy null signoff fingerprint
+ ✔ Export download blocked on legacy null job fingerprint
+ ✔ Unsupported format rejected with 422
+ ✔ Queue worker retry idempotency does not duplicate artifacts
+ ✔ Provenance marking consistency across all four formats with unverified claim regression
+ ✔ Docx canonical pedagogical and interactive fields completeness
+ ✔ Print pack completeness of cards handouts and props
+ ✔ Pptx partial slides preservation and supplement to five
+
+Offline Card Repair (Tests\Feature\OfflineCardRepair)
+ ✔ Real failure selects only leaking front
+ ✔ Substantive repair preserves every other field and numeric answer
+ ✔ Real failed patch and short addressed front are rejected
+ ✔ Merge rejects overwriting valid back
+ ✔ Missing closed key preserves all fronts
+ ✔ Empty unknown missing and extra fields fail closed
+ ✔ Provider rechecks templates and provenance after both repairs
+ ✔ Provider accepts substantive repair and preserves document
+
+Open Api Route Contract (Tests\Feature\OpenApiRouteContract)
+ ✔ All production api routes match openapi specification exactly
+ ✔ Future endpoints are isolated in future section
+ ✔ Openapi does not contain corrupted empty keys or broken refs
+
+Pedagogical Quality Gate (Tests\Feature\PedagogicalQualityGate)
+ ✔ Original live budget time and baskets are rejected
+ ✔ Correct budget and explicit time impossibility pass these rules
+ ✔ Budget solver uses conditions not hardcoded seven
+ ✔ Redistribution of fifteen cannot claim only two sheets remain
+ ✔ Extra sheet and redistribution with correct explanations are not rejected
+ ✔ History is detected in every text section even with empty claim array with data set #0
+ ✔ History is detected in every text section even with empty claim array with data set #1
+ ✔ History is detected in every text section even with empty claim array with data set #2
+ ✔ History is detected in every text section even with empty claim array with data set #3
+ ✔ History is detected in every text section even with empty claim array with data set #4
+ ✔ History is detected in every text section even with empty claim array with data set #5
+ ✔ History is detected in every text section even with empty claim array with data set #6
+ ✔ History is detected in every text section even with empty claim array with data set #7
+ ✔ History is detected in every text section even with empty claim array with data set #8
+ ✔ History is detected in every text section even with empty claim array with data set #9
+ ✔ Exact claim does not certify adjacent history or other text
+ ✔ Revoked or missing evidence no longer supports exact claim
+ ✔ Empty cards markers handouts and numeric equality cannot pass
+ ✔ Good structure never becomes automatic expert or cultural pass
+ ✔ School logistics missing is an error not a pass
+ ✔ Provider stores quality warnings with real prompt metadata
+ ✔ Legacy litellm revision cannot bypass quality with old moderation pass
+ ✔ Formatting repair preserves content and records original text
+ ✔ Numeric print escape preserves values and nonmaterial strings
+ ✔ Introductory stage cannot show target solution before exchange
+ ✔ Task brief conserves resources and school transition budget
+ ✔ Typed server timestamp is metadata but prose is not exempt
+ ✔ Stage direction with complete quoted speech is ready but direction alone is not
+
+Pilot Study And Analytics (Tests\Feature\PilotStudyAndAnalytics)
+ ✔ Can create pilot participant invite and verify token hashing
+ ✔ Can submit pilot response with single use token policy
+ ✔ Token reissue and revocation lifecycle
+ ✔ Cannot submit response for scenario of another school
+ ✔ Cross school review forbidden for other school admin
+ ✔ Teacher cannot manage pilot participants
+ ✔ Teacher cannot read individual responses or export
+ ✔ Pilot review finding append only history
+ ✔ Incomplete audit 5 of 20 does not pass criteria
+ ✔ Complete audit 20 of 20 zero errors passes and completes pilot
+ ✔ Complete audit 20 of 20 with errors fails criterion and pilot
+ ✔ Synthetic responses excluded by default and included with flag
+ ✔ Atomic concurrent selection rejects second choice with 409
+ ✔ Regional curator rbac enforcement
+ ✔ Anonymous client cannot tamper response synthetic origin
+ ✔ Regional curator cannot access global metrics or cross region schools
+ ✔ Partial unique index prevents duplicate effective reviews
+ ✔ Diagnose pilot dataset command and heuristics
+ ✔ Regional curator without membership cannot create traditions
+ ✔ Regional curator without membership cannot create scenario requests
+ ✔ Teacher with membership maintains scenario access
+ ✔ School admin maintains standard school powers
+
+Practice Calendar (Tests\Feature\PracticeCalendar)
+ ✔ Dry run and inspection do not change data
+ ✔ Import is idempotent and never verifies cultural claims
+ ✔ Import preserves manually edited existing event
+ ✔ Production import and inspection are refused without changes
+ ✔ Commands refuse wrong active database without changes with data set "primary"
+ ✔ Commands refuse wrong active database without changes with data set "unrelated"
+ ✔ Commands refuse wrong active database without changes with data set "similar prefix"
+ ✔ Commands refuse wrong active database without changes with data set "trailing newline"
+ ✔ Bootstrap refuses the shared test database
+ ✔ Bootstrap creates one admin with a hashed password and refuses a repeat
+ ✔ Bootstrap rechecks for accounts after acquiring the lock
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "email"
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "blank school"
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "short password"
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "missing uppercase"
+ ✔ Bootstrap rejects invalid input without creating accounts with data set "missing number"
+ ✔ Manifest has reviewed sources and no unconfirmed audience claim
+
+Production Demo Seeder (Tests\Feature\ProductionDemoSeeder)
+ ✔ Repeated bootstrap preserves credentials and unverified evidence
+ ✔ Bootstrap refuses live provider before writing data
+
+Provenance (Tests\Feature\Provenance)
+ ✔ Successful claim verification
+ ✔ Absent source review prohibits claim verification
+ ✔ Latest decision requires amendment prohibits verification
+ ✔ Latest decision rejected prohibits verification
+ ✔ Old approved latest rejected invalidates served claim
+ ✔ Verified by user id without approved review is rejected
+ ✔ Wrong reviewer or out of scope curator is rejected
+ ✔ Source of another calendar event rejected by composite fk
+ ✔ Approved normative source cannot verify arbitrary historical claim
+ ✔ Official calendar publication cannot verify arbitrary historical claim
+ ✔ Source reviews with identical timestamps use deterministic tie breaker
+ ✔ Generic placeholders for locator and excerpt are rejected
+ ✔ Scenario 1 approved source with locator and notes without excerpt is rejected
+ ✔ Scenario 2 approved source with fabricated excerpt without human attestation is unverified
+ ✔ Scenario 3 source verification by out of scope curator is rejected
+ ✔ Scenario 4 confirmed claim after subsequent rejected source review is not authentic
+ ✔ Scenario 5 full chain with valid claim to evidence attestation
+
+Provenance Hardening (Tests\Feature\ProvenanceHardening)
+ ✔ Mandatory a source approved two claims unverified remain unverified
+ ✔ Mandatory b source approved first claim verified separately
+ ✔ Mandatory c source approved generic placeholder citation excerpt rejected
+ ✔ Mandatory d source rejected after signoff and ready pdf blocks download
+ ✔ Negative p0 changing url or title of approved source blocks old pdf download
+ ✔ P1 sequence requires amendment then approved queue filtering
+ ✔ P1 regional curator cannot list reviews outside curator scope
+ ✔ P1 detaching evidence preserves audit history and blocks export
+ ✔ P1 scenario status completed not draft when signed off
+ ✔ P1 date range to includes entire calendar day
+ ✔ P1 upcoming calendar events cross year ordering
+
+Remember Login (Tests\Feature\RememberLogin)
+ ✔ Unchecked login does not issue a remember cookie
+ ✔ Remember cookie has 30 day lifetime and secure session attributes
+ ✔ Remember restores login without old session and logout revokes old recaller
+ ✔ Remember must be a boolean
+ ✔ Unchecked login clears previous accounts remember cookie
+ ✔ Deactivated user cannot restore remembered login and token is revoked
+ ✔ Password change invalidates old remember cookie
+ ✔ Normalized registration email can be used to log in
+
+Scale Specific Generation (Tests\Feature\ScaleSpecificGeneration)
+ ✔ Class level generation structure
+ ✔ All school generation structure
+ ✔ Family community generation structure
+ ✔ Scenario request creation with custom region
+
+Scenario Comparison (Tests\Feature\ScenarioComparison)
+ ✔ Can create universal vs personalized comparison and retrieve variants
+ ✔ Can create cultural context comparison with verified provenance
+ ✔ Cultural context comparison marks unavailable when no verified claims exist
+ ✔ Can select preferred variant and cannot double record selection
+ ✔ Multi tenancy isolation for scenario comparisons
+
+Scenario Constructor (Tests\Feature\ScenarioConstructor)
+ ✔ Teacher can create scenario request with calendar event
+ ✔ Teacher can create scenario request with school tradition
+ ✔ Teacher can create scenario request with custom event title
+ ✔ Occasion mutual exclusivity enforced multiple occasions
+ ✔ Occasion mutual exclusivity enforced zero occasions
+ ✔ School id in body is strictly rejected
+ ✔ Scale validation rules
+ ✔ Participants count out of bounds rejected
+ ✔ Duration minutes out of bounds rejected
+ ✔ Cross tenant tradition version rejected
+ ✔ Teacher can view own school scenario request
+ ✔ Teacher forbidden from viewing other school scenario request
+ ✔ Teacher cannot use other school custom calendar event
+ ✔ Teacher cannot use other region calendar event
+ ✔ Teacher cannot use draft calendar event
+ ✔ Same school different teacher author access isolation
+
+Scenario Lifecycle (Tests\Feature\ScenarioLifecycle)
+ ✔ Archive scenario
+ ✔ Archive scenario idempotent
+ ✔ Other teacher cannot archive scenario
+ ✔ School admin can archive scenario
+ ✔ Restore scenario
+ ✔ Destroy scenario without signoff soft deletes
+ ✔ Destroy scenario with teacher signoff returns 409 conflict
+ ✔ Scenarios index filters and search
+
+Scenario Pdf Export (Tests\Feature\ScenarioPdfExport)
+ ✔ Export forbidden without teacher signoff
+ ✔ Export forbidden with open p0
+ ✔ Export with unsupported format returns 422
+ ✔ Successful pdf export and download flow
+ ✔ Cross tenant download forbidden
+
+Scenario Repair Planner (Tests\Feature\ScenarioRepairPlanner)
+ ✔ Combined custom event patch requires both damaged children and preserves cards
+ ✔ Actual indexed leak requires model written closed display instruction
+ ✔ Actual generic handout and extended json tail are blocked
+ ✔ Answer on checker front is blocked without requiring all task conditions
+ ✔ Indexed slide repair preserves all other material and original contract
+ ✔ Missing third slide requires full model supplied slot
+ ✔ Indexed slide patch rejects unknown missing extra fields and array replacement
+ ✔ Missing task and short card select only damaged sections
+ ✔ Patch preserves other sections exactly
+ ✔ Nested omission preserves handout and arrays replace atomically
+ ✔ Nested extra field is rejected by patch schema
+ ✔ Actual cultural repair with short extra handouts remains rejected
+ ✔ Extra patch section cannot overwrite accepted content
+ ✔ Missing patch section is rejected
+ ✔ Scale frames have linked practical parts and exact duration
+ ✔ Actual previous family is blocked for incomplete workshop
+ ✔ Actual discovery class cannot leak all facts or omit solution and plans
+ ✔ Actual discovery cannot release solution early or promise unwritten slide speech
+ ✔ Actual school needs concrete capacity and route not just keywords
+ ✔ Running job is not requeued inside its budget and stale job recovers once
+ ✔ School repair requires the methodology field instead of echoing adaptation
+ ✔ Actual repair cannot fix a slide leak by deleting the third slide
+
+Scenario Revision Editor (Tests\Feature\ScenarioRevisionEditor)
+ ✔ Patch creates revision n plus one and advances pointer
+ ✔ Patch with optimistic lock mismatch returns 409
+ ✔ Patch without if match header fails 409
+ ✔ Patch historical revision fails 409
+ ✔ Cross tenant patch forbidden
+
+School Invitation (Tests\Feature\SchoolInvitation)
+ ✔ School admin receives code once and list never exposes hash or code
+ ✔ Teacher cannot create or list or revoke invitations
+ ✔ Foreign administrator cannot manage another school
+ ✔ System admin can manage and curator cannot
+ ✔ Guest cannot manage and extra privilege fields are rejected
+ ✔ Registration consumes invitation creates only teacher and can login
+ ✔ Replay is conflict and does not create second membership
+ ✔ Existing user cannot gain membership and error is generic
+ ✔ Expired revoked unknown and email mismatch are rejected without consuming
+ ✔ Revoke is idempotent and prevents registration
+ ✔ Registration rejects role injection and mismatched password without using code
+ ✔ Registration rate limit prevents guessing
+ ✔ Invitation expiring now is invalid and used invitation cannot be revoked
+ ✔ Stateful registration requires csrf and accepts valid csrf
+ ✔ Foreign invitation cannot be revoked under owned school
+ ✔ Guest cannot manage invitations
+ ✔ Fresh and upgrade migrations preserve existing users with data set #0
+ ✔ Fresh and upgrade migrations preserve existing users with data set #1
+ ✔ Concurrent registration returns one 201 and one 409 with data set #0
+ ✔ Concurrent registration returns one 201 and one 409 with data set #1
+
+School Profile And Traditions (Tests\Feature\SchoolProfileAndTraditions)
+ ✔ Get school profile success
+ ✔ Get school profile forbidden for outsider
+ ✔ Patch school profile forbidden for teacher
+ ✔ Patch school profile success for school admin
+ ✔ Get tradition details
+ ✔ Patch tradition metadata
+ ✔ Archive tradition
+
+Teacher Signoff (Tests\Feature\TeacherSignoff)
+ ✔ Signoff forbidden without moderation
+ ✔ Signoff forbidden with open p0
+ ✔ Signoff forbidden if checklist flag is false
+ ✔ Successful signoff creates historical record and keeps moderation status
+ ✔ Cross tenant signoff forbidden
+ ✔ New revision requires fresh signoff
+ ✔ Scenario and revision endpoints expose signoff and moderation state
+
+Tenant Isolation (Tests\Feature\TenantIsolation)
+ ✔ Teacher of school a
+ ✔ Teacher of school b
+ ✔ Multi school user defaults to default school
+ ✔ Multi school user switches school via header
+ ✔ Foreign school id is forbidden
+ ✔ Non existent school id returns 404
+ ✔ Two default memberships rejected by database
+ ✔ Multiple schools without default requires selection
+ ✔ School id body injection rejected
+ ✔ School id nested body injection rejected
+ ✔ User without memberships
+ ✔ System user denied school tenant
+ ✔ System user allowed system route
+ ✔ Context isolation between requests
+
+Traditions (Tests\Feature\Traditions)
+ ✔ Teacher can create tradition
+ ✔ Teacher can list school traditions
+ ✔ Tradition annual versions immutability
+ ✔ Duplicate version for same academic year is rejected
+ ✔ Non consecutive academic year fails validation
+ ✔ Concurrent duplicate version creation handled without 500
+ ✔ Invalid academic year format fails validation
+ ✔ Cross tenant tradition access forbidden
+ ✔ Tenant injection in body is rejected
+ ✔ Tradition version domain immutability
+ ✔ Two connections uniqueness constraint 23505
+ ✔ Tradition list includes active version and versions array
+
+OK (455 tests, 2242 assertions)

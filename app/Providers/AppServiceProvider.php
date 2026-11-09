@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Policies\SchoolInvitationPolicy;
 use App\Services\Llm\LiteLlmProvider;
 use App\Services\Llm\LlmProviderInterface;
 use App\Services\Llm\LlmRuntime;
@@ -12,6 +13,7 @@ use App\Services\Llm\VariantLlmProviderInterface;
 use App\Services\TenantContext;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -44,6 +46,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('manage-school-invitations', [SchoolInvitationPolicy::class, 'manage']);
+        RateLimiter::for('registration', fn (Request $request) => [
+            Limit::perMinute(5)->by('registration:'.($request->ip() ?: 'unknown')),
+            Limit::perHour(30)->by('registration-hour:'.($request->ip() ?: 'unknown')),
+        ]);
+        RateLimiter::for('invitation-create', fn (Request $request) => Limit::perMinute(10)->by('invitation:'.$request->user()?->id));
+
         // 1. Rate limiter for authentication: 5 attempts/min per email+IP, and independent 10 attempts/min per IP
         RateLimiter::for('login', function (Request $request) {
             $email = Str::lower((string) $request->input('email', ''));

@@ -77,7 +77,7 @@ class OpenApiRouteContractTest extends TestCase
             'OpenAPI operations missing from Laravel routes: '.implode(', ', $missingInLaravel)
         );
 
-        $this->assertCount(59, $laravelOps, 'Expected exactly 59 active production API operations.');
+        $this->assertCount(63, $laravelOps, 'Expected exactly 63 active production API operations.');
         $this->assertSame($laravelOps, $openapiOps);
     }
 

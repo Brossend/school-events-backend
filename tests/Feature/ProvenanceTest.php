@@ -14,6 +14,7 @@ use App\Services\ProvenanceVerificationService;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
@@ -22,12 +23,19 @@ class ProvenanceTest extends TestCase
     use DatabaseTransactions;
 
     protected CalendarEvent $event1;
+
     protected CalendarEvent $event2;
+
     protected User $curatorGlobal;
+
     protected User $curator66;
+
     protected User $curator77;
+
     protected User $inactiveCurator;
+
     protected User $teacher;
+
     protected ProvenanceVerificationService $service;
 
     protected function setUp(): void
@@ -385,7 +393,7 @@ class ProvenanceTest extends TestCase
         // 2. Direct SQL insert bypassing service -> DB composite FK must throw QueryException
         $this->expectException(QueryException::class);
         DB::table('cultural_claim_sources')->insert([
-            'id' => (string) \Illuminate\Support\Str::uuid7(),
+            'id' => (string) Str::uuid7(),
             'cultural_claim_id' => $claim1->id,
             'event_source_id' => $source2->id,
             'calendar_event_id' => $claim1->calendar_event_id,
@@ -406,6 +414,66 @@ class ProvenanceTest extends TestCase
         $lawSource = EventSource::create([
             'calendar_event_id' => $this->event2->id,
             'source_type' => 'normative_act',
+            'title' => 'Федеральный закон о памятных датах РФ',
+            'verified_by_user_id' => $this->curatorGlobal->id,
+        ]);
+
+        SourceReview::create([
+            'event_source_id' => $lawSource->id,
+            'reviewer_user_id' => $this->curatorGlobal->id,
+            'decision' => 'approved',
+            'comments' => 'Текст федерального закона проверен по эталонной базе.',
+            'reviewed_at' => now(),
+        ]);
+
+        // Arbitrary historical claim about 17th century events
+        $historicalClaim = CulturalClaim::create([
+            'calendar_event_id' => $this->event2->id,
+            'claim_text' => 'В 1612 году народное ополчение Минина и Пожарского освободило Москву от интервентов.',
+            'culture_name' => 'Общероссийская культура',
+            'provenance_notes' => 'Исторические события Смутного времени.',
+        ]);
+
+        // 1. Service throws ValidationException: normative act cannot verify historical claims
+        try {
+            $this->service->verifyClaim(
+                claim: $historicalClaim,
+                source: $lawSource,
+                citationLocator: 'Статья 1, часть 2',
+                verifier: $this->curatorGlobal,
+                academicYear: '2026-2027',
+                evidenceExcerpt: '«Установить день памяти...»'
+            );
+            $this->fail('Service should have blocked verifying historical claim with normative act.');
+        } catch (ValidationException $e) {
+            $this->assertArrayHasKey('event_source_id', $e->errors());
+        }
+
+        // 2. Dynamic evaluation also rejects it if manually written to DB
+        $claimSource = CulturalClaimSource::create([
+            'cultural_claim_id' => $historicalClaim->id,
+            'event_source_id' => $lawSource->id,
+            'calendar_event_id' => $this->event2->id,
+            'citation_locator' => 'Статья 1',
+            'citation_excerpt' => '«Установить день памяти...»',
+            'verification_status' => 'verified_authentic',
+            'verified_by_user_id' => $this->curatorGlobal->id,
+            'verified_at' => now(),
+            'notes' => 'Нормативный акт',
+        ]);
+
+        $evaluated = $this->service->evaluateStatus($claimSource);
+        $this->assertEquals('unverified', $evaluated, 'Historical claim linked to normative act must dynamically evaluate to unverified!');
+    }
+
+    /**
+     * Requirement BE-002.2 #3: Детерминированный tie-breaker для рецензий с одинаковым reviewed_at.
+     */
+    public function test_official_calendar_publication_cannot_verify_arbitrary_historical_claim(): void
+    {
+        $lawSource = EventSource::create([
+            'calendar_event_id' => $this->event2->id,
+            'source_type' => 'official_publication',
             'title' => 'Федеральный закон о памятных датах РФ',
             'verified_by_user_id' => $this->curatorGlobal->id,
         ]);
@@ -873,4 +941,3 @@ class ProvenanceTest extends TestCase
         $this->assertEquals($expertNotes, $evidenceRecord['notes']);
     }
 }
-

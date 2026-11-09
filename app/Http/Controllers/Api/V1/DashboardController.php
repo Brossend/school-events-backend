@@ -44,28 +44,34 @@ class DashboardController extends Controller
 
         // 1. Upcoming calendar events visible to this school (taking into account current date and year-end wraparound)
         $now = now();
-        $curMonth = (int) $now->format('n');
-        $curDay = (int) $now->format('j');
-
         $upcomingEvents = CalendarEvent::query()
             ->visibleTo($user, $school)
             ->where('status', 'approved')
-            ->whereNotNull('fixed_month')
-            ->whereNotNull('fixed_day')
-            ->orderByRaw('CASE WHEN (fixed_month > ? OR (fixed_month = ? AND fixed_day >= ?)) THEN 0 ELSE 1 END', [$curMonth, $curMonth, $curDay])
-            ->orderBy('fixed_month', 'asc')
-            ->orderBy('fixed_day', 'asc')
-            ->limit(5)
-            ->get(['id', 'title', 'event_type', 'region_code', 'fixed_month', 'fixed_day', 'description'])
-            ->map(fn ($ev) => [
-                'id' => $ev->id,
-                'title' => $ev->title,
-                'event_type' => $ev->event_type,
-                'region_code' => $ev->region_code,
-                'fixed_month' => $ev->fixed_month,
-                'fixed_day' => $ev->fixed_day,
-                'description' => $ev->description,
-            ]);
+            ->with(['occurrences' => fn ($query) => $query->whereDate('start_date', '>=', $now->toDateString())->orderBy('start_date')])
+            ->get()
+            ->map(function (CalendarEvent $event) use ($now) {
+                $next = $event->occurrences->first()?->start_date;
+                if (! $next && $event->date_type === 'fixed_annual' && $event->fixed_month && $event->fixed_day) {
+                    for ($year = $now->year; $year <= $now->year + 8; $year++) {
+                        if (checkdate($event->fixed_month, $event->fixed_day, $year)) {
+                            $candidate = $now->copy()->setDate($year, $event->fixed_month, $event->fixed_day)->startOfDay();
+                            if ($candidate->greaterThanOrEqualTo($now->copy()->startOfDay())) {
+                                $next = $candidate;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (! $next) {
+                    return null;
+                }
+
+                return [
+                    'id' => $event->id, 'title' => $event->title, 'event_type' => $event->event_type,
+                    'region_code' => $event->region_code, 'fixed_month' => $next->month, 'fixed_day' => $next->day,
+                    'next_date' => $next->toDateString(), 'description' => $event->description,
+                ];
+            })->filter()->sortBy('next_date')->take(5)->values();
 
         // 2. Recent scenarios query
         $scenariosQuery = Scenario::query()->where('school_id', $school->id);

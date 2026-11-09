@@ -1,0 +1,42 @@
+PHPUnit 12.5.40 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.27
+Configuration: /var/www/html/phpunit.xml
+
+............................                                      28 / 28 (100%)
+
+Time: 01:20.354, Memory: 60.50 MB
+
+Remember Login (Tests\Feature\RememberLogin)
+ ✔ Unchecked login does not issue a remember cookie
+ ✔ Remember cookie has 30 day lifetime and secure session attributes
+ ✔ Remember restores login without old session and logout revokes old recaller
+ ✔ Remember must be a boolean
+ ✔ Unchecked login clears previous accounts remember cookie
+ ✔ Deactivated user cannot restore remembered login and token is revoked
+ ✔ Password change invalidates old remember cookie
+ ✔ Normalized registration email can be used to log in
+
+School Invitation (Tests\Feature\SchoolInvitation)
+ ✔ School admin receives code once and list never exposes hash or code
+ ✔ Teacher cannot create or list or revoke invitations
+ ✔ Foreign administrator cannot manage another school
+ ✔ System admin can manage and curator cannot
+ ✔ Guest cannot manage and extra privilege fields are rejected
+ ✔ Registration consumes invitation creates only teacher and can login
+ ✔ Replay is conflict and does not create second membership
+ ✔ Existing user cannot gain membership and error is generic
+ ✔ Expired revoked unknown and email mismatch are rejected without consuming
+ ✔ Revoke is idempotent and prevents registration
+ ✔ Registration rejects role injection and mismatched password without using code
+ ✔ Registration rate limit prevents guessing
+ ✔ Invitation expiring now is invalid and used invitation cannot be revoked
+ ✔ Stateful registration requires csrf and accepts valid csrf
+ ✔ Foreign invitation cannot be revoked under owned school
+ ✔ Guest cannot manage invitations
+ ✔ Fresh and upgrade migrations preserve existing users with data set #0
+ ✔ Fresh and upgrade migrations preserve existing users with data set #1
+ ✔ Concurrent registration returns one 201 and one 409 with data set #0
+ ✔ Concurrent registration returns one 201 and one 409 with data set #1
+
+OK (28 tests, 133 assertions)
